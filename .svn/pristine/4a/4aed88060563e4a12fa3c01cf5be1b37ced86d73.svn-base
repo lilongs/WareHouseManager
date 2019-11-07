@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DALayer;
+
+namespace BULayer
+{
+    public class BUDeleteSupplier
+    {
+        DADeleteSupplier dal=new DADeleteSupplier();
+        public int DeleteSupplier(string SupplierID)
+        {
+            return dal.DeleteSupplier(SupplierID);
+        }
+    }
+}

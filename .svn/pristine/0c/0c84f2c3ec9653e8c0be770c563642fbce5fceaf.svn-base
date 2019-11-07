@@ -1,0 +1,104 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using BULayer;
+using InventoryManagersystem.ClassAssist;
+
+namespace InventoryManagersystem.Report
+{
+    public partial class frmReport_StoreHouse : Form
+    {
+        BUCheckResult myBUCheckResult = new BUCheckResult();
+
+        public frmReport_StoreHouse()
+        {
+            InitializeComponent();
+        }
+        public void SetStoreHouse()
+        {
+            DataTable myPudtClass = new DataTable();
+            myPudtClass = myBUCheckResult.GetStoreHouseList();
+            combStoreHouse_ID.DataSource = myPudtClass;
+            combStoreHouse_ID.DisplayMember = "StoreHouse_ID";
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string paramStoreHouseID = combStoreHouse_ID.Text.ToString();
+            string paramTime_1 = dateTimePicker1.Value.ToString("yyyy-MM-dd");
+            string paramTime_2 = dateTimePicker2.Value.ToString("yyyy-MM-dd");
+
+            BUStockPileInfo myBUStockPileInfo = new BUStockPileInfo();
+
+            DataSet myDs = new DataSet();
+            myDs = myBUStockPileInfo.GetStockPileHouseList(paramStoreHouseID, paramTime_1, paramTime_2);
+            this.gdCInvent.DataSource = myDs.Tables[0];
+        }
+
+        private void frmReport_StoreHouse_Load(object sender, EventArgs e)
+        {
+            SetStoreHouse();
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DevExpress.XtraEditors.SimpleButton tempBtn = (DevExpress.XtraEditors.SimpleButton)sender;
+                if (tempBtn == null)
+                    return;
+                string tempItem = tempBtn.Tag.ToString();
+                foreach (Control tempControl in this.groupBox2.Controls)
+                {
+                    if (tempControl.GetType() == typeof(DevExpress.XtraGrid.GridControl))
+                    {
+                        
+                        DevExpress.XtraGrid.GridControl tempGridControl = (DevExpress.XtraGrid.GridControl)tempControl;
+                        CommonOperator.DataPrint(tempGridControl, tempItem, null);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
+        }
+
+        private void btnExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "文件格式(*.xlsx)|*.xlsx";
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string name = saveFileDialog.FileName;
+                    this.gdCInvent.ExportToXlsx(name);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void sbtnSelect_Click(object sender, EventArgs e)
+        {
+            string paramStoreHouseID = combStoreHouse_ID.Text.ToString();
+            string paramTime_1 = dateTimePicker1.Value.ToString("yyyy-MM-dd");
+            string paramTime_2 = dateTimePicker2.Value.ToString("yyyy-MM-dd");
+
+            BUStockPileInfo myBUStockPileInfo = new BUStockPileInfo();
+
+            DataSet myDs = new DataSet();
+            myDs = myBUStockPileInfo.GetStockPileHouseList(paramStoreHouseID, paramTime_1, paramTime_2);
+            this.gdCInvent.DataSource = myDs.Tables[0];
+        }
+    }
+}

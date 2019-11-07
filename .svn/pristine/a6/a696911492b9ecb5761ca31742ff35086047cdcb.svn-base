@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+namespace DALayer
+{
+    public class DAGetCustomerInfo
+    {
+        Sqlconn mySqlconn = new Sqlconn();
+        public DataTable GetCustomerID()
+        {
+            string str = "select Customer_ID,Name from Customer";
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+            ds = mySqlconn.Query(str);
+            dt = ds.Tables[0];
+            return dt;
+        }
+    }
+}

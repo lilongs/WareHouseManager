@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DALayer;
+
+namespace BULayer
+{
+    public class BUDeleteCustomer
+    {
+        DADeleteCustomer dal = new DADeleteCustomer();
+        public int DeleteCustomer(string CustomerID)
+        {
+            return dal.DeleteCustomer(CustomerID);
+        }
+    }
+}

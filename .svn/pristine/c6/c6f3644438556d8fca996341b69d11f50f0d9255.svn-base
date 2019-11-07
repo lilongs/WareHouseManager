@@ -1,0 +1,285 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using InventoryManagersystem.InventoryManager;
+using BULayer;
+using InventoryManagersystem.ClassAssist;
+
+
+namespace InventoryManagersystem.Sales
+{
+    public partial class frmSalesManage : Form
+    {
+        BUStockPileInfo myBUStockPileInfo = new BUStockPileInfo();
+        BUGetCustomerInfo myBUGetCustomerInfo = new BUGetCustomerInfo();
+        DataTable MySalsedt = new DataTable();
+        public frmSalesManage()
+        {
+            InitializeComponent(); 
+        }
+       
+
+       
+        private void frmSalesManage_Load(object sender, EventArgs e)
+        {
+            //SetCombCustomer();            
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            int i;
+            frmInventInfo myfrmInventInfo = new frmInventInfo();
+            if (myfrmInventInfo.ShowDialog() == DialogResult.Yes)
+            {
+                int count = gdvInvent.RowCount;
+                if (count == 0)
+                {
+
+                    MySalsedt.Merge(myfrmInventInfo.dt);
+                }
+                else
+                {
+                    for (i = 0; i < count; i++)
+                    {
+
+                        if (this.gdvInvent.GetDataRow(i)["StoreHouse_ID"].ToString() == myfrmInventInfo.dt.Rows[0]["StoreHouse_ID"].ToString() && this.gdvInvent.GetDataRow(i)["Product_ID"].ToString() == myfrmInventInfo.dt.Rows[0]["Product_ID"].ToString())
+                        {
+                            MessageBox.Show("请勿重复选择!");
+                            return;
+                        }
+                    }
+                    if (i == count)
+                    {
+                        MySalsedt.Merge(myfrmInventInfo.dt);
+                    }
+
+                }
+
+                    //MySalsedt.Merge(myfrmInventInfo.dt);
+                    this.gdCInvent.DataSource = MySalsedt;
+                    DataTable mydt = new DataTable();
+                    mydt = myBUGetCustomerInfo.GetCustomerID();
+                    repositoryItemComboBox1.Items.Clear();
+               
+                for (int j = 0; j < mydt.Rows.Count; j++)
+                {                    
+                    repositoryItemComboBox1.Items.Add(mydt.Rows[j]["Name"].ToString());
+                }              
+            }            
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DevExpress.XtraEditors.SimpleButton tempBtn = (DevExpress.XtraEditors.SimpleButton)sender;
+                if (tempBtn == null)
+                    return;
+                string tempItem = tempBtn.Tag.ToString();
+                foreach (Control tempControl in this.groupBox4.Controls)
+                {
+                    if (tempControl.GetType() == typeof(DevExpress.XtraGrid.GridControl))
+                    {
+
+                        DevExpress.XtraGrid.GridControl tempGridControl = (DevExpress.XtraGrid.GridControl)tempControl;
+                        CommonOperator.DataPrint(tempGridControl, tempItem, null);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void btnSales_Click(object sender, EventArgs e)
+        {
+           
+        }
+        
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //DataTable myClear = new DataTable();
+            //this 
+            this.MySalsedt.Clear();
+            this.gdCInvent.DataSource = MySalsedt;
+        }
+
+        private void gdvInvent_ValidatingEditor_1(object sender, DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventArgs e)
+        {
+            try
+            {          
+                if (gdvInvent.FocusedColumn.Name == "Sales_Quantity")
+                {
+                    int paramQuantity = Convert.ToInt32(gdvInvent.GetFocusedRowCellValue("Quantity"));
+                    if (int.Parse(e.Value.ToString()) > paramQuantity)//自己写验证条件
+                    {
+                        e.ErrorText = "出库数量大于库存数量！";
+                        e.Valid = false;
+                        return;
+                    }
+                }
+                if (gdvInvent.FocusedColumn.Name == "Sales_Price")
+                {
+                    if (Convert.ToDecimal (e.Value.ToString())<=0)//自己写验证条件
+                    {
+                        e.ErrorText = "请输入正确的价格！";
+                        e.Valid = false;
+                        return;
+                    }
+                }
+             
+            }
+            catch 
+            {
+                MessageBox.Show("请输入正确的数量和价格");
+            }
+        }
+
+        private void btnExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "文件格式(*.xlsx)|*.xlsx";
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string name = saveFileDialog.FileName;
+                    this.gdCInvent.ExportToXlsx(name);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void gdvInvent_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
+        {
+           
+        }
+
+        private void gdvInvent_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
+        {
+           try
+                {
+                if (gdvInvent.RowCount > 0 && e.RowHandle >= 0)
+                {
+                    if (gdvInvent.FocusedColumn.FieldName == "Sales_Quantity" || gdvInvent.FocusedColumn.FieldName == "Sales_Price")
+                    {                    
+                            int handle = e.RowHandle;
+
+                            double dj = double.Parse(this.gdvInvent.GetRowCellValue(handle, gdvInvent.Columns["Sales_Price"]).ToString());
+                            int sl = int.Parse(this.gdvInvent.GetRowCellValue(handle, gdvInvent.Columns["Sales_Quantity"]).ToString());
+
+                            string zj = (dj * sl).ToString();
+
+                            this.gdvInvent.GetDataRow(handle)["TotalMoney"] = zj;                           
+                    }                    
+                }
+                
+            }
+            catch
+                {
+                }
+
+            
+        }
+
+        private void btnSure_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (this.MySalsedt == null || this.MySalsedt.Rows.Count == 0)
+                {
+                    MessageBox.Show("暂无数据操作！");
+                    return;
+                }
+                int count = gdvInvent.RowCount;
+                string[] StoreHouse_ID = new string[count];
+                string[] Sales_Quantity = new string[count];
+                string[] Sales_Price = new string[count];
+                string[] LastLeaveDate = new string[count];
+                string[] RecentQuantity = new string[count];
+                string[] ProductID = new string[count];
+                string[] ProductName = new string[count];
+                string[] Quantity = new string[count];
+                string[] TotalPrice = new string[count];
+                string[] paramCustomer = new string[count];
+
+                if (count != 0)
+                {
+                    for (int j = 0; j < count; j++)
+                    {
+                        if (gdvInvent.GetDataRow(j)["Name"].ToString().Length == 0)
+                        {
+                            MessageBox.Show("销售客户不能为空");
+                            return;
+                        }
+                    }
+
+                    for (int i = 0; i < count; i++)
+                    {
+                        paramCustomer[i] = gdvInvent.GetDataRow(i)["Name"].ToString();
+                        StoreHouse_ID[i] = gdvInvent.GetDataRow(i)["StoreHouse_ID"].ToString();
+                        ProductID[i] = gdvInvent.GetDataRow(i)["Product_ID"].ToString();
+                        ProductName[i] = gdvInvent.GetDataRow(i)["ProductName"].ToString();
+                        Quantity[i] = gdvInvent.GetDataRow(i)["Quantity"].ToString();
+                        Sales_Quantity[i] = gdvInvent.GetDataRow(i)["Sales_Quantity"].ToString();
+                        Sales_Price[i] = gdvInvent.GetDataRow(i)["Sales_Price"].ToString();
+                        LastLeaveDate[i] = gdvInvent.GetDataRow(i)["LastLeaveDate"].ToString();
+                        //扣除后的数量和总价
+                        Quantity[i] = (int.Parse(Quantity[i]) - int.Parse(Sales_Quantity[i])).ToString();
+                        TotalPrice[i] = (int.Parse(Quantity[i]) * double.Parse(gdvInvent.GetDataRow(i)["Price"].ToString())).ToString(); ;
+
+                        if (Sales_Quantity[i].Length == 0 || Sales_Price[i].Length == 0 || paramCustomer.Length == 0)
+                        {
+                            MessageBox.Show("出货单价、数量和客户不能为空!");
+                        }
+                        else
+                        {
+                            RecentQuantity[i] = (int.Parse(gdvInvent.GetDataRow(i)["Quantity"].ToString()) - int.Parse(gdvInvent.GetDataRow(i)["Sales_Quantity"].ToString())).ToString();
+
+                            int m = myBUStockPileInfo.UpdateStockpile_Total(StoreHouse_ID[i], ProductID[i], ProductName[i], Quantity[i], TotalPrice[i]);
+                            int n = myBUStockPileInfo.InsertSales_Info(ProductID[i], ProductName[i], Sales_Price[i], Sales_Quantity[i], paramCustomer[i], LastLeaveDate[i]);
+                            if (m > 0 && n > 0)
+                            {
+                                MessageBox.Show("出库成功!");
+                                if ((MessageBox.Show("是否需要进行打印", "温馨提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)) == DialogResult.OK)
+                                {
+                                    btnPrint_Click(sender, e);
+                                }
+
+                                gdvInvent.SetRowCellValue(i, gdvInvent.Columns["Sales_Quantity"], null);
+                                gdvInvent.SetRowCellValue(i, gdvInvent.Columns["Sales_Price"], null);
+                                gdvInvent.SetRowCellValue(i, gdvInvent.Columns["TotalMoney"], null);
+                                gdvInvent.SetRowCellValue(i, gdvInvent.Columns["Cusname"], null);
+
+                            }
+                            else
+                            {
+                                MessageBox.Show("出库失败!");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("请选择要出货的数据!");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("操作异常，请正确操作");
+            }
+        }
+
+        
+    }
+}

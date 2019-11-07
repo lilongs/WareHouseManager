@@ -1,0 +1,337 @@
+﻿namespace InventoryManagersystem
+{
+    partial class Frmmain
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frmmain));
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tSlUsername = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.MainTabControl = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.刷新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.tlmHome = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmChangeUser = new System.Windows.Forms.ToolStripMenuItem();
+            this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsPanal = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.cMsStatue = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsMMax = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsMMin = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.mainHelp = new System.Windows.Forms.HelpProvider();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip1.SuspendLayout();
+            this.MainTabControl.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel5.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
+            this.tsPanal.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.cMsStatue.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // treeView1
+            // 
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.Location = new System.Drawing.Point(0, 0);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(185, 495);
+            this.treeView1.TabIndex = 0;
+            this.treeView1.DoubleClick += new System.EventHandler(this.treeView1_DoubleClick);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tSlUsername,
+            this.tsInfo,
+            this.toolStripStatusLabel3,
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 577);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(866, 22);
+            this.statusStrip1.TabIndex = 2;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // tSlUsername
+            // 
+            this.tSlUsername.Name = "tSlUsername";
+            this.tSlUsername.Size = new System.Drawing.Size(0, 17);
+            // 
+            // tsInfo
+            // 
+            this.tsInfo.Name = "tsInfo";
+            this.tsInfo.Size = new System.Drawing.Size(44, 17);
+            this.tsInfo.Text = "管理员";
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(11, 17);
+            this.toolStripStatusLabel3.Text = "|";
+            // 
+            // MainTabControl
+            // 
+            this.MainTabControl.Controls.Add(this.tabPage1);
+            this.MainTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainTabControl.Location = new System.Drawing.Point(0, 0);
+            this.MainTabControl.Name = "MainTabControl";
+            this.MainTabControl.SelectedIndex = 0;
+            this.MainTabControl.Size = new System.Drawing.Size(681, 495);
+            this.MainTabControl.TabIndex = 3;
+            this.MainTabControl.DoubleClick += new System.EventHandler(this.MainTabControl_DoubleClick);
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.tabPage1.ContextMenuStrip = this.contextMenuStrip1;
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(673, 469);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "首页";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.刷新ToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(101, 26);
+            // 
+            // 刷新ToolStripMenuItem
+            // 
+            this.刷新ToolStripMenuItem.Name = "刷新ToolStripMenuItem";
+            this.刷新ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.刷新ToolStripMenuItem.Text = "刷新";
+            // 
+            // panel4
+            // 
+            this.panel4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel4.BackgroundImage")));
+            this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel4.Controls.Add(this.pictureBox1);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(866, 55);
+            this.panel4.TabIndex = 4;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(354, 55);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.menuStrip1);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel5.Location = new System.Drawing.Point(0, 55);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(866, 27);
+            this.panel5.TabIndex = 5;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tlmHome,
+            this.tsmChangeUser,
+            this.关于ToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(866, 25);
+            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // tlmHome
+            // 
+            this.tlmHome.Image = ((System.Drawing.Image)(resources.GetObject("tlmHome.Image")));
+            this.tlmHome.Name = "tlmHome";
+            this.tlmHome.Size = new System.Drawing.Size(60, 21);
+            this.tlmHome.Text = "菜单";
+            this.tlmHome.Click += new System.EventHandler(this.tlmHome_Click);
+            // 
+            // tsmChangeUser
+            // 
+            this.tsmChangeUser.Image = ((System.Drawing.Image)(resources.GetObject("tsmChangeUser.Image")));
+            this.tsmChangeUser.Name = "tsmChangeUser";
+            this.tsmChangeUser.Size = new System.Drawing.Size(84, 21);
+            this.tsmChangeUser.Text = "切换用户";
+            this.tsmChangeUser.Click += new System.EventHandler(this.tsmChangeUser_Click);
+            // 
+            // 关于ToolStripMenuItem
+            // 
+            this.关于ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("关于ToolStripMenuItem.Image")));
+            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(60, 21);
+            this.关于ToolStripMenuItem.Text = "关于";
+            this.关于ToolStripMenuItem.Click += new System.EventHandler(this.关于ToolStripMenuItem_Click);
+            // 
+            // tsPanal
+            // 
+            this.tsPanal.Controls.Add(this.treeView1);
+            this.tsPanal.Dock = System.Windows.Forms.DockStyle.Left;
+            this.tsPanal.Location = new System.Drawing.Point(0, 82);
+            this.tsPanal.Name = "tsPanal";
+            this.tsPanal.Size = new System.Drawing.Size(185, 495);
+            this.tsPanal.TabIndex = 6;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.MainTabControl);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(185, 82);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(681, 495);
+            this.panel1.TabIndex = 7;
+            // 
+            // cMsStatue
+            // 
+            this.cMsStatue.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsMMax,
+            this.TsMMin,
+            this.TsmClose});
+            this.cMsStatue.Name = "cMsStatue";
+            this.cMsStatue.Size = new System.Drawing.Size(113, 70);
+            // 
+            // tsMMax
+            // 
+            this.tsMMax.Name = "tsMMax";
+            this.tsMMax.Size = new System.Drawing.Size(112, 22);
+            this.tsMMax.Text = "最大化";
+            this.tsMMax.Click += new System.EventHandler(this.tsMMax_Click);
+            // 
+            // TsMMin
+            // 
+            this.TsMMin.Name = "TsMMin";
+            this.TsMMin.Size = new System.Drawing.Size(112, 22);
+            this.TsMMin.Text = "最小化";
+            this.TsMMin.Click += new System.EventHandler(this.TsMMin_Click);
+            // 
+            // TsmClose
+            // 
+            this.TsmClose.Name = "TsmClose";
+            this.TsmClose.Size = new System.Drawing.Size(112, 22);
+            this.TsmClose.Text = "关闭";
+            this.TsmClose.Click += new System.EventHandler(this.TsmClose_Click);
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notifyIcon1.BalloonTipText = "无可奈何花落去";
+            this.notifyIcon1.BalloonTipTitle = "大声 无可奈何花落去";
+            this.notifyIcon1.ContextMenuStrip = this.cMsStatue;
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "艺文华进销存系统";
+            this.notifyIcon1.Visible = true;
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(93, 17);
+            this.toolStripStatusLabel1.Text = "F1系统操作文档";
+            // 
+            // Frmmain
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(866, 599);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.tsPanal);
+            this.Controls.Add(this.panel5);
+            this.Controls.Add(this.panel4);
+            this.Controls.Add(this.statusStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.IsMdiContainer = true;
+            this.Name = "Frmmain";
+            this.Text = "主页面";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Frmmain_FormClosed);
+            this.Load += new System.EventHandler(this.Frmmain_Load);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            this.MainTabControl.ResumeLayout(false);
+            this.contextMenuStrip1.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.tsPanal.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.cMsStatue.ResumeLayout(false);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel tSlUsername;
+        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TabControl MainTabControl;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.ToolStripStatusLabel tsInfo;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.Panel tsPanal;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripMenuItem tlmHome;
+        private System.Windows.Forms.ToolStripMenuItem tsmChangeUser;
+        private System.Windows.Forms.ContextMenuStrip cMsStatue;
+        private System.Windows.Forms.ToolStripMenuItem tsMMax;
+        private System.Windows.Forms.ToolStripMenuItem TsMMin;
+        private System.Windows.Forms.ToolStripMenuItem TsmClose;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem 刷新ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
+        private System.Windows.Forms.HelpProvider mainHelp;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+    }
+}

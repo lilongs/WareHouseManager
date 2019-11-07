@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace DALayer
+{
+    public class DAUpdateProSupInfo
+    {
+        Sqlconn mySqlconn = new Sqlconn();
+        public int UpdateProSupInfo(string paramProductID, string paramSupplierID, string paramPrice, string paramRemark)
+        {
+            string Sql = string.Empty;
+            Sql = "update Product_SupplierInfo set ProPrice='" + paramPrice + "',Remark='" + paramRemark + "' where ProductID='"+paramProductID+"' and SupplierID='"+paramSupplierID+"'";
+            int i = mySqlconn.ExecuteNonQuery(Sql);
+            return i;
+        }
+    }
+}

@@ -1,0 +1,111 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using BULayer;
+
+namespace InventoryManagersystem
+{
+    public partial class frmModifyUser : Form
+    {
+
+        public string paramUserName = string.Empty;
+        public string paramAddress = string.Empty;
+        public string paramTelephone = string.Empty;
+        public string paramEmail = string.Empty;
+        public int paramRoleID = 0;
+        bool IsSystem = false;
+        BLIRoleInfo myBLIRoleInfo = new BLIRoleInfo();
+        public frmModifyUser()
+        {
+            InitializeComponent();
+            IsSystem = true;     
+        }
+        public frmModifyUser(string paramUserName, string paramAddress, string paramTelephone, string paramEmail, int paramRoleID)
+        {
+            InitializeComponent();
+            this.paramUserName = paramUserName;
+            this.paramAddress = paramAddress;
+            this.paramTelephone = paramTelephone;
+            this.paramEmail = paramEmail;
+            this.paramRoleID = paramRoleID;
+            IsSystem = false;
+        }
+
+        /// <summary>
+        ///将传递过来的参数赋值给文本框
+        /// </summary>
+        public void SetInfo()
+        {
+            this.txtBoxUser.Text = this.paramUserName;
+            this.txtBoxAddress.Text = this.paramAddress;
+            this.txtBoxPhone.Text = this.paramTelephone;
+            this.txtBoxEmail.Text = this.paramEmail;
+            this.cmbRole.SelectedValue = paramRoleID;
+
+        }
+        #region  private void GetCombRole() 权限文本框的绑定
+        /// 权限文本框的绑定
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GetCombRole()
+        {
+            DataTable myDt = new DataTable();
+            myDt = myBLIRoleInfo.GetAllList().Tables[0];
+            cmbRole.ValueMember = "RoleID";
+            cmbRole.DisplayMember = "RoleName";
+            cmbRole.DataSource = myDt;
+        }
+        #endregion
+        private void frmModifyUser_Load(object sender, EventArgs e)
+        {
+            GetCombRole();
+            if(IsSystem)
+            {
+             this.paramUserName = this.Tag.ToString();
+            }
+            SetInfo();
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string userName = this.txtBoxUser.Text.Trim();
+                //string passWord = this.txtBoxPwd.Text.Trim();
+                string telePhone = this.txtBoxPhone.Text.Trim();
+                string email = this.txtBoxEmail.Text.Trim();
+                string address = this.txtBoxAddress.Text.Trim();
+                int paramRoleID = Convert.ToInt32(this.cmbRole.SelectedValue.ToString());
+                BUCheckResult myBUCheckResult = new BUCheckResult();
+                int checkValue = myBUCheckResult.CheckUserModify(userName, telePhone, email, address, paramRoleID);
+                if (checkValue > 0)
+                {
+                    MessageBox.Show("用户修改成功");
+                    this.DialogResult = DialogResult.OK;
+                    //this.Hide();
+                }
+
+            }
+            catch
+            {
+                MessageBox.Show("操作错误");
+                this.DialogResult = DialogResult.No;
+            }
+        }
+
+        private void btnQuit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void txtBoxUser_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
+}

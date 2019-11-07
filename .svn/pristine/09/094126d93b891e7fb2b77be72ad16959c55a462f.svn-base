@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace DALayer
+{
+    public class DAClassAdd
+    {
+        Sqlconn mysqlconn = new Sqlconn();
+        public int ClassAdd(string paramClassName, string paramRemark,string paramEmployeeName)
+        {
+            string strSql = "INSERT INTO ProductClass(ProductClassName,Remark,EmployeeName,CreateDate) Values ('" + paramClassName + "','" + paramRemark + "','"+paramEmployeeName+"','"+DateTime.Now.ToString("yyyy-MM-dd")+"')";
+            int returnValue = 0;
+
+            returnValue = mysqlconn.ExeNonQuery(strSql);
+            return returnValue;
+        }
+    }
+}

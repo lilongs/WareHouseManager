@@ -1,0 +1,37 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+namespace DALayer
+{
+    public class DADeleteHouse
+    {
+        Sqlconn mySqlconn = new Sqlconn();
+        /// <summary>
+        /// 删除库房记录
+        /// </summary>
+        /// <param name="paramStoreHouse_ID"></param>
+        /// <returns></returns>
+
+        public int DeleteHouse(string paramStoreHouse_ID)
+        {
+            string str = "select StockPile_ID from StockPile where StoreHouse_ID='" + paramStoreHouse_ID + "'";
+            DataSet ds = new DataSet();
+            ds = mySqlconn.Query(str);
+            if(ds.Tables[0].Rows.Count==0)
+            {
+                string Sql = string.Empty;
+                int i;
+                Sql = "delete from StoreHouse where StoreHouse_ID='"+paramStoreHouse_ID+"'";
+                i = mySqlconn.ExecuteNonQuery(Sql);
+                return i;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+    }
+}

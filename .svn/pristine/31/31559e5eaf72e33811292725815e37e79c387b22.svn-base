@@ -1,0 +1,79 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+namespace DALayer
+{
+    public class DAStockPile
+    {
+        
+        Sqlconn mySqlconn = new Sqlconn();
+
+        /// <summary>
+        /// 获取到批次ID
+        /// </summary>
+        /// <param name="paramStoreHouseID"></param>
+        /// <param name="?"></param>
+        /// <param name="paramProductID"></param>
+        /// <param name="paramSupplierID"></param>
+        /// <returns></returns>
+        public string GetBatchNumber(string paramStoreHouseID, string paramProductID,string paramSupplierID, string paramTime)
+        {
+            string ReturnValue = string.Empty;
+
+            string sql = string.Empty;
+            string str = "select Count(*) b from StockPile where StoreHouse_ID='" + paramStoreHouseID + "' and Product_ID='" + paramProductID + "' and SupplierID='" + paramSupplierID + "'";
+            DataSet ds = new DataSet();
+            ds = mySqlconn.Query(str);
+            int i = int.Parse(ds.Tables[0].Rows[0]["b"].ToString()); 
+            ReturnValue=paramSupplierID + "-" + DateTime.Parse(paramTime).ToString("yyyyMMdd") + "-" + (i + 1).ToString();
+            return ReturnValue;
+        }
+
+        //插入入库StockPile
+        public int StockPile(string paramStoreHouseID, string paramProductID, string paramSupplierID, string paramQuantity, string paramPrice, string paramTime)
+        {
+            string sql = string.Empty;
+            string str = "select Count(*) b from StockPile where StoreHouse_ID='"+paramStoreHouseID+"' and Product_ID='"+paramProductID+"' and SupplierID='"+paramSupplierID+"'";
+            DataSet ds = new DataSet();
+            ds = mySqlconn.Query(str);
+            int i=int.Parse(ds.Tables[0].Rows[0]["b"].ToString());            
+            string paramBatchNumber = paramSupplierID + "-" + DateTime.Parse(paramTime).ToString("yyyyMMdd") + "-" + (i + 1).ToString();
+            double TotalPrice = double.Parse(paramPrice) * int.Parse(paramQuantity);
+            sql = "insert into StockPile (StoreHouse_ID,Product_ID,SupplierID,Quantity,Price,TotalPrice,FirstEnterDate,BatchNumber) values('" + paramStoreHouseID + "','" + paramProductID + "','"+paramSupplierID+"','" + paramQuantity + "','" + paramPrice + "','"+TotalPrice.ToString()+"','" + paramTime + "','"+paramBatchNumber+"')";
+            int j = mySqlconn.ExeNonQuery(sql);
+            return j;
+        }
+
+        //同时更新StockPile_Total的库存数据
+        public int UpdateStockPile_Total(string paramStoreHouseID, string paramProductID, string paramProductName, string paramQuantity, string paramPrice, string paramTotalPrice)
+        {
+            int i = 0;
+            string str = "select Quantity,Price,TotalPrice from StockPile_Total where StoreHouse_ID='" + paramStoreHouseID + "'and Product_ID='" + paramProductID + "'";
+            DataSet ds = new DataSet();
+            ds = mySqlconn.Query(str);
+            if (ds.Tables[0].Rows.Count == 0)
+            {
+                string sql = "insert into StockPile_Total (StoreHouse_ID,Product_ID,ProductName,Quantity,Price,TotalPrice) values('" + paramStoreHouseID + "','" + paramProductID + "','" + paramProductName + "','" + paramQuantity + "','" + paramPrice + "','" + paramTotalPrice + "')";
+                i = mySqlconn.ExecuteNonQuery(sql);
+                return i;
+            }
+            else
+            {
+                string paramRecentQuantity = ds.Tables[0].Rows[0]["Quantity"].ToString();
+                paramQuantity = (int.Parse(paramRecentQuantity) + int.Parse(paramQuantity)).ToString();
+
+                string paramRecentTotalPrice = ds.Tables[0].Rows[0]["TotalPrice"].ToString();
+                paramTotalPrice = (Double.Parse(paramRecentTotalPrice) + Double.Parse(paramTotalPrice)).ToString();
+
+                string AvgPrice = (Double.Parse(paramTotalPrice) / int.Parse(paramQuantity)).ToString();
+
+                string sql = "update StockPile_Total set Quantity='" + paramQuantity + "', Price='" + AvgPrice + "',TotalPrice='" + paramTotalPrice + "' where StoreHouse_ID='" + paramStoreHouseID + "' and Product_ID='" + paramProductID + "'";
+                i = mySqlconn.ExecuteNonQuery(sql);
+                return i;
+            }
+        }
+    }
+}

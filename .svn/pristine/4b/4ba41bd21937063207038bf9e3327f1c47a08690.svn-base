@@ -1,0 +1,46 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DALayer;
+using System.Data;
+
+namespace BULayer
+{
+    public class BUStockPileInfo
+    {
+        DAStockPileInfo dal = new DAStockPileInfo();
+        public DataSet GetAllStockPileList()
+        {
+            return dal.GetAllStockPileList();
+
+        }
+
+        public DataSet GetRecentStockPileList(int Times)
+        {
+            return dal.GetRecentStockPileList(Times);
+        }
+
+
+        public DataSet GetStockPile_TotalList(string paramStoreHouseID, string paramProductID, string paramProductName)
+        {
+            return dal.GetStockPile_TotalList(paramStoreHouseID, paramProductID,paramProductName);
+        }
+
+        public DataSet GetStockPileHouseList(string paramStoreHouseID, string paramTime_1, string paramTime_2,string paramSupplierID)
+        {
+            return dal.GetStockPileHouseList(paramStoreHouseID, paramTime_1, paramTime_2, paramSupplierID);
+        }
+
+        //出库更新stockpile_Total中的quantity数量
+        public int UpdateStockpile_Total(string paramStoreHouse_ID, string paramProductID, string paramProductName, string paramQuantity, string paramTotalPrice)
+        {
+            return dal.UpdateStockpile_Total(paramStoreHouse_ID, paramProductID, paramProductName, paramQuantity, paramTotalPrice);
+        }
+        //出库新增记录
+        public int InsertSales_Info(string Product_ID,string ProductName,string paramSales_Price, string paramSales_Quantity, string paramCustomer,string LastLeaveDate)
+        {
+            return dal.InsertSales_Info(Product_ID, ProductName, paramSales_Price, paramSales_Quantity, paramCustomer,LastLeaveDate);
+        }
+    }
+}

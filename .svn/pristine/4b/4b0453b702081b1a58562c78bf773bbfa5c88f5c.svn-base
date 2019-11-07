@@ -1,0 +1,36 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DALayer;
+
+namespace BULayer
+{
+    public class BUStockPile
+    {
+        DAStockPile dal = new DAStockPile();
+
+        /// <summary>
+        /// 获取到批次ID
+        /// </summary>
+        /// <param name="paramStoreHouseID"></param>
+        /// <param name="?"></param>
+        /// <param name="paramProductID"></param>
+        /// <param name="paramSupplierID"></param>
+        /// <returns></returns>
+        public string GetBatchNumber(string paramStoreHouseID, string paramProductID, string paramSupplierID, string paramTime)
+        {
+            return dal.GetBatchNumber(paramStoreHouseID, paramProductID, paramSupplierID, paramTime);
+        }
+
+        public int StockPile(string paramStoreHouseID, string paramProductID, string paramSupplierID, string paramQuantity, string paramPrice, string paramTime)
+        {
+            return dal.StockPile( paramStoreHouseID,  paramProductID,  paramSupplierID,  paramQuantity,  paramPrice,paramTime);
+        }
+
+        public int UpdateStockPile_Total(string paramStoreHouseID, string paramProductID, string paramProductName,string paramQuantity, string paramPrice, string paramTotalPrice)
+        {
+            return dal.UpdateStockPile_Total(paramStoreHouseID,paramProductID,paramProductName,paramQuantity,paramPrice,paramTotalPrice);
+        }
+    }
+}

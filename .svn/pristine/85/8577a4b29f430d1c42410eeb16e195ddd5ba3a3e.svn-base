@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using BULayer;
+
+namespace InventoryManagersystem.ProductManager
+{
+    public partial class frmProductClassModify : Form
+    {
+        BUProductManagerResult myPMR = new BUProductManagerResult();
+
+        string EmployeeName=string.Empty;
+        public frmProductClassModify(string paramClassName, string paramRemark, int paramClassCode, string paramEmployeeName)
+        {
+            InitializeComponent();
+            this.txtBoxProductClassCode.Text = paramClassCode.ToString();
+            this.txtBoxProductClassName.Text = paramClassName.ToString();
+            this.txtBoxRemark.Text = paramRemark.ToString();
+            this.EmployeeName = paramEmployeeName.ToString();
+        }
+
+        private void btnAddProductClass_Click(object sender, EventArgs e)
+        {
+            string paramClassName = this.txtBoxProductClassName.Text.Trim();
+            string paramRemark = this.txtBoxRemark.Text.Trim();
+            int paramClassCode = int.Parse(this.txtBoxProductClassCode.Text.Trim());
+
+            bool isModifyClassOK = myPMR.CheckModifyClass(paramClassName, paramRemark, paramClassCode, EmployeeName);
+            if (isModifyClassOK)
+            {
+                MessageBox.Show("修改成功");
+                this.DialogResult = DialogResult.Yes;
+
+            }
+            else
+            {
+                MessageBox.Show("更新失败");
+                this.DialogResult = DialogResult.Yes;
+            }
+
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
+}

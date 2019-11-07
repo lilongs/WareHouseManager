@@ -1,0 +1,101 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using BULayer;
+
+namespace InventoryManagersystem.ProductManager
+{
+    public partial class frmProductSupplierInfo : Form
+    {
+
+        public frmProductSupplierInfo()
+        {
+            InitializeComponent();
+        }
+
+        public void GetAllProductSupplierInfo()
+        { 
+
+        }
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string paramProductID = this.txtBoxProductCode.Text.Trim();
+            string paramSupplierID=this.txtBoxSupplierID.Text.Trim();
+            DataSet ds=new DataSet();
+            BUProductSupplierInfo myBUProductSupplierInfo = new BUProductSupplierInfo();
+            ds=myBUProductSupplierInfo.GetAll_ProSupInfo(paramProductID,paramSupplierID);
+            dvgData.DataSource = ds.Tables[0];
+        }
+
+        private void frmProductSupplierInfo_Load(object sender, EventArgs e)
+        {
+            btnSearch_Click(sender, e);
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            frmProductSupplierInfoAdd myfrmProSupInfo = new frmProductSupplierInfoAdd();
+            myfrmProSupInfo.ShowDialog();
+            if(myfrmProSupInfo.DialogResult==DialogResult.OK)
+            {
+                btnSearch_Click(sender,e);
+            }
+        }
+
+        private void btnModify_Click(object sender, EventArgs e)
+        {
+            int count = this.dvgData.SelectedRows.Count;
+            if (count == 0)
+            {
+                MessageBox.Show("请先搜索/刷新并选择需要修改的用户行", "错误！", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            string paramProductID = this.dvgData.SelectedRows[0].Cells["ProductID"].Value.ToString();
+            string paramProductName = this.dvgData.SelectedRows[0].Cells["Product_Name"].Value.ToString();
+            string paramSupplierID = this.dvgData.SelectedRows[0].Cells["SupplierID"].Value.ToString();
+            string paramSupplierName = this.dvgData.SelectedRows[0].Cells["SupplierName"].Value.ToString();
+            string paramPrice = this.dvgData.SelectedRows[0].Cells["ProPrice"].Value.ToString();
+            string paramRemark = this.dvgData.SelectedRows[0].Cells["Remark"].Value.ToString();
+
+            frmProductSupplierInfoAdd myfrmProSupInfo = new frmProductSupplierInfoAdd(paramProductID,paramProductName, paramSupplierID,paramSupplierName, paramPrice, paramRemark);
+            myfrmProSupInfo.ShowDialog();
+            if (myfrmProSupInfo.DialogResult == DialogResult.OK)
+            {
+                btnSearch_Click(sender, e);
+            }
+        }
+
+        private void btnDel_Click(object sender, EventArgs e)
+        {
+            int count = this.dvgData.SelectedRows.Count;
+            if (count == 0)
+            {
+                MessageBox.Show("请先搜索/刷新并选择需要修改的用户行", "错误！", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            string paramProductID = this.dvgData.SelectedRows[0].Cells["ProductID"].Value.ToString();
+            string paramProductName = this.dvgData.SelectedRows[0].Cells["Product_Name"].Value.ToString();
+            string paramSupplierID = this.dvgData.SelectedRows[0].Cells["SupplierID"].Value.ToString();
+            string paramSupplierName = this.dvgData.SelectedRows[0].Cells["SupplierName"].Value.ToString();
+            string paramPrice = this.dvgData.SelectedRows[0].Cells["ProPrice"].Value.ToString();
+            string paramRemark = this.dvgData.SelectedRows[0].Cells["Remark"].Value.ToString();
+
+            BUDeleteProSupInfo myDADeleteProSupInfo = new BUDeleteProSupInfo();
+            int i = myDADeleteProSupInfo.DeleteProSupInfo(paramProductID, paramSupplierID, paramPrice, paramRemark);
+            if (i > 0)
+            {
+                MessageBox.Show("删除成功");
+                btnSearch_Click(sender,e);
+            }
+            else
+            {
+                MessageBox.Show("删除失败");
+            }
+        }
+    }
+}

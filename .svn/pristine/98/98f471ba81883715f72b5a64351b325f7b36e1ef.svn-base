@@ -1,0 +1,108 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using BULayer;
+
+namespace InventoryManagersystem.Coustomer
+{
+    public partial class frmCustomerManage : Form
+    {
+        public frmCustomerManage()
+        {
+            InitializeComponent();
+        }
+        BUCustomerInfo myBUCustomerInfo = new BUCustomerInfo();
+        BUDeleteCustomer myBUDeleteCustomer = new BUDeleteCustomer();
+
+        #region public void GetAllData() 获取所有客户数据
+        /// <summary>
+        /// 获取所有数据
+        /// </summary>
+        public void GetAllData()
+        {
+            string paramCustomerID = this.txtCustomerID.Text.Trim();
+            DataSet myDs = new DataSet();
+            myDs = myBUCustomerInfo.GetAllCustomerList(paramCustomerID);
+            this.dgvData.DataSource = myDs.Tables[0];
+        }
+        #endregion
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            GetAllData();
+        }
+
+        private void frmCustomerManage_Load(object sender, EventArgs e)
+        {
+            GetAllData();
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            frmCustomerAdd myfrmCustomerAdd = new frmCustomerAdd();
+            if (myfrmCustomerAdd.ShowDialog() == DialogResult.Yes)
+            {
+                btnSearch_Click(sender, e);
+            }
+        }
+
+        private void btnMod_Click(object sender, EventArgs e)
+        {
+            int count = this.dgvData.SelectedRows.Count;
+            if (count == 0)
+            {
+                MessageBox.Show("请先搜索/刷新并选择需要修改的行", "错误！", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            string CustomerID = this.dgvData.SelectedRows[0].Cells["CustomerID"].Value.ToString();
+            string CustomerName = this.dgvData.SelectedRows[0].Cells["CustomerName"].Value.ToString();
+            string Address = this.dgvData.SelectedRows[0].Cells["Address"].Value.ToString();
+            string Phone = this.dgvData.SelectedRows[0].Cells["Phone"].Value.ToString();
+            string Fax = this.dgvData.SelectedRows[0].Cells["Fax"].Value.ToString();
+            string PostalCode = this.dgvData.SelectedRows[0].Cells["PostalCode"].Value.ToString();
+            string ConstactPerson = this.dgvData.SelectedRows[0].Cells["ConstactPerson"].Value.ToString();
+
+            frmCustomerAdd myfrmCustomerAdd = new frmCustomerAdd(CustomerID, CustomerName, Address, Phone, Fax, PostalCode, ConstactPerson);
+            if (myfrmCustomerAdd.ShowDialog() == DialogResult.Yes)
+            {
+                btnSearch_Click(sender, e);
+            }
+        }
+
+        private void btnDel_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("确定删除?", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                int count = this.dgvData.SelectedRows.Count;
+                int i=0;
+                if (count == 0)
+                {
+                    MessageBox.Show("请先搜索/刷新并选择需要修改的行", "错误！", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    for (int j = 0; j < count; j++)
+                    {
+                        string CustomerID = this.dgvData.SelectedRows[i].Cells["CustomerID"].Value.ToString();
+                        i = myBUDeleteCustomer.DeleteCustomer(CustomerID);
+                    }
+                }               
+                if (i != 0)
+                {
+                    MessageBox.Show("操作成功");
+                }
+                else
+                {
+                    MessageBox.Show("操作失败");
+                }
+                GetAllData();
+            }
+        }
+    }
+}

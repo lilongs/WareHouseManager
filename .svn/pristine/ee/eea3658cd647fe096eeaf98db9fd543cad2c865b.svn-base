@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DALayer;
+using System.Data;
+
+namespace BULayer
+{
+    public class BUCustomerInfo
+    {
+        DACustomerInfo dal = new DACustomerInfo();
+        public DataSet GetAllCustomerList(string paramInventID)
+        {
+            return dal.GetAllCustomerList(paramInventID);
+        }
+    }
+}

@@ -1,0 +1,129 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DALayer;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace BULayer
+{
+    public class BUCheckResult
+    {
+        Sqlconn mySqlconn = new Sqlconn();
+        
+        public int CheckInput(string paramUsename,string paramPasswd,string paramTelephone,string paramEmail,string paramAddress,int paramRoleID)
+        {
+            int ReturnValue = 0;
+            string strSQL = @" insert into adminuser  (username,passwd,telephone,email,address,RoleID,CreateTime)
+               values('" + paramUsename + " ','" + paramPasswd + "','" + paramTelephone + "','" + paramEmail + "','" + paramAddress + "'," + paramRoleID + ",CONVERT(nvarchar(200), GETDATE(), 20))";
+            ReturnValue = mySqlconn.ReturnRowsLine(strSQL);
+            return ReturnValue;
+
+        }
+        public int CheckUserModify(string paramUsename,string paramTelephone,string paramEmail,string paramAddress,int paramRoleID)
+        {
+            int ReturnValue = 0;
+            string strSQL = " update adminuser set telephone = '" + paramTelephone + "' ,[address] = '" + paramAddress + "',email = '" + paramEmail + "',RoleID=" + paramRoleID + " where username = '" + paramUsename + "' ";
+            ReturnValue = mySqlconn.ReturnRowsLine(strSQL);
+            return ReturnValue;
+        }
+
+        public DataTable GetCustomerDt(string paramUserName)
+        {
+            DataSet myDs = new DataSet();
+            DataTable myDt = new DataTable();
+            Sqlconn mySqlconn = new Sqlconn();
+
+            string SQL = "Select username ,telephone,address,email from adminuser Where 1=1 ";
+
+            if (paramUserName.Length > 0)
+            {
+                SQL += " and  UserID='" + paramUserName + "'";
+            }
+            myDs = mySqlconn.Query(SQL);
+            if (myDs.Tables.Count == 0 || myDs.Tables[0].Rows.Count == 0)
+            {
+                //MessageBox.Show("暂无数据");
+                return myDt;
+            }
+            myDt = myDs.Tables[0];
+            return myDt;
+        }
+
+        public DataTable GetProductList()
+        {
+            DataSet myDs = new DataSet();
+            DataTable myDt = new DataTable();
+            Sqlconn mySqlConn = new Sqlconn();
+            string strSql = "select ProductClassID , RTRIM(ProductClassName ) as ProductClassName  from  ProductClass";
+            myDs = mySqlconn.Query(strSql);
+            myDt = myDs.Tables[0];
+            return myDt;
+        }
+
+        public DataTable GetProductUnit()
+        {
+            DataTable mydt = new DataTable();
+            DataSet myds = new DataSet();
+            string strSql = "select ProductUnitID,ProductUnitName from ProductUnit"; 
+            myds = mySqlconn.Query(strSql);
+            mydt = myds.Tables[0];
+            return mydt;
+        }
+
+        public DataTable GetSupplier()
+        {
+            DataTable mydt = new DataTable();
+            DataSet myds = new DataSet();
+            string strSql = "select SupplierID,Name from Supplier";
+            myds = mySqlconn.Query(strSql);
+            mydt = myds.Tables[0];
+            return mydt;
+        }
+
+        public DataTable GetStoreHouseList()
+        {
+            DataTable mydt = new DataTable();
+            DataSet myds = new DataSet();
+            string strSql = "select StoreHouse_ID from StoreHouse";
+            myds = mySqlconn.Query(strSql);
+            mydt = myds.Tables[0];
+            return mydt;
+        }
+
+        public DataTable GetProductID()
+        {
+            DataTable mydt = new DataTable();
+            DataSet myds = new DataSet();
+            string strSql = "select ProductID from ProductList";
+            myds = mySqlconn.Query(strSql);
+            mydt = myds.Tables[0];
+            return mydt;
+        }
+
+        
+
+        public bool DelData(string userName)
+        {
+            int ReturnValue = 0;
+            string strSql = "delete  from adminuser where username = '" + userName + "'";
+
+            ReturnValue = mySqlconn.ExeNonQuery(strSql); ;
+
+            if (ReturnValue > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+
+
+
+    }
+}

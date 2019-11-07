@@ -1,0 +1,122 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using BULayer;
+
+namespace InventoryManagersystem.ProductManager
+{
+    public partial class frmProductClassManager : Form
+    {
+        BUProductManagerResult MyPms = new BUProductManagerResult();
+        public frmProductClassManager()
+        {
+            InitializeComponent();
+        }
+
+        private void brnSearch_Click(object sender, EventArgs e)
+        {
+            string paramProductClassName = this.txtBoxProductName.Text.ToString();
+            string paramProductClassCode = this.txtBoxProductCode.Text.ToString();
+            bool isNotNull = MyPms.CheckProductClass(paramProductClassName,paramProductClassCode);
+            if (isNotNull)
+            {
+                this.dvgData.DataSource = MyPms.GetProductClassTbl(paramProductClassName, paramProductClassCode);
+            }
+            else
+            {
+                MessageBox.Show("查无记录");
+            }
+
+        }
+
+        private void btnModify_Click(object sender, EventArgs e)
+        {
+<<<<<<< .mine
+            int count = this.dvgData.SelectedRows.Count;
+            if (count == 0)
+            {
+                MessageBox.Show("请先搜索/刷新并选择需要修改的用户行", "错误！", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            string paramClassName = this.dvgData.SelectedRows[0].Cells["ProductClassName"].Value.ToString();
+            string paramRemark = this.dvgData.SelectedRows[0].Cells["Remark"].Value.ToString();
+            int paramClassCode = Convert.ToInt32(this.dvgData.SelectedRows[0].Cells["ProductClassID"].Value);
+            string paramEmployeeName = this.dvgData.SelectedRows[0].Cells["EmployeeName"].Value.ToString();
+            
+            frmProductClassModify MyFrmClassModify = new frmProductClassModify(paramClassName, paramRemark, paramClassCode,paramEmployeeName);
+            MyFrmClassModify.Tag = this.Tag;
+            DialogResult dr = MyFrmClassModify.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                brnSearch_Click(sender, e);
+            }
+=======
+            frmClassAdd myfrmClassAdd = new frmClassAdd("123");
+            if (myfrmClassAdd.ShowDialog() == DialogResult.Yes)
+            {
+
+            }
+>>>>>>> .r21396
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+<<<<<<< .mine
+            frmProductClassAdd myfrmClassAdd = new frmProductClassAdd();
+            myfrmClassAdd.Tag = this.Tag;
+            DialogResult dr = new DialogResult();
+            dr = myfrmClassAdd.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                brnSearch_Click(sender, e);
+            }
+        }
+
+=======
+            frmClassAdd myfrmClassAdd = new frmClassAdd();
+            if (myfrmClassAdd.ShowDialog() == DialogResult.Yes)
+            {
+                 
+            }
+>>>>>>> .r21396
+        private void frmProductClassManager_Load(object sender, EventArgs e)
+        {
+            brnSearch_Click(sender, e);
+        }
+
+        private void btnDel_Click(object sender, EventArgs e)
+        {
+            if (this.dvgData.RowCount == 0)
+            {
+                MessageBox.Show("请选择要删除的用户！");
+                return;
+            }
+            int count = this.dvgData.SelectedRows.Count;
+            BUProductManagerResult MyPMR = new BUProductManagerResult();
+            bool ReturnValue = false;
+            DialogResult dr = MessageBox.Show("确定删除此条信息吗？", "温馨提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (dr == DialogResult.OK)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    string paramClassValue = this.dvgData.SelectedRows[i].Cells["ProductClassID"].Value.ToString();
+                    ReturnValue = MyPMR.DelClassData(paramClassValue);                    
+                }
+                if (ReturnValue)
+                {
+                    MessageBox.Show("恭喜您，删除数据成功！", "恭喜", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    brnSearch_Click(sender, e);
+                }
+                else
+                {
+                    MessageBox.Show("操作错误", "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+using DALayer;
+
+namespace BULayer
+{
+    public class BUReport_SalesInfo
+    {
+        DAReport_SalesInfo dal = new DAReport_SalesInfo();
+        public DataSet GetSalesInfo(string paramTime1, string paramTime2,string paramCustomerID)
+        {
+            return dal.GetSalesInfo(paramTime1, paramTime2, paramCustomerID);
+        }
+    }
+}

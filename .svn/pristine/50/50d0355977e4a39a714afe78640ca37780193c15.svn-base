@@ -1,0 +1,87 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using System.IO;
+using System.Data.SqlClient;
+
+namespace InventoryManagersystem.sys
+{
+    public partial class frmSqlSet : Form
+    {
+        public frmSqlSet()
+        {
+            InitializeComponent();
+        }
+        /// <summary>
+        /// 获取到连接数据
+        /// </summary>
+        /// <returns></returns>
+        public SqlConnection Link()
+        {
+            string paramLinkstr = "data source='" + txtServerName.Text.Trim() + "';database='" + txtDB.Text.Trim() + "';uid='" + txtUid.Text.Trim() + "';pwd='" + txtPwd.Text.Trim() + "';";
+            SqlConnection mySqlConnection = new SqlConnection(paramLinkstr);
+
+            return mySqlConnection;
+        }
+        private void frmSqlSet_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                FileStream fs = new FileStream("Config.pp", FileMode.Open, FileAccess.Read);
+                StreamReader sr = new StreamReader(fs);
+                txtServerName.Text = sr.ReadLine();
+                txtDB.Text = sr.ReadLine();
+                txtUid.Text = sr.ReadLine();
+                txtPwd.Text = sr.ReadLine();
+                sr.Close();
+                fs.Close();
+            }
+            catch
+            {
+                MessageBox.Show("请配置数据库");
+                return;
+            }
+        }
+
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtServerName.Text) || string.IsNullOrEmpty(txtDB.Text) || string.IsNullOrEmpty(txtUid.Text) || string.IsNullOrEmpty(txtPwd.Text))
+            {
+                MessageBox.Show("没有填写完整！");
+                return;
+            }
+            try
+            {
+                SqlConnection mySqlConnection = Link();
+                mySqlConnection.Open();
+                mySqlConnection.Close();
+
+
+            }
+            catch
+            {
+                MessageBox.Show("测试失败！请确认数据！");
+                return;
+            }
+            FileStream fs = new FileStream("Config.pp", FileMode.Create);
+            StreamWriter sw = new StreamWriter(fs);
+            sw.WriteLine(txtServerName.Text.Trim());
+            sw.WriteLine(txtDB.Text.Trim());
+            sw.WriteLine(txtUid.Text.Trim());
+            sw.WriteLine(txtPwd.Text.Trim());
+            sw.Close();
+            fs.Close();
+            MessageBox.Show("测试成功,");
+        }
+
+        private void btnSure_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
+}

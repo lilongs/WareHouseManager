@@ -1,0 +1,241 @@
+﻿namespace InventoryManagersystem.ProductManager
+{
+    partial class frmProductClassManager
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProductClassManager));
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtBoxProductCode = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtBoxProductName = new System.Windows.Forms.TextBox();
+            this.brnSearch = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnModify = new System.Windows.Forms.Button();
+            this.btnDel = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.ProductClassID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductClassName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(18, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(59, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "商品编码:";
+            // 
+            // txtBoxProductCode
+            // 
+            this.txtBoxProductCode.Location = new System.Drawing.Point(80, 24);
+            this.txtBoxProductCode.Name = "txtBoxProductCode";
+            this.txtBoxProductCode.Size = new System.Drawing.Size(136, 21);
+            this.txtBoxProductCode.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(234, 27);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(59, 12);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "商品名称:";
+            // 
+            // txtBoxProductName
+            // 
+            this.txtBoxProductName.Location = new System.Drawing.Point(299, 24);
+            this.txtBoxProductName.Name = "txtBoxProductName";
+            this.txtBoxProductName.Size = new System.Drawing.Size(169, 21);
+            this.txtBoxProductName.TabIndex = 1;
+            // 
+            // brnSearch
+            // 
+            this.brnSearch.Image = ((System.Drawing.Image)(resources.GetObject("brnSearch.Image")));
+            this.brnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.brnSearch.Location = new System.Drawing.Point(485, 22);
+            this.brnSearch.Name = "brnSearch";
+            this.brnSearch.Size = new System.Drawing.Size(61, 23);
+            this.brnSearch.TabIndex = 2;
+            this.brnSearch.Text = "查询";
+            this.brnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.brnSearch.UseVisualStyleBackColor = true;
+            this.brnSearch.Click += new System.EventHandler(this.brnSearch_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.brnSearch);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.txtBoxProductName);
+            this.groupBox1.Controls.Add(this.txtBoxProductCode);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1121, 57);
+            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "查询";
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(43, 32);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 25);
+            this.btnAdd.TabIndex = 2;
+            this.btnAdd.Text = "+ 增加";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.btnModify);
+            this.groupBox3.Controls.Add(this.btnDel);
+            this.groupBox3.Controls.Add(this.btnAdd);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox3.Location = new System.Drawing.Point(0, 492);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(1121, 77);
+            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "操作";
+            // 
+            // btnModify
+            // 
+            this.btnModify.Location = new System.Drawing.Point(154, 32);
+            this.btnModify.Name = "btnModify";
+            this.btnModify.Size = new System.Drawing.Size(75, 25);
+            this.btnModify.TabIndex = 2;
+            this.btnModify.Text = "修改";
+            this.btnModify.UseVisualStyleBackColor = true;
+            this.btnModify.Click += new System.EventHandler(this.btnModify_Click);
+            // 
+            // btnDel
+            // 
+            this.btnDel.Location = new System.Drawing.Point(266, 32);
+            this.btnDel.Name = "btnDel";
+            this.btnDel.Size = new System.Drawing.Size(75, 25);
+            this.btnDel.TabIndex = 2;
+            this.btnDel.Text = "- 删除";
+            this.btnDel.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.dataGridView1);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(0, 57);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(1121, 435);
+            this.groupBox2.TabIndex = 6;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "数据";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ProductClassID,
+            this.ProductClassName,
+            this.Remark});
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 17);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 23;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(1115, 415);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // ProductClassID
+            // 
+            this.ProductClassID.DataPropertyName = "ProductClassID";
+            this.ProductClassID.HeaderText = "编号";
+            this.ProductClassID.Name = "ProductClassID";
+            // 
+            // ProductClassName
+            // 
+            this.ProductClassName.DataPropertyName = "ProductClassName";
+            this.ProductClassName.HeaderText = "类别名称";
+            this.ProductClassName.Name = "ProductClassName";
+            this.ProductClassName.Width = 250;
+            // 
+            // Remark
+            // 
+            this.Remark.DataPropertyName = "Remark";
+            this.Remark.HeaderText = "备注";
+            this.Remark.Name = "Remark";
+            this.Remark.Width = 450;
+            // 
+            // frmProductClassManager
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1121, 569);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "frmProductClassManager";
+            this.Text = "商品分类管理";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtBoxProductCode;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtBoxProductName;
+        private System.Windows.Forms.Button brnSearch;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button btnModify;
+        private System.Windows.Forms.Button btnDel;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProductClassID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProductClassName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Remark;
+    }
+}

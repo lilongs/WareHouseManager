@@ -1,0 +1,118 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using BULayer;
+
+
+namespace InventoryManagersystem.ProductManager
+{
+    public partial class frmProductList : Form
+    {
+        BUProductManagerResult MyPms = new BUProductManagerResult();
+        public frmProductList()
+        {
+            InitializeComponent();
+        }     
+
+        private void btnAddProduct_Click(object sender, EventArgs e)
+        {            
+            frmProductListAdd MyfrmProductAdd = new frmProductListAdd();
+            MyfrmProductAdd.Tag = this.Tag;         
+
+            DialogResult dr = new DialogResult();
+            dr = MyfrmProductAdd.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                btnSearch_Click(sender, e);
+            }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string paramProductName = this.txtBoxProductName.Text.ToString();
+            string paramProductCode = this.txtBoxProductCode.Text.ToString();
+            bool isNotNull = MyPms.CheckProductList(paramProductName, paramProductCode);
+            if (isNotNull)
+            {
+                this.dvgData.DataSource = MyPms.GetProductListTbl(paramProductName, paramProductCode);
+            }
+            else
+            {
+                MessageBox.Show("查无记录");
+            }
+        }
+
+        private void frmProductList_Load(object sender, EventArgs e)
+        {
+            btnSearch_Click(sender,e);
+        }
+
+        private void btnModifyProduct_Click(object sender, EventArgs e)
+        {
+            int count = this.dvgData.SelectedRows.Count;
+            if (count == 0)
+            {
+                MessageBox.Show("请先搜索/刷新并选择需要修改的用户行", "错误！", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            } 
+            string paramProductID = this.dvgData.SelectedRows[0].Cells["ProductID"].Value.ToString();
+            string paramProductClassName = this.dvgData.SelectedRows[0].Cells["ProductClassName"].Value.ToString();
+            string paramProductName = this.dvgData.SelectedRows[0].Cells["Product_Name"].Value.ToString();
+            string paramProductSpec = this.dvgData.SelectedRows[0].Cells["ProductSpec"].Value.ToString();
+            string paramSupplierName = this.dvgData.SelectedRows[0].Cells["SupplierName"].Value.ToString();
+            string paramPrice = this.dvgData.SelectedRows[0].Cells["Price"].Value.ToString();
+            string paramUnitName = this.dvgData.SelectedRows[0].Cells["ProductUnitName"].Value.ToString();
+            string paramEmployeeName = this.dvgData.SelectedRows[0].Cells["EmployeeName"].Value.ToString();
+            string paramRemark = this.dvgData.SelectedRows[0].Cells["Remark"].Value.ToString();
+
+            frmProductListAdd MyfrmProductAdd = new frmProductListAdd(paramProductID, paramProductClassName, paramProductName, paramProductSpec, paramSupplierName, paramPrice, paramUnitName, paramEmployeeName, paramRemark);
+            MyfrmProductAdd.Tag = this.Tag;
+            DialogResult dr = new DialogResult();
+            dr = MyfrmProductAdd.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                btnSearch_Click(sender, e);
+            }
+        }
+
+        private void btnDelProduct_Click(object sender, EventArgs e)
+        {
+            if (this.dvgData.RowCount == 0)
+            {
+                MessageBox.Show("请选择要删除的用户！");
+                return;
+            }
+            int count = this.dvgData.SelectedRows.Count;
+            BUProductManagerResult MyPMR = new BUProductManagerResult();
+            bool ReturnValue = false;
+            DialogResult dr = MessageBox.Show("确定删除此条信息吗？", "温馨提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (dr == DialogResult.OK)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    string paramProductID= this.dvgData.SelectedRows[i].Cells["ProductID"].Value.ToString();
+                    ReturnValue = MyPMR.DelProductData(paramProductID);
+                }
+                if (ReturnValue)
+                {
+                    MessageBox.Show("恭喜您，删除数据成功！", "恭喜", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    btnSearch_Click(sender, e);
+
+                }
+                else
+                {
+                    MessageBox.Show("操作错误", "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+
+            }
+
+
+        }
+    }
+}

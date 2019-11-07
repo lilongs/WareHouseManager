@@ -1,0 +1,198 @@
+﻿namespace InventoryManagersystem
+{
+    partial class frmAddUser
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.txtBoxUser = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtBoxPwd = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtBoxPhone = new System.Windows.Forms.TextBox();
+            this.txtBoxEmail = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtBoxAddress = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "用户名";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(85, 180);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "提交";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // txtBoxUser
+            // 
+            this.txtBoxUser.Location = new System.Drawing.Point(60, 20);
+            this.txtBoxUser.Name = "txtBoxUser";
+            this.txtBoxUser.Size = new System.Drawing.Size(100, 21);
+            this.txtBoxUser.TabIndex = 2;
+            this.txtBoxUser.TextChanged += new System.EventHandler(this.txtBoxUser_TextChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(199, 23);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 12);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "密码";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // txtBoxPwd
+            // 
+            this.txtBoxPwd.Location = new System.Drawing.Point(245, 20);
+            this.txtBoxPwd.Name = "txtBoxPwd";
+            this.txtBoxPwd.Size = new System.Drawing.Size(100, 21);
+            this.txtBoxPwd.TabIndex = 2;
+            this.txtBoxPwd.UseSystemPasswordChar = true;
+            this.txtBoxPwd.TextChanged += new System.EventHandler(this.txtBoxPwd_TextChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(13, 60);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(41, 12);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "手机号";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(199, 60);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(29, 12);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "邮箱";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
+            // 
+            // txtBoxPhone
+            // 
+            this.txtBoxPhone.Location = new System.Drawing.Point(60, 57);
+            this.txtBoxPhone.Name = "txtBoxPhone";
+            this.txtBoxPhone.Size = new System.Drawing.Size(100, 21);
+            this.txtBoxPhone.TabIndex = 2;
+            this.txtBoxPhone.TextChanged += new System.EventHandler(this.txtBoxPhone_TextChanged);
+            // 
+            // txtBoxEmail
+            // 
+            this.txtBoxEmail.Location = new System.Drawing.Point(245, 57);
+            this.txtBoxEmail.Name = "txtBoxEmail";
+            this.txtBoxEmail.Size = new System.Drawing.Size(100, 21);
+            this.txtBoxEmail.TabIndex = 2;
+            this.txtBoxEmail.TextChanged += new System.EventHandler(this.txtBoxEmail_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(13, 87);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 12);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "住  址";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
+            // txtBoxAddress
+            // 
+            this.txtBoxAddress.Location = new System.Drawing.Point(60, 84);
+            this.txtBoxAddress.Multiline = true;
+            this.txtBoxAddress.Name = "txtBoxAddress";
+            this.txtBoxAddress.Size = new System.Drawing.Size(285, 66);
+            this.txtBoxAddress.TabIndex = 2;
+            this.txtBoxAddress.TextChanged += new System.EventHandler(this.txtBoxAddress_TextChanged);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(201, 180);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "退出";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // frmAddUser
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(369, 241);
+            this.Controls.Add(this.txtBoxEmail);
+            this.Controls.Add(this.txtBoxAddress);
+            this.Controls.Add(this.txtBoxPhone);
+            this.Controls.Add(this.txtBoxPwd);
+            this.Controls.Add(this.txtBoxUser);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Name = "frmAddUser";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "添加用户";
+            this.Load += new System.EventHandler(this.frmAddUser_Load);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txtBoxUser;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtBoxPwd;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtBoxPhone;
+        private System.Windows.Forms.TextBox txtBoxEmail;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtBoxAddress;
+        private System.Windows.Forms.Button button2;
+    }
+}

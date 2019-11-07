@@ -1,0 +1,84 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using InventoryManagersystem.InventoryManager;
+using BULayer;
+
+namespace InventoryManagersystem.Sales
+{
+    public partial class frmSalesManage : Form
+    {
+        BUGetCustomerInfo myBUGetCustomerInfo = new BUGetCustomerInfo();
+        DataTable MySalsedt = new DataTable();
+        public frmSalesManage()
+        {
+            InitializeComponent(); 
+        }
+        public void SetCombCustomer()
+        {
+            combCustomer_Name.DataSource = myBUGetCustomerInfo.GetCustomerID();
+            combCustomer_Name.DisplayMember = "Name";
+            combCustomer_Name.ValueMember = "Customer_ID";
+        }
+                
+        private void frmSalesManage_Load(object sender, EventArgs e)
+        {
+            SetCombCustomer();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            frmInventInfo myfrmInventInfo = new frmInventInfo();
+
+            if (myfrmInventInfo.ShowDialog() == DialogResult.Yes)
+            {
+                this.MySalsedt = myfrmInventInfo.dt;
+                this.dgvData.DataSource = MySalsedt;
+                this.gdCInvent.DataSource = MySalsedt;
+
+            }            
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSales_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gdvInvent_ValidatingEditor(object sender, DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventArgs e)
+        {
+            if (gdvInvent.FocusedColumn.Name == "Sales_Quantity")
+            {
+                int paramQuantity = Convert.ToInt32(gdvInvent.GetFocusedRowCellValue("Quantity"));
+                if (int.Parse(e.Value.ToString()) > paramQuantity)//自己写验证条件
+                {
+                    e.ErrorText = "出库数量大于库存数量！";
+                    e.Valid = false;
+                    return;
+                }
+            }
+
+            if (gdvInvent.FocusedColumn.Name == "Sales_Price")
+            {
+                if (e.Value==null)//自己写验证条件
+                {
+                    e.ErrorText = "请输入正确的价格！";
+                    e.Valid = false;
+                    return;
+                }
+            }
+
+        }
+
+        
+    }
+}

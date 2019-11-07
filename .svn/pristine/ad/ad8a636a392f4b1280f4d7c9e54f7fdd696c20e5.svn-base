@@ -1,0 +1,89 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using BULayer;
+
+namespace InventoryManagersystem.ProductManager
+{
+    public partial class frmProlist_All : Form
+    {
+        public frmProlist_All()
+        {
+            InitializeComponent();
+        }
+        public   string  ProductClassID=string .Empty ;
+        public   string ProductClassName = string.Empty;
+        BUClassAdd myBuClassAdd = new BUClassAdd();
+        private void treeView1_DoubleClick(object sender, EventArgs e)
+        {
+            
+         
+            ProductClassName = treeView1.SelectedNode.Text;
+            ProductClassID = treeView1.SelectedNode.Tag.ToString();
+            if (ProductClassID.Length > 0)
+            {
+                this.DialogResult = DialogResult.Yes;
+            }
+        }
+        #region   TreeView的数据绑定父\子、孙节点函数
+        /// <summary>
+        /// TreeView的数据绑定父节点函数
+        /// </summary>
+        /// <param name="treeview">TreeView控件ID名称</param>
+        /// <param name="text">树控件要显示的文本的字段名称</param>
+        public void Bind_TreeView(TreeView treeview)
+        {
+            DataTable mtDt = new DataTable();
+
+            // mtDt = myBUSysInfo.GetSysInfo();  //测试注销
+            mtDt = myBuClassAdd.GetClassList("");
+            treeview.Nodes.Clear();
+            for (int i = 0; i < mtDt.Rows.Count; i++)
+            {
+                TreeNode rootnode = new TreeNode();//创建根节点
+                rootnode.Text = mtDt.Rows[i]["ProductClassName"].ToString();
+                rootnode.Tag = mtDt.Rows[i]["ProductClassID"].ToString();
+                string paramParentID = mtDt.Rows[i]["ProductClassID"].ToString();
+                treeview.Nodes.Add(rootnode);//在添加完节点的内容之后，当然要添加根节点，
+                CreateChildNodes(rootnode, paramParentID, rootnode.Text);//
+            }
+        }
+        /// <summary>
+        /// TreeView的数据绑定子节点函数
+        /// </summary>
+        /// <param name="treenode">上一级节点</param>
+        /// <param name="parentName">数据表中字段名</param>
+        /// <param name="text">树控件要显示的文本的字段名称</param>
+        /// <param name="index">查询语句关键字</param>
+        public void CreateChildNodes(TreeNode treenode, string paramParentID, string text)
+        {
+
+
+            //DataTable myCNode = myBUSysInfo.GetSysModuleInfo(parentSysID);
+            DataTable myCNode = myBuClassAdd.GetClassList(paramParentID);
+            //myBULogin.GetChildModuleList(paramRole, parentSysID);
+
+            for (int i = 0; i < myCNode.Rows.Count; i++)
+            {
+                TreeNode childnode = new TreeNode();
+                childnode.Text = myCNode.Rows[i]["ProductClassName"].ToString();
+                childnode.Tag = myCNode.Rows[i]["ProductClassID"].ToString();
+                treenode.Nodes.Add(childnode);
+
+            }
+        }
+
+        #endregion
+        private void frmProlist_All_Load(object sender, EventArgs e)
+        {
+            //加载主节点
+            Bind_TreeView(treeView1);
+            treeView1.ExpandAll();
+        }
+    }
+}

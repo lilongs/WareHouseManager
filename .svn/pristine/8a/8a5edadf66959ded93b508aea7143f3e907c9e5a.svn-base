@@ -1,0 +1,91 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+using DALayer;
+
+namespace DALayer
+{
+    public class DAProductListAdd
+    {
+        Sqlconn dbhelpersqlformess = new Sqlconn();
+
+        string SQL = string.Empty;//保持SQL语句
+        Sqlconn mysqlconn = new Sqlconn();
+        public int ProductAdd(string paramProductID, string paramProductClassID, string paramProductName, string paramProductSpec , string paramUnitID, string paramEmployeeName, string paramRemark)
+        {
+            int returnValue = 0;
+            string strSql = "INSERT INTO ProductList(ProductID,ProductClassID,ProductName,ProductSpec,ProductUnitID,EmployeeName,Remark,CreateDate) Values ('" + paramProductID + "', '" + paramProductClassID + "','" + paramProductName + "','" + paramProductSpec + "','" + paramUnitID + "','" + paramEmployeeName + "','" + paramRemark + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "')";
+            returnValue = mysqlconn.ExeNonQuery(strSql);
+            return returnValue;
+            
+        }
+
+        /// <summary>
+        /// 模糊查询物料信息
+        /// </summary>
+        /// <param name="paramItemName"></param>
+        /// <returns></returns>
+        public DataTable GetItemInfo(string paramItemName)
+        {
+            DataTable myDt = new DataTable();
+            try
+            {
+                SQL = @"select ProductID,ProductName, ProductClassName from ProductList
+                        left join  ProductClass  on  ProductClass.ProductClassID=ProductList.ProductClassID 
+                        where ProductName like '%" + paramItemName + "%'";
+            DataSet myDs = new DataSet();
+            myDs = mysqlconn.Query(SQL);
+            myDt = myDs.Tables[0];
+            return myDt;
+            }
+            catch 
+            {
+                return myDt;
+               
+            }
+        }
+
+        #region excel导入数据插入到数据库
+        public int Excel_InsertProductList(DataTable dtData, int index, int Total)
+        {
+            int Result = 0;
+            string strSql = string.Empty;
+            string strSql_Midden = string.Empty;
+            string strSql_End = string.Empty;
+
+            strSql = "Insert into ProductList (";
+            for (int i = 0; i < dtData.Columns.Count; i++)
+            {
+                string Value = dtData.Rows[0][dtData.Columns[i].ColumnName].ToString();
+                if (Value == string.Empty )
+                {
+                    continue;
+                }
+                if (strSql_Midden == string.Empty)
+                {
+                    strSql_Midden = dtData.Columns[i].ColumnName;
+                }
+                else
+                {
+                    strSql_Midden = strSql_Midden + "," + dtData.Columns[i].ColumnName;
+                }
+
+                if (strSql_End == string.Empty)
+                {
+                    strSql_End = Value;
+                }
+                else
+                {
+                    strSql_End = strSql_End + "," + Value;
+                }
+            }
+
+            strSql = strSql + strSql_Midden + ") VALUES(" + strSql_End + ")";
+            Result = dbhelpersqlformess.BatchOperateDATA(strSql, index, Total);
+            return Result;
+        }
+        #endregion
+    }
+}

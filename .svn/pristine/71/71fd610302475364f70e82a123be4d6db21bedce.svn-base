@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using BULayer;
+
+namespace InventoryManagersystem.InventoryManager
+{
+    public partial class frmMaxPrice : Form
+    {
+        public frmMaxPrice()
+        {
+            InitializeComponent();
+        }
+        BUSysInfo myBUSysInfo = new BUSysInfo();
+
+        private void btnSet_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtValue.Text.Length == 0)
+                {
+                    MessageBox.Show("上限值不能为空！");
+                    return;
+                }
+                double paramValue = Convert.ToDouble(txtValue.Text.Trim());
+                bool ReturnValue = true;
+                ReturnValue = myBUSysInfo.UpdatePraiceMax(paramValue);
+                if (ReturnValue)
+                {
+                    MessageBox.Show("更新成功！");
+                }
+            }
+            catch { }
+
+        }
+
+        private void frmMaxPrice_Load(object sender, EventArgs e)
+        {
+            double paramPriceMax = 0.0;
+            paramPriceMax = myBUSysInfo.GetPrice();
+            this.txtValue.Text = paramPriceMax.ToString();
+        }
+    }
+}

@@ -1,0 +1,105 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using BULayer;
+using InventoryManagersystem.ClassAssist;
+
+
+namespace InventoryManagersystem.Report
+{
+    public partial class frmReport_Check : Form
+    {
+        BUCheckResult myBUCheckResult = new BUCheckResult();
+        public frmReport_Check()
+        {
+            InitializeComponent();
+        }
+        public void SetSupplier()
+        {
+            DataTable mydt = new DataTable();
+            mydt = myBUCheckResult.GetSupplier();
+            combSupplier.DataSource = mydt;
+            combSupplier.DisplayMember = "Name";
+            combSupplier.ValueMember = "SupplierID";
+        }
+
+        private void sbtnSelect_Click(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true)
+            {
+                string paramStoreHouseID = "";
+                string paramTime_1 = dateTimePicker1.Value.ToString("yyyy-MM-dd 00:00:00");
+                string paramTime_2 = dateTimePicker2.Value.ToString("yyyy-MM-dd 23:59:59");
+                string paramSupplierID = combSupplier.SelectedValue.ToString();
+                BUStockPileInfo myBUStockPileInfo = new BUStockPileInfo();
+                DataSet myDs = new DataSet();
+                myDs = myBUStockPileInfo.GetStockPileHouseList(paramStoreHouseID, paramTime_1, paramTime_2, paramSupplierID);
+                this.gdCInvent.DataSource = myDs.Tables[0];
+            }
+            else
+            {
+                string paramStoreHouseID = "";
+                string paramTime_1 = dateTimePicker1.Value.ToString("yyyy-MM-dd 00:00:00");
+                string paramTime_2 = dateTimePicker2.Value.ToString("yyyy-MM-dd 23:59:59");
+                string paramSupplierID = string.Empty;
+                BUStockPileInfo myBUStockPileInfo = new BUStockPileInfo();
+                DataSet myDs = new DataSet();
+                myDs = myBUStockPileInfo.GetStockPileHouseList(paramStoreHouseID, paramTime_1, paramTime_2, paramSupplierID);
+                this.gdCInvent.DataSource = myDs.Tables[0];
+
+            }
+        }
+
+        private void frmReport_Check_Load(object sender, EventArgs e)
+        {
+            SetSupplier();
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DevExpress.XtraEditors.SimpleButton tempBtn = (DevExpress.XtraEditors.SimpleButton)sender;
+                if (tempBtn == null)
+                    return;
+                string tempItem = tempBtn.Tag.ToString();
+                foreach (Control tempControl in this.groupBox2.Controls)
+                {
+                    if (tempControl.GetType() == typeof(DevExpress.XtraGrid.GridControl))
+                    {
+
+                        DevExpress.XtraGrid.GridControl tempGridControl = (DevExpress.XtraGrid.GridControl)tempControl;
+                        CommonOperator.DataPrint(tempGridControl, tempItem, null);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void btnExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "文件格式(*.xlsx)|*.xlsx";
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string name = saveFileDialog.FileName;
+                    this.gdCInvent.ExportToXlsx(name);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+    }
+}

@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace DALayer
+{
+    public class DAProductListAdd
+    {
+        Sqlconn mysqlconn = new Sqlconn();
+        public int ProductAdd(string paramProductID, string paramProductClassID, string paramProductName, string paramProductSpec, string paramSupplierID, string paramPrice, string paramUnitID, string paramEmployeeName, string paramRemark)
+        {
+            string strSql = "INSERT INTO ProductList(ProductID,ProductClassID,ProductName,ProductSpec,SupplierID,Price,ProductUnitID,EmployeeName,Remark,CreateDate) Values ('" + paramProductID + "', '" + paramProductClassID + "','" + paramProductName + "','" + paramProductSpec + "','" + paramSupplierID + "','" + paramPrice + "','" + paramUnitID + "','" + paramEmployeeName + "','" + paramRemark + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "')";
+            int returnValue = 0;
+
+            returnValue = mysqlconn.ExeNonQuery(strSql);
+            return returnValue;
+        }
+    }
+}

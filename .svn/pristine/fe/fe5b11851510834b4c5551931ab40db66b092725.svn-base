@@ -1,0 +1,243 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+
+namespace DALayer
+{
+    /// <summary>
+    /// 根据产品单位条件，查出产品单位表相关字段内容
+    /// </summary>
+    public class DAProductManagerResult
+    {
+        Sqlconn MySqlConn = new Sqlconn();
+        public DataTable GetMyDt(string productUnitName)
+        {
+            DataTable myResult = new DataTable();
+            //string strSql = "SELECT ProductUnitID,ProductUnitName,Remark FROM ProductUnit WHERE ProductUnitName = '"+productUnitName+"' ";
+            string strSql = "SELECT ProductUnitID,ProductUnitName,Remark FROM ProductUnit WHERE 1 = 1";
+            if (productUnitName.Length > 0)
+            {
+                strSql +="AND ProductUnitName = '" + productUnitName + "' ";
+            }
+            //Sqlconn MySqlConn = new Sqlconn();
+            DataSet MyDs = new DataSet();
+            MyDs = MySqlConn.Query(strSql);
+            myResult = MyDs.Tables[0];
+            return myResult;
+
+        }
+
+        public DataTable GetMyClassDt(string productClassName)
+        {
+            DataTable myResult = new DataTable();
+            string strSql = "SELECT ProductClassID,ProductClassName,Remark FROM ProductClass WHERE 1 = 1";
+            if (productClassName.Length > 0)
+            {
+                strSql += "AND ProductClassName = '" + productClassName + "' ";
+            }
+            //Sqlconn MySqlConn = new Sqlconn();
+            DataSet MyDs = new DataSet();
+            MyDs = MySqlConn.Query(strSql);
+            myResult = MyDs.Tables[0];
+            return myResult;
+
+        }
+
+        public DataTable GetProductClassTable(string paramProductClassName,string paramProductClassCode)
+        {
+            DataTable MyTable = new DataTable();
+            DataSet MyDs = new DataSet();
+
+           // string strSql = "select ProductClassID,ProductClassName,CreateDate,EmployeeName,Remark from ProductClass where 1=1";
+
+           string strSql = "select ProductClassID,ProductClassName,Remark from ProductClass where 1=1";
+
+            if (paramProductClassName.Length == 0 && paramProductClassCode.Length == 0 )
+            {
+
+             //   strSql = "select ProductClassID,ProductClassName,CreateDate,EmployeeName,Remark from ProductClass";
+
+             strSql = "select ProductClassID,ProductClassName,Remark from ProductClass";
+
+            }
+            if (paramProductClassName.Length >0)
+            {
+                strSql += "and ProductClassName = '" + paramProductClassName + "'";
+            }
+            if (paramProductClassCode.Length >0)
+            {
+                strSql += "and ProductClassID = '" + paramProductClassCode + "'";
+            }
+
+            MyDs = MySqlConn.Query(strSql);
+            MyTable = MyDs.Tables[0];
+            return MyTable;
+        }
+
+
+        public DataTable GetProductListTable(string paramProductName, string paramProductID)
+        {
+            DataTable MyTable = new DataTable();
+            DataSet MyDs = new DataSet();
+            string strSql = "select distinct a.ProductID, a.ProductName,e.ProductUnitName,a.ProductSpec,c.ProductClassName,a.EmployeeName,a.CreateDate,a.Remark from ProductList a,ProductClass c,adminuser d,ProductUnit e where a.ProductClassID=c.ProductClassID and a.ProductClassID=c.ProductClassID and a.ProductUnitID=e.ProductUnitID and 1=1";
+            if (paramProductName.Length == 0 && paramProductID.Length == 0)
+            {
+                strSql = "select distinct a.ProductID, a.ProductName,e.ProductUnitName,a.ProductSpec,c.ProductClassName,a.EmployeeName,a.CreateDate,a.Remark from ProductList a,ProductClass c,adminuser d,ProductUnit e where a.ProductClassID=c.ProductClassID and a.ProductClassID=c.ProductClassID and a.ProductUnitID=e.ProductUnitID";
+            }
+            if (paramProductName.Length > 0)
+            {
+                strSql += "and ProductName = '" + paramProductName + "'";
+            }
+
+            if (paramProductID.Length > 0)
+            {
+                strSql += "and ProductID = '" + paramProductID + "'";
+            }
+
+            MyDs = MySqlConn.Query(strSql);
+            MyTable = MyDs.Tables[0];
+            return MyTable;
+        }
+
+        public bool CheckUnitName(string paramUnitName)
+        {
+            bool myResult = false;
+            int myValue = 0;
+            myValue = GetMyDt(paramUnitName).Rows.Count;
+           
+            if (myValue > 0)
+            {
+                myResult = true;
+                return myResult;
+
+            }
+
+            return myResult;
+        }
+        public bool CheckClassName(string paramClassName)
+        {
+            bool myResult = false;
+            int myValue = 0;
+            myValue = GetMyClassDt(paramClassName).Rows.Count;
+
+            if (myValue > 0)
+            {
+                myResult = true;
+                return myResult;
+
+            }
+
+            return myResult;
+        }
+
+        public bool CheckProductID(string paramProductName, string paramProductCode)
+        {
+            bool myResult = false;
+            int myValue = 0;
+            myValue = GetProductListTable(paramProductName, paramProductCode).Rows.Count;
+
+            if (myValue > 0)
+            {
+                myResult = true;
+                return myResult;
+            }
+            else
+            {
+                myResult = false;
+                return myResult;
+            }
+            
+        }
+
+
+
+        public bool DelData(string ProductUnitID)
+        {
+            int ReturnValue = 0;
+            string strSql = "delete  from ProductUnit where ProductUnitID = '" + ProductUnitID + "'";
+           //Sqlconn mySqlconn = new Sqlconn();
+
+            ReturnValue = MySqlConn.ExeNonQuery(strSql); ;
+
+            if (ReturnValue > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        public bool DelClassData(string ProductClassID)
+        {
+            int ReturnValue = 0;
+            string strSql = "delete  from ProductClass where ProductClassID = '" + ProductClassID + "'";
+            //Sqlconn mySqlconn = new Sqlconn();
+
+            ReturnValue = MySqlConn.ExeNonQuery(strSql); ;
+
+            if (ReturnValue > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        public bool DelProductData(string ProductID)
+        {
+            int ReturnValue = 0;
+            string strSql = "delete  from ProductList where ProductID = '" + ProductID + "'";
+            //Sqlconn mySqlconn = new Sqlconn();
+
+            ReturnValue = MySqlConn.ExeNonQuery(strSql); ;
+
+            if (ReturnValue > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+
+        public int UpdateUnitReturnRowCount(string paramUnitName,string paramRemark,string paramUnitCode)
+        {
+            int returnValue = 0;
+            string strSql = "update ProductUnit set ProductUnitName = '" + paramUnitName + "',Remark = '" + paramRemark + "' where ProductUnitID ='"+paramUnitCode+"' ";
+            returnValue =MySqlConn.ExeNonQuery(strSql);
+
+            return returnValue;
+        }
+
+        public int UpdateProductListReturnRowCount(string paramProductID, string paramProductClassID, string paramProductName, string paramProductSpec,  string paramUnitID, string paramEmployeeName, string paramRemark)
+        {
+            int returnValue = 0;
+            string strSql = "update ProductList set ProductName='"+paramProductName+"',ProductClassID='"+paramProductClassID+"',ProductSpec='"+paramProductSpec+"', ProductUnitID = '" + paramUnitID + "',Remark = '" + paramRemark + "',EmployeeName='"+paramEmployeeName+"',createDate='"+DateTime.Now.ToString("yyy-MM-dd")+"' where ProductID ='" + paramProductID + "' ";
+            returnValue = MySqlConn.ExeNonQuery(strSql);
+            return returnValue;
+        }
+
+
+        public int UpdateClassReturnRowCount(string paramClassName, string paramRemark, int paramClassCode,string paramEmployeeName)
+        {
+            int returnValue = 0;
+            string strSql = "update ProductClass set ProductClassName = '" + paramClassName + "',Remark = '" + paramRemark + "',CreateDate='" + DateTime.Now.ToString("yyyy-MM-dd") + "',EmployeeName='" + paramEmployeeName + "' where ProductClassID ='" + paramClassCode + "' ";
+            returnValue = MySqlConn.ExeNonQuery(strSql);
+
+            return returnValue;
+        }
+
+
+    }
+}

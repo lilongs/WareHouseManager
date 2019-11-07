@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using BULayer;
+
+namespace InventoryManagersystem.InventoryManager
+{
+    public partial class frmItem : Form
+    {
+        public frmItem()
+        {
+            InitializeComponent();
+        }
+        BUProductListAdd myBUPruduct = new BUProductListAdd();
+        public string paramProductID = string.Empty;//物料编码
+        public string paramProductName = string.Empty;//物料名称
+        private void gdCItem_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                paramProductID = this.gdvItem.GetFocusedRowCellValue("ProductID").ToString();
+                paramProductName = this.gdvItem.GetFocusedRowCellValue("ProductName").ToString();
+                this.DialogResult = DialogResult.Yes;
+              
+            }
+            catch
+            {
+                MessageBox.Show("请选择行数据信息进行选择操作！");
+                return;
+            }
+        }
+
+        private void btnSelect_Click(object sender, EventArgs e)
+        {
+            string paramItemID = this.txtItemID.Text.Trim();
+            DataTable myDt = new DataTable();
+            myDt = myBUPruduct.GetItemInfo(paramItemID);
+            this.gdCItem.DataSource = myDt;
+
+        }
+    }
+}

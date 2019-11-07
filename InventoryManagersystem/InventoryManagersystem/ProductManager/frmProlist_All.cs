@@ -1,0 +1,119 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using BULayer;
+
+namespace InventoryManagersystem.ProductManager
+{
+    public partial class frmProlist_All : Form
+    {
+        public frmProlist_All()
+        {
+            InitializeComponent();
+        }
+        public   string  ProductClassID=string .Empty ;
+        public   string ProductClassName = string.Empty;
+        BUProductClass myBuClassAdd = new BUProductClass();
+        private void treeView1_DoubleClick(object sender, EventArgs e)
+        {
+            
+         
+            ProductClassName = treeView1.SelectedNode.Text;
+            ProductClassID = treeView1.SelectedNode.Tag.ToString();
+            if (ProductClassID.Length > 0)
+            {
+                this.DialogResult = DialogResult.Yes;
+            }
+        }
+        #region   TreeView的数据绑定父\子、孙节点函数
+        /// <summary>
+        /// TreeView的数据绑定父节点函数
+        /// </summary>
+        /// <param name="treeview">TreeView控件ID名称</param>
+        /// <param name="text">树控件要显示的文本的字段名称</param>
+        public void Bind_TreeView(TreeView treeview)
+        {
+            DataTable mtDt = new DataTable();
+
+            mtDt = myBuClassAdd.GetClassList("");
+            treeview.Nodes.Clear();
+            for (int i = 0; i < mtDt.Rows.Count; i++)
+            {
+                TreeNode rootnode = new TreeNode();//创建根节点
+                rootnode.Text = mtDt.Rows[i]["product_class_name"].ToString();
+                rootnode.Tag = mtDt.Rows[i]["product_class_id"].ToString();
+                string paramParentID = mtDt.Rows[i]["product_class_id"].ToString();
+                treeview.Nodes.Add(rootnode);//在添加完节点的内容之后，当然要添加根节点，
+                CreateChildNodes(rootnode, paramParentID, rootnode.Text);//
+            }
+        }
+        /// <summary>
+        /// TreeView的数据绑定子节点函数
+        /// </summary>
+        /// <param name="treenode">上一级节点</param>
+        /// <param name="parentName">数据表中字段名</param>
+        /// <param name="text">树控件要显示的文本的字段名称</param>
+        /// <param name="index">查询语句关键字</param>
+        public void CreateChildNodes(TreeNode treenode, string paramParentID, string text)
+        {
+
+
+            //DataTable myCNode = myBUSysInfo.GetSysModuleInfo(parentSysID);
+            DataTable myCNode = myBuClassAdd.GetClassList(paramParentID);
+            //myBULogin.GetChildModuleList(paramRole, parentSysID);
+
+            for (int i = 0; i < myCNode.Rows.Count; i++)
+            {
+                TreeNode childnode = new TreeNode();
+                childnode.Text = myCNode.Rows[i]["product_class_name"].ToString();
+                childnode.Tag = myCNode.Rows[i]["product_class_id"].ToString();
+                treenode.Nodes.Add(childnode);
+
+            }
+        }
+
+        #endregion
+        private void frmProlist_All_Load(object sender, EventArgs e)
+        {
+            //加载主节点
+            Bind_TreeView(treeView1);
+            treeView1.ExpandAll();
+        }
+
+        /// <summary>
+        /// 设置TreeView选中节点
+        /// </summary>
+        /// <param name="treeView"></param>
+        /// <param name="selectStr">选中节点文本</param>
+        private void SelectTreeView(TreeView treeView, string selectStr)
+        {
+            treeView.Focus();
+            for (int i = 0; i < treeView.Nodes.Count; i++)
+            {
+                for (int j = 0; j < treeView.Nodes[i].Nodes.Count; j++)
+                {
+                    //if (treeView.Nodes[i].Nodes[j].Text == selectStr)
+                     bool a=treeView.Nodes[i].Nodes[j].Text.Contains(selectStr);
+                     if(a)
+                    {
+                        treeView1.SelectedNode = treeView.Nodes[i].Nodes[j];//选中
+                        //treeView.Nodes[i].Nodes[j].Checked = true;
+                        treeView.Nodes[i].Expand();//展开父级
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void btnSelect_Click(object sender, EventArgs e)
+        {
+            string paramNodeName = this.txtName.Text.Trim();
+            SelectTreeView(treeView1, paramNodeName);
+        }
+    }
+}

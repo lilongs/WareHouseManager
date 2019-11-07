@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+namespace DALayer
+{
+    public class DAInsertHouse    {
+
+        Sqlconn mySqlconn = new Sqlconn();
+        /// <summary>
+        /// 增加库房信息
+        /// </summary>
+        /// <param name="paramInventID"></param>
+        /// <param name="paramRemark"></param>
+        /// <param name="paramAddress"></param>
+        /// <returns></returns>
+        public int InsertHouse(string paramStoreHouse_ID, string paramRemark, string paramAddress)
+        {
+            string Sql = string.Empty;
+            string str = string.Empty;
+            str = "select * from  StoreHouse where StoreHouse_ID='"+paramStoreHouse_ID+"'";
+            DataSet myDs = new DataSet();
+            myDs=mySqlconn.Query(str);
+            if(myDs.Tables[0].Rows.Count>0)
+            {
+                return -1;      //返回-1，StoreHouse表中已存在该StoreHouse_ID
+            }
+            else
+            {
+                Sql = "insert into StoreHouse (StoreHouse_ID,Remark,Address,CreateDate)values('" + paramStoreHouse_ID + "','" + paramRemark + "','" + paramAddress + "', '" + DateTime.Now.ToString("yyyy-MM-dd") + "')";
+                int i = mySqlconn.ExecuteNonQuery(Sql);
+                return i;
+            }
+        }
+    }
+}

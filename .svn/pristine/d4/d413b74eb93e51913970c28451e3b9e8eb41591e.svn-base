@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace DALayer
+{
+    public class DADeleteSupplier
+    {
+        Sqlconn mySqlconn = new Sqlconn();
+
+        public int DeleteSupplier(string SupplierID)
+        {
+            string Sql = string.Empty;
+            int i;
+            Sql = "delete from Supplier where SupplierID='" + SupplierID + "'";
+            i = mySqlconn.ExecuteNonQuery(Sql);
+            return i;
+        }
+    }
+}

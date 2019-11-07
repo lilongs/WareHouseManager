@@ -1,0 +1,14 @@
+E:\【2013三颐工作】\SVN源码\进销存\InventoryManagersystem\Model\bin\Debug\Model.dll
+E:\【2013三颐工作】\SVN源码\进销存\InventoryManagersystem\Model\bin\Debug\Model.pdb
+E:\【2013三颐工作】\SVN源码\进销存\InventoryManagersystem\Model\obj\Debug\Model.dll
+E:\【2013三颐工作】\SVN源码\进销存\InventoryManagersystem\Model\obj\Debug\Model.pdb
+D:\项目文件\进销存\InventoryManagersystem\Model\bin\Debug\Model.dll
+D:\项目文件\进销存\InventoryManagersystem\Model\bin\Debug\Model.pdb
+D:\项目文件\进销存\InventoryManagersystem\Model\obj\Debug\Model.dll
+D:\项目文件\进销存\InventoryManagersystem\Model\obj\Debug\Model.pdb
+E:\Demo\C#\进销存\InventoryManagersystem\Model\bin\Debug\Model.dll
+E:\Demo\C#\进销存\InventoryManagersystem\Model\bin\Debug\Model.pdb
+E:\Demo\C#\进销存\InventoryManagersystem\Model\obj\Debug\Model.csprojAssemblyReference.cache
+E:\Demo\C#\进销存\InventoryManagersystem\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
+E:\Demo\C#\进销存\InventoryManagersystem\Model\obj\Debug\Model.dll
+E:\Demo\C#\进销存\InventoryManagersystem\Model\obj\Debug\Model.pdb

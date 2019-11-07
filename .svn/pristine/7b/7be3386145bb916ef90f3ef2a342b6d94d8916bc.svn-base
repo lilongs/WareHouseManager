@@ -1,0 +1,281 @@
+﻿namespace InventoryManagersystem.InventoryManager
+{
+    partial class frmInventInfo
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.combStoreHouse_ID = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.lblProductName = new System.Windows.Forms.Label();
+            this.txtProduct_ID = new System.Windows.Forms.TextBox();
+            this.txtProductName = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dvgData = new System.Windows.Forms.DataGridView();
+            this.BatchNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FirstEnterDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StoreHouse_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Product_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Product_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SupplierID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Supplier_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductSpec = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnSelect = new System.Windows.Forms.Button();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dvgData)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.combStoreHouse_ID);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.btnSearch);
+            this.groupBox2.Controls.Add(this.lblProductName);
+            this.groupBox2.Controls.Add(this.txtProduct_ID);
+            this.groupBox2.Controls.Add(this.txtProductName);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(720, 55);
+            this.groupBox2.TabIndex = 9;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "查询";
+            // 
+            // combStoreHouse_ID
+            // 
+            this.combStoreHouse_ID.FormattingEnabled = true;
+            this.combStoreHouse_ID.Location = new System.Drawing.Point(74, 22);
+            this.combStoreHouse_ID.Name = "combStoreHouse_ID";
+            this.combStoreHouse_ID.Size = new System.Drawing.Size(113, 20);
+            this.combStoreHouse_ID.TabIndex = 4;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(15, 25);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "库房编码";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(214, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "物料编码";
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(594, 20);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.TabIndex = 2;
+            this.btnSearch.Text = "查询";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // lblProductName
+            // 
+            this.lblProductName.AutoSize = true;
+            this.lblProductName.Location = new System.Drawing.Point(410, 25);
+            this.lblProductName.Name = "lblProductName";
+            this.lblProductName.Size = new System.Drawing.Size(53, 12);
+            this.lblProductName.TabIndex = 0;
+            this.lblProductName.Text = "物料名称";
+            // 
+            // txtProduct_ID
+            // 
+            this.txtProduct_ID.Location = new System.Drawing.Point(273, 22);
+            this.txtProduct_ID.Name = "txtProduct_ID";
+            this.txtProduct_ID.Size = new System.Drawing.Size(113, 21);
+            this.txtProduct_ID.TabIndex = 1;
+            // 
+            // txtProductName
+            // 
+            this.txtProductName.Location = new System.Drawing.Point(470, 22);
+            this.txtProductName.Name = "txtProductName";
+            this.txtProductName.Size = new System.Drawing.Size(118, 21);
+            this.txtProductName.TabIndex = 1;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.dvgData);
+            this.groupBox1.Location = new System.Drawing.Point(0, 61);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(720, 257);
+            this.groupBox1.TabIndex = 10;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "物料基本信息";
+            // 
+            // dvgData
+            // 
+            this.dvgData.AllowUserToAddRows = false;
+            this.dvgData.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dvgData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dvgData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.BatchNumber,
+            this.FirstEnterDate,
+            this.StoreHouse_ID,
+            this.Product_ID,
+            this.Product_Name,
+            this.Quantity,
+            this.SupplierID,
+            this.Supplier_Name,
+            this.Price,
+            this.ProductSpec});
+            this.dvgData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dvgData.Location = new System.Drawing.Point(3, 17);
+            this.dvgData.Name = "dvgData";
+            this.dvgData.RowTemplate.Height = 23;
+            this.dvgData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dvgData.Size = new System.Drawing.Size(714, 237);
+            this.dvgData.TabIndex = 3;
+            // 
+            // BatchNumber
+            // 
+            this.BatchNumber.DataPropertyName = "BatchNumber";
+            this.BatchNumber.HeaderText = "批号";
+            this.BatchNumber.Name = "BatchNumber";
+            // 
+            // FirstEnterDate
+            // 
+            this.FirstEnterDate.DataPropertyName = "FirstEnterDate";
+            this.FirstEnterDate.HeaderText = "入库时间";
+            this.FirstEnterDate.Name = "FirstEnterDate";
+            // 
+            // StoreHouse_ID
+            // 
+            this.StoreHouse_ID.DataPropertyName = "StoreHouse_ID";
+            this.StoreHouse_ID.HeaderText = "库房编码";
+            this.StoreHouse_ID.Name = "StoreHouse_ID";
+            // 
+            // Product_ID
+            // 
+            this.Product_ID.DataPropertyName = "Product_ID";
+            this.Product_ID.HeaderText = "产品编码";
+            this.Product_ID.Name = "Product_ID";
+            // 
+            // Product_Name
+            // 
+            this.Product_Name.DataPropertyName = "ProductName";
+            this.Product_Name.HeaderText = "产品名称";
+            this.Product_Name.Name = "Product_Name";
+            // 
+            // Quantity
+            // 
+            this.Quantity.DataPropertyName = "Quantity";
+            this.Quantity.HeaderText = "库存数量";
+            this.Quantity.Name = "Quantity";
+            // 
+            // SupplierID
+            // 
+            this.SupplierID.DataPropertyName = "SupplierID";
+            this.SupplierID.HeaderText = "供应商编码";
+            this.SupplierID.Name = "SupplierID";
+            // 
+            // Supplier_Name
+            // 
+            this.Supplier_Name.DataPropertyName = "Name";
+            this.Supplier_Name.HeaderText = "供应商名称";
+            this.Supplier_Name.Name = "Supplier_Name";
+            // 
+            // Price
+            // 
+            this.Price.DataPropertyName = "Price";
+            this.Price.HeaderText = "入库价格";
+            this.Price.Name = "Price";
+            // 
+            // ProductSpec
+            // 
+            this.ProductSpec.DataPropertyName = "ProductSpec";
+            this.ProductSpec.HeaderText = "产品规格";
+            this.ProductSpec.Name = "ProductSpec";
+            // 
+            // btnSelect
+            // 
+            this.btnSelect.Location = new System.Drawing.Point(273, 328);
+            this.btnSelect.Name = "btnSelect";
+            this.btnSelect.Size = new System.Drawing.Size(116, 32);
+            this.btnSelect.TabIndex = 5;
+            this.btnSelect.Text = "-选择出货";
+            this.btnSelect.UseVisualStyleBackColor = true;
+            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
+            // 
+            // frmInventInfo
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(720, 383);
+            this.Controls.Add(this.btnSelect);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox2);
+            this.Name = "frmInventInfo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "出货选择";
+            this.Load += new System.EventHandler(this.frmInventInfo_Load);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dvgData)).EndInit();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.ComboBox combStoreHouse_ID;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Label lblProductName;
+        private System.Windows.Forms.TextBox txtProduct_ID;
+        private System.Windows.Forms.TextBox txtProductName;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.DataGridView dvgData;
+        private System.Windows.Forms.Button btnSelect;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BatchNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FirstEnterDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StoreHouse_ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Product_ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Product_Name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SupplierID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Supplier_Name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProductSpec;
+    }
+}

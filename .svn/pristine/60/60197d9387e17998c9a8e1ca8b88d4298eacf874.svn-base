@@ -1,0 +1,44 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DALayer;
+using System.Data.Sql;
+using System.Data;
+
+
+namespace BULayer
+{
+    public class BUClassAdd
+    {
+        DAClassAdd myDAClassAdd = new DAClassAdd();
+        DAProductManagerResult MyPMR = new DAProductManagerResult();
+        public bool CheckClassAdd(string paramClassName, string paramRemark, string paramEmployeeName)
+        {
+            bool returnValue = false;
+            int excuteRows = myDAClassAdd.ClassAdd(paramClassName, paramRemark,paramEmployeeName);
+
+            if (excuteRows > 0)
+            {
+                returnValue = true;
+                return returnValue;
+            }
+
+            return returnValue;
+        }
+
+        public bool CheckClassValue(string paramClassName)
+        {
+            bool returnValue = false;
+
+            if (MyPMR.CheckClassName(paramClassName))
+            {
+                returnValue = true;
+                return returnValue;
+            }
+
+            return returnValue;
+        }
+
+    }
+}

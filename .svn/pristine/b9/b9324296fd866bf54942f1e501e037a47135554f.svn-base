@@ -1,0 +1,80 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using BULayer;
+
+namespace InventoryManagersystem.ProductManager
+{
+    public partial class frmProductSupplierInfoAdd : Form
+    {
+        BUInsertProSupInfo myBUInsertProSupInfo = new BUInsertProSupInfo();
+        BUGetProduct_SupID myBUGetProductID = new BUGetProduct_SupID();
+
+        public frmProductSupplierInfoAdd()
+        {
+            InitializeComponent();
+        }
+        public frmProductSupplierInfoAdd(string paramProductID,string paramSupplierID,string paramPrice,string paramRemark)
+        {
+            InitializeComponent();
+            this.combProductID.Text = paramSupplierID;
+            this.combProductID.Enabled = false;
+            this.combSupplierID.Text = paramSupplierID;
+            this.combSupplierID.Enabled = false;
+            this.txtPrice.Text = paramPrice;
+            this.txtRemark.Text = paramRemark;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        public void SetCombProductID()
+        {
+            DataTable myDt = new DataTable();
+            myDt = myBUGetProductID.GetProductID();
+            combProductID.DataSource = myDt;
+            combProductID.DisplayMember = "ProductID";
+            combProductID.ValueMember = "ProductName";
+        }
+        public void SetCombSupplierID()
+        {
+            DataTable myDt = new DataTable();
+            myDt = myBUGetProductID.GetSupplierID();
+            combSupplierID.DataSource = myDt;
+            combSupplierID.DisplayMember = "SupplierID";
+            combSupplierID.ValueMember = "";
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string paramProductID = combProductID.Text;
+            string paramSupplierID = combSupplierID.Text;
+            string paramPrice = txtPrice.Text.Trim();
+            string paramRemark = txtRemark.Text.Trim();
+
+            int i=myBUInsertProSupInfo.InsertSupplier(paramProductID, paramSupplierID, paramPrice, paramRemark);
+            if (i > 0)
+            {
+                MessageBox.Show("添加成功");
+                this.DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                MessageBox.Show("添加失败");
+            }
+        }
+
+        private void frmProductSupplierInfoAdd_Load(object sender, EventArgs e)
+        {
+            SetCombProductID();
+            SetCombSupplierID();
+        }
+    }
+}

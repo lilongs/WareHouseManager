@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace DALayer
+{
+    public class DAUpdateCustomer
+    {
+        Sqlconn mySqlconn = new Sqlconn();
+        /// <summary>
+        /// 供应商信息更新
+        /// </summary>
+        /// <param name="CustomerID"></param>
+        /// <param name="Name"></param>
+        /// <param name="Address"></param>
+        /// <param name="Phone"></param>
+        /// <param name="Fax"></param>
+        /// <param name="PostalCode"></param>
+        /// <param name="ConstactPerson"></param>
+        /// <returns></returns>
+        public int UpdateCustomer(string CustomerID, string Name, string Address, string Phone, string Fax,
+                                    string PostalCode, string ConstactPerson)
+        {
+            string Sql = string.Empty;
+            Sql = "update Customer set Name='" + Name + "',Address='" + Address + "',Phone='" + Phone + "',Fax='" + Fax + "',PostalCode='" + PostalCode + "',ConstactPerson='" + ConstactPerson + "',CreateDate='" + DateTime.Now.ToString("yyyy-MM-dd") + "' where Customer_ID='" + CustomerID + "'";
+            int i = mySqlconn.ExecuteNonQuery(Sql);
+            return i;
+        }
+    }
+}

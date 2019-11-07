@@ -1,0 +1,66 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using BULayer;
+
+namespace InventoryManagersystem.ProductManager
+{
+    public partial class frmClassAdd : Form
+    {
+        public frmClassAdd()
+        {
+            InitializeComponent();
+        }
+
+        private void btnAddProductClass_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                BUClassAdd myBUUnitadd = new BUClassAdd();
+
+                string paramRemark = this.txtBoxRemark.Text.ToString();
+                string paramClassName = this.txtBoxProductClassName.Text.ToString();
+                string paramEmployeeName = this.Tag.ToString();
+                bool isValue = myBUUnitadd.CheckClassValue(paramClassName);
+               
+                if (paramClassName == string.Empty || paramClassName.Trim() == "")
+                {
+                    MessageBox.Show("请输入正确类别单位！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!isValue)
+                {
+
+                    bool returnValue = myBUUnitadd.CheckClassAdd(paramClassName, paramRemark,paramEmployeeName);
+
+                    if (returnValue)
+                    {
+                        MessageBox.Show("恭喜您，数据添加成功！", "恭喜", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.DialogResult = DialogResult.OK;                        
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("类别单位重复！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch
+            {
+
+                MessageBox.Show("添加失败");
+                this.DialogResult = DialogResult.No;
+            }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
+}

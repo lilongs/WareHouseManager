@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+
+namespace DALayer
+{
+    public class DAReport_SalesInfo
+    {
+         Sqlconn mySqlconn = new Sqlconn();
+         public DataSet GetSalesInfo(string paramTime1,string paramTime2 )
+         {
+             string str = "select distinct a.BatchNumber ,c.Product_ID,d.ProductName,a.Sales_Price,a.Sales_Quantity,a.TotalPrice,a.CustomerID,e.Name,a.Remark from Sales_info a,Customer b,StockPile c,ProductList d,Customer e where (c.BatchNumber=a.BatchNumber and d.ProductID=c.Product_ID) and (a.CustomerID=e.Customer_ID) and  a.LastLeaveDate>='"+paramTime1+"' and a.LastLeaveDate<='"+paramTime2+"' ";
+             DataSet ds = new DataSet();
+             ds = mySqlconn.Query(str);
+             return ds;
+         }
+    }
+}

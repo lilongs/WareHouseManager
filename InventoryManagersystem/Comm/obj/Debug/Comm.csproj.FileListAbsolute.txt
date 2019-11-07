@@ -1,0 +1,14 @@
+E:\【2013三颐工作】\SVN源码\进销存\InventoryManagersystem\Comm\bin\Debug\Comm.dll
+E:\【2013三颐工作】\SVN源码\进销存\InventoryManagersystem\Comm\bin\Debug\Comm.pdb
+E:\【2013三颐工作】\SVN源码\进销存\InventoryManagersystem\Comm\obj\Debug\Comm.dll
+E:\【2013三颐工作】\SVN源码\进销存\InventoryManagersystem\Comm\obj\Debug\Comm.pdb
+D:\项目文件\进销存\InventoryManagersystem\Comm\bin\Debug\Comm.dll
+D:\项目文件\进销存\InventoryManagersystem\Comm\bin\Debug\Comm.pdb
+D:\项目文件\进销存\InventoryManagersystem\Comm\obj\Debug\Comm.dll
+D:\项目文件\进销存\InventoryManagersystem\Comm\obj\Debug\Comm.pdb
+E:\Demo\C#\进销存\InventoryManagersystem\Comm\bin\Debug\Comm.dll
+E:\Demo\C#\进销存\InventoryManagersystem\Comm\bin\Debug\Comm.pdb
+E:\Demo\C#\进销存\InventoryManagersystem\Comm\obj\Debug\Comm.csprojAssemblyReference.cache
+E:\Demo\C#\进销存\InventoryManagersystem\Comm\obj\Debug\Comm.csproj.CoreCompileInputs.cache
+E:\Demo\C#\进销存\InventoryManagersystem\Comm\obj\Debug\Comm.dll
+E:\Demo\C#\进销存\InventoryManagersystem\Comm\obj\Debug\Comm.pdb

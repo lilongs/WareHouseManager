@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DALayer;
+using System.Data;
+
+namespace BULayer
+{
+    public class BUStockPileInfo
+    {
+        DAStockPileInfo dal = new DAStockPileInfo();
+        public DataSet GetAllStockPileList()
+        {
+            return dal.GetAllStockPileList();
+
+        }
+
+        public DataSet GetAllStockPileList(string paramStoreHouseID, string paramProductID, string paramProductName)
+        {
+            return dal.GetAllStockPileList(paramStoreHouseID, paramProductID,paramProductName);
+        }
+
+        public DataSet GetStockPileHouseList(string paramStoreHouseID, string paramTime_1, string paramTime_2)
+        {
+            return dal.GetStockPileHouseList(paramStoreHouseID, paramTime_1, paramTime_2);
+        } 
+    }
+}

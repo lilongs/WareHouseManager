@@ -1,0 +1,32 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+namespace DALayer
+{
+    public class DAInventInfo
+    {
+        Sqlconn mySqlconn = new Sqlconn();
+
+        /// <summary>
+        /// 获取所有信息
+        /// </summary>
+        /// <param name="paramInventID"></param>
+        /// <returns></returns>
+        public DataSet GetAllInventList(string paramInventID)
+        {
+            string Sql = string.Empty;
+            Sql = "select * from StoreHouse where  1=1";
+            if (paramInventID.Length > 0)
+            {
+                Sql += " and  StoreHouse_ID='" + paramInventID + "'";
+            }
+            DataSet myDs = new DataSet();
+            myDs = mySqlconn.Query(Sql);
+            return myDs;
+        }
+
+    }
+}

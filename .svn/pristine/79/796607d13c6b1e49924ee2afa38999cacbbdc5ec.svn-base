@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+namespace DALayer
+{
+    public class DAProductSupplierInfo
+    {
+        Sqlconn mySqlconn = new Sqlconn();
+        public DataSet GetAll_ProSupInfo(string paramProductID, string paramSupplierID)
+        {
+            string str = @" select  Pro_SupInfo.productid,ProductList.productname,Supplier.supplierid,Supplier.name,proprice,Pro_SupInfo.Remark 
+                              from  Product_SupplierInfo as Pro_SupInfo
+                              left join  Supplier  on  Pro_SupInfo.SupplierID=Supplier.SupplierID
+                              left join  ProductList  on  Pro_SupInfo.ProductID=ProductList.ProductID
+                              Where 1=1";
+            if (paramProductID.Length > 0)
+            {
+                str += " and Pro_SupInfo.productid like'%" + paramProductID + "%' ";
+            }
+            if (paramSupplierID.Length > 0)
+            {
+                str += " and ProductList.productname like '%" + paramSupplierID + "%'";
+            }
+            return mySqlconn.Query(str);
+        }
+
+        public DataSet GetAll_ProductInfo(string paramProductName, string paramSupplierName)
+        {
+            string str = "select distinct a.productid,c.productname,a.supplierid,b.name,proprice,a.Remark from Product_SupplierInfo a,Supplier b,ProductList c where a.ProductID=c.ProductID and a.SupplierID=b.SupplierID";
+            if (paramProductName.Length > 0)
+            {
+                str += " and b.productName='" + paramProductName + "'";
+            }
+            if (paramSupplierName.Length > 0)
+            {
+                str += " and c.Name='" + paramSupplierName + "'";
+            }
+            return mySqlconn.Query(str);
+        }
+
+    }
+}

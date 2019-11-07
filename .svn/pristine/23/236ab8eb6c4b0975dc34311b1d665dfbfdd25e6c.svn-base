@@ -1,0 +1,163 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+namespace DALayer
+{
+    public class DAStockPileInfo
+    {
+        Sqlconn mySqlconn = new Sqlconn();
+
+        //public DataSet
+
+        public DataSet GetAllStockPileList()
+        {
+            string Sql = string.Empty;
+            Sql = "select distinct a.BatchNumber,a.FirstEnterDate,a.StoreHouse_ID,a.Product_ID,b.ProductName,a.Quantity,a.SupplierID,c.Name,a.Price,b.ProductSpec from StockPile a,ProductList b,Supplier c ,Product_SupplierInfo d where (d.ProductID=a.Product_ID and b.ProductID=a.Product_ID) and (a.SupplierID=d.SupplierID and c.SupplierID=a.SupplierID) and a.Quantity>'0' order by FirstEnterDate ";
+            
+            DataSet myDs = new DataSet();
+            myDs = mySqlconn.Query(Sql);
+            return myDs;
+        }
+
+        public DataSet GetRecentStockPileList(int Times)
+        {
+            string Sql = string.Empty;
+            Sql = "select Top "+Times+" a.BatchNumber,a.FirstEnterDate,a.StoreHouse_ID,a.Product_ID,b.ProductName,a.Quantity,a.SupplierID,c.Name,a.Price,a.TotalPrice,b.ProductSpec from StockPile a,ProductList b,Supplier c ,Product_SupplierInfo d where (d.ProductID=a.Product_ID and b.ProductID=a.Product_ID) and (a.SupplierID=d.SupplierID and c.SupplierID=a.SupplierID) and a.Quantity>'0' order by FirstEnterDate ";
+
+            DataSet myDs = new DataSet();
+            myDs = mySqlconn.Query(Sql);
+            return myDs;
+        }
+        public DataSet GetStockPile_TotalList(string paramStoreHouseID, string paramProductID, string paramProductName)
+        {
+            string Sql = string.Empty;
+            Sql = "select StoreHouse_ID,Product_ID,ProductName,Price,Quantity from StockPile_Total where StoreHouse_ID='"+paramStoreHouseID+"' and Quantity>'0' ";
+            if(paramProductID.Length>0)
+            {
+                Sql +=" and   Product_ID='"+paramProductID+"' ";
+            }
+            if(paramProductName.Length>0)
+            {
+                Sql +=" and ProductName like'%"+paramProductName+"%' ";
+            }
+
+            DataSet myDs = new DataSet();
+            myDs = mySqlconn.Query(Sql);
+            return myDs;
+        }
+        public DataSet GetAllStockPileList(string paramStoreHouseID, string paramProductID, string paramProductName)
+        {
+            string Sql = string.Empty;
+            Sql = "select distinct a.BatchNumber ,a.FirstEnterDate ,a.StoreHouse_ID ,a.Product_ID ,b.ProductName ,a.Quantity ,a.SupplierID ,c.Name ,a.Price ,b.ProductSpec  from StockPile a,ProductList b,Supplier c ,Product_SupplierInfo d where (d.ProductID=a.Product_ID and b.ProductID=a.Product_ID) and (a.SupplierID=d.SupplierID and c.SupplierID=a.SupplierID) and a.Quantity>'0' ";
+
+            if(paramStoreHouseID.Length>0)
+            {
+                Sql += " and StoreHouse_ID='"+paramStoreHouseID+"'";
+            }
+            if (paramProductID.Length > 0)
+            {
+                Sql += " and ProductID='" + paramProductID + "'";
+            }
+            if (paramProductName.Length > 0)
+            {
+                Sql += " and ProductName='" + paramProductName + "'";
+            }
+
+            DataSet myDs = new DataSet();
+            myDs = mySqlconn.Query(Sql);
+            return myDs;
+        }
+
+        public DataSet GetStockPileHouseList(string paramStoreHouseID, string paramTime_1, string paramTime_2, string paramSupplierID)
+        {
+            if (paramStoreHouseID.Length == 0)
+            {
+                if (paramSupplierID.Length == 0)
+                {
+                    string Sql = string.Empty;
+                    Sql = "select distinct a.StoreHouse_ID ,a.BatchNumber ,a.FirstEnterDate ,a.Product_ID ,b.ProductName ,a.Quantity,a.Price,a.TotalPrice ,a.SupplierID ,c.Name ,b.ProductSpec  from StockPile a,ProductList b,Supplier c ,Product_SupplierInfo d where (d.ProductID=a.Product_ID and b.ProductID=a.Product_ID) and (a.SupplierID=d.SupplierID and c.SupplierID=a.SupplierID) and (FirstEnterDate>='" + paramTime_1 + "' and FirstEnterDate<='" + paramTime_2 + "') and a.Quantity>'0' ";
+
+                    DataSet myDs = new DataSet();
+                    myDs = mySqlconn.Query(Sql);
+                    return myDs;
+                }
+                else
+                {
+                    string Sql = string.Empty;
+                    Sql = "select distinct a.StoreHouse_ID ,a.BatchNumber ,a.FirstEnterDate ,a.Product_ID ,b.ProductName ,a.Quantity,a.Price,a.TotalPrice ,a.SupplierID ,c.Name ,b.ProductSpec  from StockPile a,ProductList b,Supplier c ,Product_SupplierInfo d where (d.ProductID=a.Product_ID and b.ProductID=a.Product_ID) and (a.SupplierID=d.SupplierID and c.SupplierID=a.SupplierID) and a.SupplierID='" + paramSupplierID + "'and (FirstEnterDate>='" + paramTime_1 + "' and FirstEnterDate<='" + paramTime_2 + "') and a.Quantity>'0' ";
+
+                    DataSet myDs = new DataSet();
+                    myDs = mySqlconn.Query(Sql);
+                    return myDs;
+
+                }
+            }
+            else if (paramSupplierID.Length == 0)
+            {
+                if (paramStoreHouseID.Length == 0)
+                {
+                    string Sql = string.Empty;
+                    Sql = "select distinct a.StoreHouse_ID ,a.BatchNumber ,a.FirstEnterDate ,a.Product_ID ,b.ProductName ,a.Quantity, a.Price,a.TotalPrice,a.SupplierID ,c.Name ,b.ProductSpec  from StockPile a,ProductList b,Supplier c ,Product_SupplierInfo d where (d.ProductID=a.Product_ID and b.ProductID=a.Product_ID) and (a.SupplierID=d.SupplierID and c.SupplierID=a.SupplierID) and (FirstEnterDate>='" + paramTime_1 + "' and FirstEnterDate<='" + paramTime_2 + "') and a.Quantity>'0' ";
+
+                    DataSet myDs = new DataSet();
+                    myDs = mySqlconn.Query(Sql);
+                    return myDs;
+                }
+                else
+                {
+                    string Sql = string.Empty;
+                    Sql = "select distinct a.StoreHouse_ID ,a.BatchNumber ,a.FirstEnterDate ,a.Product_ID ,b.ProductName ,a.Quantity, a.Price,a.TotalPrice,a.SupplierID ,c.Name ,b.ProductSpec  from StockPile a,ProductList b,Supplier c ,Product_SupplierInfo d where (d.ProductID=a.Product_ID and b.ProductID=a.Product_ID) and (a.SupplierID=d.SupplierID and c.SupplierID=a.SupplierID) and a.StoreHouse_ID='" + paramStoreHouseID + "'and (FirstEnterDate>='" + paramTime_1 + "' and FirstEnterDate<='" + paramTime_2 + "') and a.Quantity>'0' ";
+
+                    DataSet myDs = new DataSet();
+                    myDs = mySqlconn.Query(Sql);
+                    return myDs;
+
+                }
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+        //出库更新stockpile_Total中的quantity数量
+        public int UpdateStockpile_Total(string paramStoreHouse_ID, string paramProductID, string paramProductName, string paramQuantity, string paramTotalPrice)
+        {
+            //string str = "select Quantity,TotalPrice from stockpile_total where StoreHouse_ID='"+paramStoreHouse_ID+"' and Product_ID='"+paramProductID+"' and ProductName='"+paramProductName+"'";
+            //DataSet ds = new DataSet();
+            //ds = mySqlconn.Query(str);
+
+            //if (ds.Tables[0].Rows.Count > 0)
+            //{
+                string price = (double.Parse(paramTotalPrice) / int.Parse(paramQuantity)).ToString();
+                string sql = "update stockpile_total set Quantity='" + paramQuantity + "',TotalPrice='" + paramTotalPrice + "',Price='"+price+"' where StoreHouse_ID='" + paramStoreHouse_ID + "' and Product_ID='" + paramProductID + "' and ProductName='" + paramProductName + "'";
+                int i = mySqlconn.ExeNonQuery(sql);
+                return i;
+            //}
+            //else
+            //{
+            //    string price=(double.Parse(paramTotalPrice)/int.Parse(paramQuantity)).ToString();
+            //    string sql = "insert into Stockpile_total (StoreHouse_ID,Product_ID,ProductName,Quantity,Price,TotalPrice) values('"+paramStoreHouse_ID+"','"+paramProductID+"','"+paramProductName+"','"+paramQuantity+"','"+price+"','"+paramTotalPrice+"')";
+            //    int i = mySqlconn.ExecuteNonQuery(sql);
+            //    return i;
+            //}
+        }
+        //出库新增记录
+        public int InsertSales_Info(string Product_ID, string ProductName, string paramSales_Price, string paramSales_Quantity, string paramCustomer, string LastLeaveDate)
+        {
+            string sql = "select Customer_ID from Customer where Name='"+paramCustomer+"'";
+            DataSet ds = new DataSet();
+            ds = mySqlconn.Query(sql);
+            string paramCustomer_ID = ds.Tables[0].Rows[0]["Customer_ID"].ToString();
+
+            double Total = double.Parse(paramSales_Price) * int.Parse(paramSales_Quantity);
+            string str = "insert into Sales_Info (Product_ID,ProductName,Sales_Price,Sales_Quantity,TotalPrice,CustomerID,LastLeaveDate) values('" + Product_ID + "','" + ProductName + "','" + paramSales_Price + "','" + paramSales_Quantity + "','" + Total.ToString() + "','" + paramCustomer_ID + "','" + LastLeaveDate + "')";
+            int i = mySqlconn.ExeNonQuery(str);
+            return i;
+        }
+
+    }
+}

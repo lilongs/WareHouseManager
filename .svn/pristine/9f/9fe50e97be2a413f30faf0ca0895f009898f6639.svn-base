@@ -1,0 +1,94 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Model
+{
+    public  class Mo_Customer
+    {
+        #region Model
+        private string _customer_id;
+        private string _name;
+        private string _address;
+        private string _phone;
+        private string _fax;
+        private string _postalcode;
+        private string _constactperson;
+        private string _createdate;
+        private string _remark;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Customer_ID
+        {
+            set { _customer_id = value; }
+            get { return _customer_id; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Name
+        {
+            set { _name = value; }
+            get { return _name; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Address
+        {
+            set { _address = value; }
+            get { return _address; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Phone
+        {
+            set { _phone = value; }
+            get { return _phone; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Fax
+        {
+            set { _fax = value; }
+            get { return _fax; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string PostalCode
+        {
+            set { _postalcode = value; }
+            get { return _postalcode; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string ConstactPerson
+        {
+            set { _constactperson = value; }
+            get { return _constactperson; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string CreateDate
+        {
+            set { _createdate = value; }
+            get { return _createdate; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Remark
+        {
+            set { _remark = value; }
+            get { return _remark; }
+        }
+        #endregion Model
+    }
+}

@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+namespace DALayer
+{
+    public class DAClassAdd
+    {
+        Sqlconn mysqlconn = new Sqlconn();
+        public int ClassAdd(string paramClassName, string paramRemark, string paramEmployeeName, string paramParentID)
+        {
+            string strSql = "INSERT INTO ProductClass(ProductClassName,Remark,EmployeeName,CreateDate,ParentID) Values ('" + paramClassName + "','" + paramRemark + "','" + paramEmployeeName + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "','" + paramParentID + "')";
+            int returnValue = 0;
+            returnValue = mysqlconn.ExeNonQuery(strSql);
+            return returnValue;
+        }
+
+        /// <summary>
+        /// 获取到类比的主类别
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetClassList(string ParentID)
+        {
+            DataTable myDt = new DataTable();
+            string SQL = @" select * from  ProductClass where  1=1";
+            if (ParentID.Length == 0)
+            {
+                SQL += " and  ParentID=0 ";
+            }
+            else
+                SQL += " and  ParentID= '" + ParentID + "'";
+            DataSet myDs = new DataSet();
+            myDs = mysqlconn.Query(SQL);
+            myDt = myDs.Tables[0];
+            return myDt;
+        }
+   
+    }
+}

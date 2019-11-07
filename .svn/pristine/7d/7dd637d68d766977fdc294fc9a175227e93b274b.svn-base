@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace DALayer
+{
+    public class DADeleteProSupInfo
+    {
+        Sqlconn mySqlconn = new Sqlconn();
+        public int DeleteProSupInfo(string paramProductID, string paramSupplierID, string paramPrice, string paramRemark)
+        {
+            string Sql = string.Empty;
+            Sql = "delete from Product_SupplierInfo where ProductID='"+paramProductID+"' and SupplierID='"+paramSupplierID+"'";
+            int i = mySqlconn.ExecuteNonQuery(Sql);
+            return i;
+        }
+    }
+}

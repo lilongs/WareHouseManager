@@ -1,0 +1,50 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+namespace DALayer
+{
+    public class DAStockPile
+    {
+        
+        Sqlconn mySqlconn = new Sqlconn();
+
+        /// <summary>
+        /// 获取到批次ID
+        /// </summary>
+        /// <param name="paramStoreHouseID"></param>
+        /// <param name="?"></param>
+        /// <param name="paramProductID"></param>
+        /// <param name="paramSupplierID"></param>
+        /// <returns></returns>
+        public string GetBatchNumber(string paramStoreHouseID, string paramProductID,string paramSupplierID, string paramTime)
+        {
+            string ReturnValue = string.Empty;
+
+            string sql = string.Empty;
+            string str = "select Count(*) b from StockPile where StoreHouse_ID='" + paramStoreHouseID + "' and Product_ID='" + paramProductID + "' and SupplierID='" + paramSupplierID + "'";
+            DataSet ds = new DataSet();
+            ds = mySqlconn.Query(str);
+            int i = int.Parse(ds.Tables[0].Rows[0]["b"].ToString()); 
+            ReturnValue=paramSupplierID + "-" + DateTime.Parse(paramTime).ToString("yyyyMMdd") + "-" + (i + 1).ToString();
+            return ReturnValue;
+        }
+
+
+        public int StockPile(string paramStoreHouseID, string paramProductID, string paramSupplierID, string paramQuantity, string paramPrice, string paramTime)
+        {
+            string sql = string.Empty;
+            string str = "select Count(*) b from StockPile where StoreHouse_ID='"+paramStoreHouseID+"' and Product_ID='"+paramProductID+"' and SupplierID='"+paramSupplierID+"'";
+            DataSet ds = new DataSet();
+            ds = mySqlconn.Query(str);
+            int i=int.Parse(ds.Tables[0].Rows[0]["b"].ToString());            
+            string paramBatchNumber = paramSupplierID + "-" + DateTime.Parse(paramTime).ToString("yyyyMMdd") + "-" + (i + 1).ToString();
+            double TotalPrice = double.Parse(paramPrice) * int.Parse(paramQuantity);
+            sql = "insert into StockPile (StoreHouse_ID,Product_ID,SupplierID,Quantity,Price,TotalPrice,FirstEnterDate,BatchNumber) values('" + paramStoreHouseID + "','" + paramProductID + "','"+paramSupplierID+"','" + paramQuantity + "','" + paramPrice + "','"+TotalPrice.ToString()+"','" + paramTime + "','"+paramBatchNumber+"')";
+            int j = mySqlconn.ExeNonQuery(sql);
+            return j;
+        }
+    }
+}

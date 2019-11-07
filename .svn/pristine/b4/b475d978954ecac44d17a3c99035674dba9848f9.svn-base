@@ -1,0 +1,100 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using BULayer;
+
+namespace InventoryManagersystem.InventoryManager
+{
+    public partial class frmStockPile : Form
+    {
+        BUCheckResult myBUCheckResult = new BUCheckResult();
+        BUStockPile myBUStockPile = new BUStockPile();
+        BUStockPileInfo myBUStockPileInfo = new BUStockPileInfo();
+
+        public frmStockPile()
+        {
+            InitializeComponent();
+            
+        }
+        public void GetAllData()
+        {
+            DataSet myDs = new DataSet();
+            myDs = myBUStockPileInfo.GetAllStockPileList();
+            this.dvgData.DataSource = myDs.Tables[0];
+        }
+
+        public void SetStoreHouse()
+        {
+            DataTable myPudtClass = new DataTable();
+            myPudtClass = myBUCheckResult.GetStoreHouseList();
+            combStoreHouse_ID.DataSource = myPudtClass;
+            combStoreHouse_ID.ValueMember = "StoreHouse_ID";                
+        }
+        public void SetbProductID()
+        {
+            this.combProduct_ID.SelectedIndexChanged -= new EventHandler(combProduct_ID_SelectedIndexChanged);
+            DataTable myPudtClass = new DataTable();
+            myPudtClass = myBUCheckResult.GetProductID();
+            combProduct_ID.DataSource = myPudtClass;
+            combProduct_ID.DisplayMember = "ProductID";
+            combProduct_ID.ValueMember = "SupplierID";
+            this.combProduct_ID.SelectedIndexChanged += new EventHandler(combProduct_ID_SelectedIndexChanged);
+        }
+
+        //public void SetSupplier()
+        //{
+        //    DataTable mySupplierDt = new DataTable();
+        //    mySupplierDt = myBUCheckResult.GetSupplier();
+        //    combSpplier_ID.DataSource = mySupplierDt;
+        //    combSpplier_ID.DisplayMember = "SupplierID";
+        //    combSpplier_ID.ValueMember = "Name";
+        //}
+
+        private void frmStockPile_Load(object sender, EventArgs e)
+        {
+            SetStoreHouse();
+            SetbProductID();
+            //SetSupplier();
+            GetAllData();
+        }
+
+        private void btnEnterStock_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+            string paramStoreHouseID = combStoreHouse_ID.Text.ToString();
+            string paramProductID = combProduct_ID.Text.ToString();
+            string paramSupplierID = txtSupplierID.Text.ToString();
+            string paramQuantity = txtQuantity.Text.Trim();
+            string paramPrice = txtPrice.Text.Trim();
+            
+            if (paramPrice.Length == 0 || paramQuantity.Length == 0)
+            {
+                MessageBox.Show("价格和数量不能为空");
+            }
+            else
+            {
+                i = myBUStockPile.StockPile(paramStoreHouseID, paramProductID, paramSupplierID, paramQuantity, paramPrice);
+                string str = i > 0 ? "入库成功" : "入库失败，请重试";
+                MessageBox.Show(str);
+            }
+            GetAllData();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            GetAllData();
+        }
+
+        private void combProduct_ID_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtSupplierID.Text = combProduct_ID.SelectedValue.ToString();
+        }
+
+     
+    }
+}

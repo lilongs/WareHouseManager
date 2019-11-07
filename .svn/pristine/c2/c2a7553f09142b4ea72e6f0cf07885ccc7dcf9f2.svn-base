@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DALayer;
+
+namespace BULayer
+{
+    public class BUProductListAdd
+    {
+        DAProductListAdd myDAProductListAdd = new DAProductListAdd();
+        DAProductManagerResult MyPMR = new DAProductManagerResult();
+        public bool CheckProductAdd(string paramProductID,string paramProductClassID,string paramProductName,string paramProductSpec,string paramUnitID,string paramEmployeeName,string paramRemark)
+        {
+            bool returnValue = false;
+            int excuteRows = myDAProductListAdd.ProductAdd(paramProductID, paramProductClassID,paramProductName,paramProductSpec,paramUnitID,paramEmployeeName,paramRemark);
+
+            if (excuteRows > 0)
+            {
+                returnValue = true;
+                return returnValue;
+            }
+
+            return returnValue;
+        }
+
+        public bool CheckProductValue(string paramProductName,string paramProductCode)
+        {
+            bool returnValue = false;
+
+            if (MyPMR.CheckProductID(paramProductName, paramProductCode))
+            {
+                returnValue = true;
+                return returnValue;
+            }
+
+            return returnValue;
+        }
+
+    }
+}

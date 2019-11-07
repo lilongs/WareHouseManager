@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+namespace DALayer
+{
+    public class DAProductSupplierInfo
+    {
+        Sqlconn mySqlconn = new Sqlconn();
+        public DataSet GetAll_ProSupInfo(string paramProductID, string paramSupplierID)
+        {
+            string str="select distinct a.productid,c.productname,a.supplierid,b.name,proprice,a.Remark from Product_SupplierInfo a,Supplier b,ProductList c where a.ProductID=c.ProductID and a.SupplierID=b.SupplierID";
+            if (paramProductID.Length > 0)
+            {
+                str += " and a.productid='" + paramProductID + "'";
+            }
+            if (paramSupplierID.Length > 0)
+            {
+                str += " and a.supplierid='" + paramSupplierID + "'";
+            }
+            return mySqlconn.Query(str);
+        }
+
+        public DataSet GetAll_ProductInfo(string paramProductName, string paramSupplierName)
+        {
+            string str = "select distinct a.productid,c.productname,a.supplierid,b.name,proprice,a.Remark from Product_SupplierInfo a,Supplier b,ProductList c where a.ProductID=c.ProductID and a.SupplierID=b.SupplierID";
+            if (paramProductName.Length > 0)
+            {
+                str += " and b.productName='" + paramProductName + "'";
+            }
+            if (paramSupplierName.Length > 0)
+            {
+                str += " and c.Name='" + paramSupplierName + "'";
+            }
+            return mySqlconn.Query(str);
+        }
+
+    }
+}

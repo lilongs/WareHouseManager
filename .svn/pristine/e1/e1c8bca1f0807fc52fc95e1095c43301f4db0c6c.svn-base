@@ -1,0 +1,74 @@
+﻿namespace InventoryManagersystem.ProductManager
+{
+    partial class frmProlist_All
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.lblname = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // treeView1
+            // 
+            this.treeView1.Location = new System.Drawing.Point(24, 49);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(401, 420);
+            this.treeView1.TabIndex = 0;
+            this.treeView1.DoubleClick += new System.EventHandler(this.treeView1_DoubleClick);
+            // 
+            // lblname
+            // 
+            this.lblname.AutoSize = true;
+            this.lblname.Location = new System.Drawing.Point(22, 23);
+            this.lblname.Name = "lblname";
+            this.lblname.Size = new System.Drawing.Size(89, 12);
+            this.lblname.TabIndex = 17;
+            this.lblname.Text = "选中后双击即可";
+            // 
+            // frmProlist_All
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(450, 498);
+            this.Controls.Add(this.lblname);
+            this.Controls.Add(this.treeView1);
+            this.MaximizeBox = false;
+            this.Name = "frmProlist_All";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "类别选择";
+            this.Load += new System.EventHandler(this.frmProlist_All_Load);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.Label lblname;
+    }
+}

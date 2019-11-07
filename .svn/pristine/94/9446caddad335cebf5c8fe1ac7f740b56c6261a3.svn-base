@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DALayer;
+using System.Data;
+
+namespace BULayer
+{
+    public class BUSupplierInfo
+    {
+        DASupplierInfo dal = new DASupplierInfo();
+
+        /// <summary>
+        /// 获取所有信息
+        /// </summary>
+        /// <param name="paramInventID"></param>
+        /// <returns></returns>
+        public DataSet GetAllSupplierList(string paramSupplierID)
+        {
+            return dal.GetAllSupplier_Name(paramSupplierID);
+        }
+
+        public DataSet GetAllSupplier_Name(string paramSupplierName)
+        {
+            return dal.GetAllSupplier_Name(paramSupplierName);
+        }
+
+    }
+}

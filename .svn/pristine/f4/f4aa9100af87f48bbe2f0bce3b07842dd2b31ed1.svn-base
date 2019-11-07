@@ -1,0 +1,114 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using BULayer;
+using InventoryManagersystem.Sales;
+
+namespace InventoryManagersystem.InventoryManager
+{
+    public partial class frmInventInfo : Form
+    {
+        BUCheckResult myBUCheckResult = new BUCheckResult();
+        public  DataTable dt = new DataTable();
+        public frmInventInfo()
+        {
+            InitializeComponent();
+        }
+
+        public void SetStoreHouse()
+        {
+            DataTable myPudtClass = new DataTable();
+            myPudtClass = myBUCheckResult.GetStoreHouseList();
+            combStoreHouse_ID.DataSource = myPudtClass;
+            combStoreHouse_ID.DisplayMember = "StoreHouse_ID";
+        }
+        private void frmInventInfo_Load(object sender, EventArgs e)
+        {
+            SetStoreHouse();
+        }
+        
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string paramStoreHouseID=combStoreHouse_ID.Text;
+            string paramProductID=txtProduct_ID.Text.Trim();
+            string paramProductName=txtProductName.Text.Trim();
+            BUStockPileInfo myBUStockPileInfo = new BUStockPileInfo();
+            
+            DataSet myDs = new DataSet();
+            myDs = myBUStockPileInfo.GetAllStockPileList(paramStoreHouseID, paramProductID, paramProductName);
+            this.dvgData.DataSource = myDs.Tables[0];
+        }
+
+        private void btnSelect_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dt.Clear();
+                dt.Columns.Clear();
+                dt.Columns.AddRange(new DataColumn[] 
+                { 
+                    new DataColumn("StoreHouse_ID",typeof(string)),
+                    new DataColumn("BatchNumber",typeof(string)),
+                    new DataColumn("FirstEnterDate",typeof(string)),
+                    new DataColumn("Product_ID",typeof(string)),
+                    new DataColumn("ProductName",typeof(string)),
+                    new DataColumn("Quantity",typeof(string)),
+                    new DataColumn("SupplierID",typeof(string)),
+                    new DataColumn("Name",typeof(string)),
+                    new DataColumn("Price",typeof(string)),
+                    new DataColumn("ProductSpec",typeof(string)),
+                    new DataColumn("Sales_Quantity",typeof(string)),
+                    new DataColumn("Sales_Price",typeof(string)),
+                    new DataColumn("LastLeaveDate",typeof(string))
+                });
+
+                DataRow dr = null;
+                foreach (DataGridViewRow item in this.dvgData.SelectedRows)
+                {
+                    dr = dt.NewRow();
+                    if (item.Cells["StoreHouse_ID"].Value.ToString().Length == 0)
+                    {
+                        break;
+                    }
+                    dr["StoreHouse_ID"] = item.Cells["StoreHouse_ID"].Value;
+                    dr["BatchNumber"] = item.Cells["BatchNumber"].Value;
+                    dr["FirstEnterDate"] = item.Cells["FirstEnterDate"].Value;
+                    dr["Product_ID"] = item.Cells["Product_ID"].Value;
+                    dr["ProductName"] = item.Cells["Product_Name"].Value;
+                    dr["Quantity"] = item.Cells["Quantity"].Value;
+                    dr["SupplierID"] = item.Cells["SupplierID"].Value;
+                    dr["Name"] = item.Cells["Supplier_Name"].Value;
+                    dr["Price"] = item.Cells["Price"].Value;
+                    dr["ProductSpec"] = item.Cells["ProductSpec"].Value;
+                    dr["LastLeaveDate"] = DateTime.Now.ToString("yyy-MM-dd");
+                    dt.Rows.Add(dr);
+                }
+
+                if (dt.Rows.Count > 0)
+                {
+                    this.DialogResult = DialogResult.Yes;
+                }
+                else
+                {
+                    MessageBox.Show("请选择要出货的商品信息记录!");
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
+            }      
+        }
+    }
+        
+
+
+        
+                
+

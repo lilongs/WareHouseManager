@@ -1,0 +1,160 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using InventoryManagersystem.InventoryManager;
+using BULayer;
+using InventoryManagersystem.ClassAssist;
+
+
+namespace InventoryManagersystem.Sales
+{
+    public partial class frmSalesManage : Form
+    {
+        BUStockPileInfo myBUStockPileInfo = new BUStockPileInfo();
+        BUGetCustomerInfo myBUGetCustomerInfo = new BUGetCustomerInfo();
+        DataTable MySalsedt = new DataTable();
+        public frmSalesManage()
+        {
+            InitializeComponent(); 
+        }
+        public void SetCombCustomer()
+        {
+            combCustomer_Name.DataSource = myBUGetCustomerInfo.GetCustomerID();
+            combCustomer_Name.DisplayMember = "Name";
+            combCustomer_Name.ValueMember = "Customer_ID";
+        }
+                
+        private void frmSalesManage_Load(object sender, EventArgs e)
+        {
+            SetCombCustomer();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            frmInventInfo myfrmInventInfo = new frmInventInfo();
+
+            if (myfrmInventInfo.ShowDialog() == DialogResult.Yes)
+            {
+                this.MySalsedt = myfrmInventInfo.dt;
+                this.gdCInvent.DataSource = MySalsedt;
+
+            }            
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DevExpress.XtraEditors.SimpleButton tempBtn = (DevExpress.XtraEditors.SimpleButton)sender;
+                if (tempBtn == null)
+                    return;
+                string tempItem = tempBtn.Tag.ToString();
+                foreach (Control tempControl in this.groupBox4.Controls)
+                {
+                    if (tempControl.GetType() == typeof(DevExpress.XtraGrid.GridControl))
+                    {
+
+                        DevExpress.XtraGrid.GridControl tempGridControl = (DevExpress.XtraGrid.GridControl)tempControl;
+                        CommonOperator.DataPrint(tempGridControl, tempItem, null);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void btnSales_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                string paramRemark = this.txtRemark.Text.Trim();
+                string paramCustomer = this.combCustomer_Name.SelectedValue.ToString();
+                string[] BatchNumber = new string[20];
+                string[] Sales_Quantity = new string[20];
+                string[] Sales_Price = new string[20];
+                string[] LastLeaveDate = new string[20];
+                string[] RecentQuantity = new string[20];
+
+                int count = gdvInvent.RowCount;
+                if(count!=0)
+                {
+                        for (int i = 0; i < count; i++)
+                        {
+                            BatchNumber[i] = gdvInvent.GetDataRow(i)["BatchNumber"].ToString();
+                            Sales_Quantity[i] = gdvInvent.GetDataRow(i)["Sales_Quantity"].ToString();
+                            Sales_Price[i] = gdvInvent.GetDataRow(i)["Sales_Price"].ToString();
+                            LastLeaveDate[i] = gdvInvent.GetDataRow(i)["LastLeaveDate"].ToString();
+
+                            if (Sales_Quantity[i].Length == 0 || Sales_Price[i].Length == 0)
+                            {
+                                MessageBox.Show("出货单价和数量不能为空!");
+                            }
+                            else
+                            {
+                                RecentQuantity[i] = (int.Parse(gdvInvent.GetDataRow(i)["Quantity"].ToString()) - int.Parse(gdvInvent.GetDataRow(i)["Sales_Quantity"].ToString())).ToString();
+
+                                int m = myBUStockPileInfo.UpdateStockpileQuantity(BatchNumber[i], RecentQuantity[i], LastLeaveDate[i]);
+                                int n = myBUStockPileInfo.InsertSales_Info(BatchNumber[i], Sales_Price[i], Sales_Quantity[i], paramCustomer, paramRemark);
+                                if (m > 0 && n > 0)
+                                {
+                                    MessageBox.Show("出库成功!");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("出库失败!");
+                                }
+                            }
+                        }
+                 }                     
+                else
+                {
+                    MessageBox.Show("请选择要出货的数据!");
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.gdCInvent.DataSource = null;
+        }
+
+        private void gdvInvent_ValidatingEditor_1(object sender, DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventArgs e)
+        {
+            if (gdvInvent.FocusedColumn.Name == "Sales_Quantity")
+            {
+                int paramQuantity = Convert.ToInt32(gdvInvent.GetFocusedRowCellValue("Quantity"));
+                if (int.Parse(e.Value.ToString()) > paramQuantity)//自己写验证条件
+                {
+                    e.ErrorText = "出库数量大于库存数量！";
+                    e.Valid = false;
+                    return;
+                }
+            }
+
+            if (gdvInvent.FocusedColumn.Name == "Sales_Price")
+            {
+                if (e.Value == null)//自己写验证条件
+                {
+                    e.ErrorText = "请输入正确的价格！";
+                    e.Valid = false;
+                    return;
+                }
+            }
+        }
+
+        
+    }
+}

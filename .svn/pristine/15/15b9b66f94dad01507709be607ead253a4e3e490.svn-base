@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+namespace DALayer
+{
+    public class DAGetProduct_SupID
+    {
+        Sqlconn mySqlconn = new Sqlconn();
+        public DataTable GetProductID()
+        {
+            string str = "select productID,productName from productlist";
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+            ds = mySqlconn.Query(str);
+            dt = ds.Tables[0];
+            return dt;
+        }
+        public DataTable GetSupplierID()
+        {
+            string str = "select SupplierId,name from Supplier";
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+            ds = mySqlconn.Query(str);
+            dt = ds.Tables[0];
+            return dt;
+        }
+    }
+}

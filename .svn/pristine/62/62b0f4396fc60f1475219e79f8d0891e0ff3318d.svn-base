@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DALayer;
+
+namespace BULayer
+{
+    public class BUInsertProSupInfo
+    {
+        DAInsertProSupInfo dal = new DAInsertProSupInfo();
+        public int InsertSupplier(string paramProductID, string paramSupplierID, string paramPrice, string paramRemark)
+        {
+            return dal.InsertProSupInfo(paramProductID,paramSupplierID,paramPrice,paramRemark);
+        }
+
+    }
+}

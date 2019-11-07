@@ -1,0 +1,298 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using BULayer;
+using DevExpress.Utils;
+using Common;
+
+namespace InventoryManagersystem.ProductManager
+{
+    public partial class frmProductListAdd : Form
+    {
+        BUProductManagerResult myPMR = new BUProductManagerResult();
+        BUProductListAdd myBUProductListAdd = new BUProductListAdd();
+        string ProductClassID = "0";
+        string ProductClassName = string.Empty;
+
+        string paramProductID_2 = string.Empty;
+        public frmProductListAdd()
+        {
+            InitializeComponent();
+        }
+
+        public frmProductListAdd(string paramProductID, string paramProductClassName, string paramProductName, string paramProductSpec,string paramUnitName, string paramEmployeeName, string paramRemark)
+        {
+            InitializeComponent();
+            btnSaveNew.Visible = false;
+            this.paramProductID_2 = paramProductID;
+            this.txtBoxProductID.Text = paramProductID;
+            this.txtBoxProductID.Enabled=false;
+            this.txtBoxProductName.Text = paramProductName;
+            this.txtBoxProductName.Focus();
+            this.txtBoxSpec.Text = paramProductSpec;
+           // this.txtPrice.Text = paramPrice;
+            this.txtRemark.Text = paramRemark;
+           // this.txtSupplierName.Text = paramSupplierName;
+        }
+
+        BUCheckResult myBUCheckResult = new BUCheckResult();       
+
+
+        public void SetProductComb()
+        {
+            //DataTable myPudtClass = new DataTable();
+            //myPudtClass = myBUCheckResult.GetProductList();
+            //comBProductClass.DataSource = myPudtClass;
+            //comBProductClass.ValueMember = "ProductClassID";
+            //comBProductClass.DisplayMember = "ProductClassName";          
+        }
+        public void SetUnitComb()
+        {
+            DataTable myUnitDt = new DataTable();
+            myUnitDt = myBUCheckResult.GetProductUnit();
+            comBoxUnit.DataSource = myUnitDt;
+            comBoxUnit.DisplayMember = "ProductUnitName";
+            comBoxUnit.ValueMember = "ProductUnitID";
+        }
+
+        private void frmProductAdd_Load(object sender, EventArgs e)
+        {
+            this.txtEmployeeName.Text = this.Tag.ToString();
+            SetProductComb();
+            SetUnitComb();
+        }
+
+        private void btnSaveNew_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                BUProductListAdd myBUProductListadd = new BUProductListAdd();
+
+                string paramProductID = this.txtBoxProductID.Text.Trim();
+                string paramProductClassID = this.ProductClassID;
+                string paramProductName = this.txtBoxProductName.Text.Trim();
+                string paramProductSpec = this.txtBoxSpec.Text.Trim();
+                string paramUnitID = this.comBoxUnit.SelectedValue.ToString();
+                string paramEmployeeName = this.txtEmployeeName.Text.ToString();
+                string paramRemark = this.txtRemark.Text.ToString();
+                string paramProductName_s = string.Empty;
+
+                bool isValue = myBUProductListadd.CheckProductValue(paramProductName_s,paramProductID);
+
+                if (paramProductName == "" || paramProductID=="")
+                {
+                    MessageBox.Show("请输入正确商品名和编码！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (!isValue)
+                {
+                    bool returnValue = myBUProductListadd.CheckProductAdd(paramProductID, paramProductClassID,paramProductName,paramProductSpec,paramUnitID,paramEmployeeName,paramRemark);
+                    if (returnValue)
+                    {
+                        MessageBox.Show("恭喜您，数据添加成功！", "恭喜", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        txtBoxProductID.Text = string.Empty;
+                        txtBoxProductName.Text = string.Empty;
+                       // txtPrice.Text = string.Empty;
+                        txtBoxSpec.Text = string.Empty;
+                        txtRemark.Text = string.Empty;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("商品编码重复！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("添加失败");
+            }
+        }        
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            string paramProductID = this.txtBoxProductID.Text.Trim();
+            string paramProductClassID = this.ProductClassID;
+            string paramProductName = this.txtBoxProductName.Text.Trim();
+            string paramProductSpec = this.txtBoxSpec.Text.Trim();
+           // string paramSupplierID = this.combSupplierID.Text.ToString();
+            //string paramPrice = this.txtPrice.Text.Trim();
+            string paramUnitID = this.comBoxUnit.SelectedValue.ToString();
+            string paramEmployeeName = this.txtEmployeeName.Text.ToString();
+            string paramRemark = this.txtRemark.Text.ToString();
+            string paramProductName_s = string.Empty;
+
+            if (paramProductID_2.Length == 0)
+            {
+                try
+                {
+                    BUProductListAdd myBUProductListadd = new BUProductListAdd();
+                    bool isValue = myBUProductListadd.CheckProductValue(paramProductName_s, paramProductID);
+                    if (paramProductName == "" || paramProductID == "")
+                    {
+                        MessageBox.Show("请输入正确商品名和编码！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    if (!isValue)
+                    {
+                        bool returnValue = myBUProductListadd.CheckProductAdd(paramProductID, paramProductClassID, paramProductName, paramProductSpec, paramUnitID, paramEmployeeName, paramRemark);
+                        if (returnValue)
+                        {
+                            MessageBox.Show("恭喜您，数据添加成功！", "恭喜", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.DialogResult = DialogResult.OK;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("商品名称重复！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("添加失败");
+                }
+            }
+            else
+            {
+                bool isModifyProductListOK = myPMR.CheckModifyProductList(paramProductID, paramProductClassID, paramProductName, paramProductSpec, paramUnitID, paramEmployeeName, paramRemark);
+                if (isModifyProductListOK)
+                {
+                    MessageBox.Show("修改成功");
+                    this.DialogResult = DialogResult.OK;
+
+                }
+                else
+                {
+                    MessageBox.Show("更新失败");
+                    this.DialogResult = DialogResult.OK;
+                }
+
+            }
+
+        }
+
+        private void btnBatchAdd_Click(object sender, EventArgs e)
+        {
+            string paramProductName = string.Empty;
+            string paramProductCode = string.Empty;
+            if (comBProductClass.Text.Length == 0)
+            {
+                MessageBox.Show("产品类别不能为空！");
+                return;
+            }
+            OpenFileDialog theDlg = new OpenFileDialog();
+            theDlg.Title = "请选择文件";
+            theDlg.Filter = "数据(*.xlsx)|*.xlsx|数据(*.xls)|*.xls";
+            theDlg.DefaultExt = ".xlsx";
+            if (theDlg.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                return;
+            string theFile = theDlg.FileName;
+            string strCom = string.Empty;
+            WaitDialogForm wdf = null;
+            List<string> thelstCom = new List<string>();
+            string strError = string.Empty;
+            string IndexCount = "0";
+
+            try
+            {
+                wdf = new WaitDialogForm("正在导入数据,请稍后....", "温馨提示");               
+                DataTable dtData=null;
+                if (Environment.Is64BitOperatingSystem)
+                {
+                    dtData = CreateXmlForData.ExecleToDataSet(theFile, 1).Copy();                    
+                }
+                else
+                {
+                    dtData = KSRCommonUtils.GetExcelData(theFile, "Sheet1").Tables[0];
+                }
+                if (dtData.Rows.Count > 0)
+                {
+                    IndexCount = "0";
+                    wdf.Caption = "共" + dtData.Rows.Count.ToString() + "条数据,正在导入第" + IndexCount + "条数据,请稍后....";
+                    DataTable dtTemp = myPMR.GetProductList();
+                    for (int i = 0; i < dtData.Rows.Count; i++)
+                    {
+                        if (myPMR.CheckProductList("", dtData.Rows[i][0].ToString()) == false)
+                        {
+
+                            dtTemp.Clear();
+                            DataRow dr = dtTemp.NewRow();
+                            IndexCount = (i + 1).ToString();
+                            wdf.Caption = "共" + dtData.Rows.Count.ToString() + "条数据,正在导入第" + IndexCount + "条数据,请稍后....";
+                            try
+                            {
+                                int ResultRow = 0;
+                                dr["ProductID"] = "'" + dtData.Rows[i][0].ToString() + "'";
+                                dr["ProductClassID"] = int.Parse(ProductClassID);
+                                dr["ProductName"] = "'" + dtData.Rows[i][1].ToString() + "'";
+                                dr["ProductSpec"] = "'" + dtData.Rows[i][2].ToString() + "'";
+                                dr["ProductUnitID"] = comBoxUnit.SelectedValue.ToString();
+                                dr["EmployeeName"] = "'" + txtEmployeeName.Text.ToString() + "'";
+                                dr["CreateDate"] = "'" + DateTime.Now.ToString("yyyy-MM-dd") + "'";
+                                dr["Remark"] = "'" + txtRemark.Text.Trim() + "'";
+                                dtTemp.Rows.Add(dr);
+
+                                ResultRow = myBUProductListAdd.Excel_InsertProductList(dtTemp, i, dtData.Rows.Count);
+                                MessageBox.Show("导入成功");
+                                this.DialogResult = DialogResult.OK;
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(dtData.Rows[i][0].ToString() + dtData.Rows[i][1].ToString() + ":" + ex.Message);
+                                wdf.Close();
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            string paramProductID = dtData.Rows[i][0].ToString();
+                            string paramProductClassID = ProductClassID;
+                            paramProductName = dtData.Rows[i][1].ToString();
+                            string paramProductSpec = dtData.Rows[i][2].ToString();
+                            string paramUnitID = comBoxUnit.SelectedValue.ToString();
+                            string paramEmployeeName = txtEmployeeName.Text.ToString();
+                            string paramRemark = txtRemark.Text.Trim();
+
+                            bool isModifyProductListOK = myPMR.CheckModifyProductList(paramProductID, paramProductClassID, paramProductName, paramProductSpec, paramUnitID, paramEmployeeName, paramRemark);
+                            wdf.Close();
+                            MessageBox.Show("导入成功");
+                            this.DialogResult = DialogResult.OK;
+                        }
+                    }
+                }
+                else
+                {
+                    wdf.Close();
+                    MessageBox.Show("记录为空"); ;
+                }
+                
+
+            }
+            finally
+            {
+                if (wdf != null)
+                    wdf.Close();
+            }
+        }
+
+        private void btnSelect_Click(object sender, EventArgs e)
+        {
+            frmProlist_All myfrmProlist_All = new frmProlist_All();
+            if (myfrmProlist_All.ShowDialog() == DialogResult.Yes)
+            {
+                this.ProductClassID = myfrmProlist_All.ProductClassID;
+                this.ProductClassName = myfrmProlist_All.ProductClassName;
+                this.comBProductClass.Text = ProductClassName;
+            }
+        } 
+    }
+}

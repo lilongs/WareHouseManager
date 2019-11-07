@@ -1,0 +1,424 @@
+﻿namespace InventoryManagersystem.InventoryManager
+{
+    partial class frmStockPile
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnPrint = new DevExpress.XtraEditors.SimpleButton();
+            this.label3 = new System.Windows.Forms.Label();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.combSpplier = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtQuantity = new System.Windows.Forms.TextBox();
+            this.combProduct_ID = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.combStoreHouse_ID = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtPrice = new System.Windows.Forms.TextBox();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnEnterStock = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.gdCInvent = new DevExpress.XtraGrid.GridControl();
+            this.gdvInvent = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.Batch_Number = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gdcQuantity = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.btnExcel = new DevExpress.XtraEditors.SimpleButton();
+            this.groupBox3.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gdCInvent)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gdvInvent)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.btnExcel);
+            this.groupBox3.Controls.Add(this.btnPrint);
+            this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Controls.Add(this.dateTimePicker1);
+            this.groupBox3.Controls.Add(this.combSpplier);
+            this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.Controls.Add(this.txtQuantity);
+            this.groupBox3.Controls.Add(this.combProduct_ID);
+            this.groupBox3.Controls.Add(this.label1);
+            this.groupBox3.Controls.Add(this.combStoreHouse_ID);
+            this.groupBox3.Controls.Add(this.label5);
+            this.groupBox3.Controls.Add(this.label6);
+            this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Controls.Add(this.txtPrice);
+            this.groupBox3.Controls.Add(this.btnRefresh);
+            this.groupBox3.Controls.Add(this.btnEnterStock);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox3.Location = new System.Drawing.Point(0, 0);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(881, 112);
+            this.groupBox3.TabIndex = 10;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "操作";
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Location = new System.Drawing.Point(455, 83);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(89, 23);
+            this.btnPrint.TabIndex = 19;
+            this.btnPrint.Tag = "销售出库";
+            this.btnPrint.Text = "打印";
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(383, 52);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "入库时间";
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(442, 49);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(118, 21);
+            this.dateTimePicker1.TabIndex = 17;
+            // 
+            // combSpplier
+            // 
+            this.combSpplier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.combSpplier.FormattingEnabled = true;
+            this.combSpplier.Location = new System.Drawing.Point(442, 19);
+            this.combSpplier.Name = "combSpplier";
+            this.combSpplier.Size = new System.Drawing.Size(119, 20);
+            this.combSpplier.TabIndex = 16;
+            this.combSpplier.SelectedIndexChanged += new System.EventHandler(this.combSpplier_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 55);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "入库数量";
+            // 
+            // txtQuantity
+            // 
+            this.txtQuantity.Location = new System.Drawing.Point(72, 52);
+            this.txtQuantity.Name = "txtQuantity";
+            this.txtQuantity.Size = new System.Drawing.Size(118, 21);
+            this.txtQuantity.TabIndex = 15;
+            // 
+            // combProduct_ID
+            // 
+            this.combProduct_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.combProduct_ID.FormattingEnabled = true;
+            this.combProduct_ID.Location = new System.Drawing.Point(257, 19);
+            this.combProduct_ID.Name = "combProduct_ID";
+            this.combProduct_ID.Size = new System.Drawing.Size(119, 20);
+            this.combProduct_ID.TabIndex = 12;
+            this.combProduct_ID.SelectedIndexChanged += new System.EventHandler(this.combProduct_ID_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(198, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "物料名称";
+            // 
+            // combStoreHouse_ID
+            // 
+            this.combStoreHouse_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.combStoreHouse_ID.FormattingEnabled = true;
+            this.combStoreHouse_ID.Location = new System.Drawing.Point(71, 22);
+            this.combStoreHouse_ID.Name = "combStoreHouse_ID";
+            this.combStoreHouse_ID.Size = new System.Drawing.Size(119, 20);
+            this.combStoreHouse_ID.TabIndex = 8;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 25);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 12);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "库房编码";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(395, 25);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(41, 12);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "供应商";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(198, 52);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(53, 12);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "入库单价";
+            // 
+            // txtPrice
+            // 
+            this.txtPrice.Enabled = false;
+            this.txtPrice.Location = new System.Drawing.Point(258, 49);
+            this.txtPrice.Name = "txtPrice";
+            this.txtPrice.Size = new System.Drawing.Size(118, 21);
+            this.txtPrice.TabIndex = 6;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(321, 83);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.TabIndex = 2;
+            this.btnRefresh.Text = "刷新";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // btnEnterStock
+            // 
+            this.btnEnterStock.Location = new System.Drawing.Point(176, 83);
+            this.btnEnterStock.Name = "btnEnterStock";
+            this.btnEnterStock.Size = new System.Drawing.Size(75, 23);
+            this.btnEnterStock.TabIndex = 2;
+            this.btnEnterStock.Text = "+ 入库";
+            this.btnEnterStock.UseVisualStyleBackColor = true;
+            this.btnEnterStock.Click += new System.EventHandler(this.btnEnterStock_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.gdCInvent);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 112);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(881, 369);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "数据";
+            // 
+            // gdCInvent
+            // 
+            this.gdCInvent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gdCInvent.Location = new System.Drawing.Point(3, 17);
+            this.gdCInvent.MainView = this.gdvInvent;
+            this.gdCInvent.Name = "gdCInvent";
+            this.gdCInvent.Size = new System.Drawing.Size(875, 349);
+            this.gdCInvent.TabIndex = 9;
+            this.gdCInvent.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gdvInvent});
+            // 
+            // gdvInvent
+            // 
+            this.gdvInvent.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.Batch_Number,
+            this.gridColumn1,
+            this.gridColumn5,
+            this.gridColumn6,
+            this.gridColumn7,
+            this.gridColumn8,
+            this.gdcQuantity,
+            this.gridColumn2,
+            this.gridColumn9,
+            this.gridColumn4});
+            this.gdvInvent.GridControl = this.gdCInvent;
+            this.gdvInvent.Name = "gdvInvent";
+            this.gdvInvent.OptionsFind.AlwaysVisible = true;
+            this.gdvInvent.OptionsView.ShowFooter = true;
+            this.gdvInvent.OptionsView.ShowGroupPanel = false;
+            this.gdvInvent.Tag = "销售出库";
+            // 
+            // Batch_Number
+            // 
+            this.Batch_Number.Caption = "批号";
+            this.Batch_Number.FieldName = "BatchNumber";
+            this.Batch_Number.Name = "Batch_Number";
+            this.Batch_Number.OptionsColumn.AllowEdit = false;
+            this.Batch_Number.Visible = true;
+            this.Batch_Number.VisibleIndex = 1;
+            // 
+            // gridColumn1
+            // 
+            this.gridColumn1.Caption = "仓库编码";
+            this.gridColumn1.FieldName = "StoreHouse_ID";
+            this.gridColumn1.Name = "gridColumn1";
+            this.gridColumn1.OptionsColumn.AllowEdit = false;
+            this.gridColumn1.Visible = true;
+            this.gridColumn1.VisibleIndex = 0;
+            // 
+            // gridColumn5
+            // 
+            this.gridColumn5.Caption = "产品编码";
+            this.gridColumn5.FieldName = "Product_ID";
+            this.gridColumn5.Name = "gridColumn5";
+            this.gridColumn5.OptionsColumn.AllowEdit = false;
+            this.gridColumn5.Visible = true;
+            this.gridColumn5.VisibleIndex = 3;
+            // 
+            // gridColumn6
+            // 
+            this.gridColumn6.Caption = "产品名称";
+            this.gridColumn6.FieldName = "ProductName";
+            this.gridColumn6.Name = "gridColumn6";
+            this.gridColumn6.OptionsColumn.AllowEdit = false;
+            this.gridColumn6.Visible = true;
+            this.gridColumn6.VisibleIndex = 4;
+            // 
+            // gridColumn7
+            // 
+            this.gridColumn7.Caption = "供应商编码";
+            this.gridColumn7.FieldName = "SupplierID";
+            this.gridColumn7.Name = "gridColumn7";
+            this.gridColumn7.OptionsColumn.AllowEdit = false;
+            this.gridColumn7.Visible = true;
+            this.gridColumn7.VisibleIndex = 5;
+            // 
+            // gridColumn8
+            // 
+            this.gridColumn8.Caption = "供应商名称";
+            this.gridColumn8.FieldName = "Name";
+            this.gridColumn8.Name = "gridColumn8";
+            this.gridColumn8.OptionsColumn.AllowEdit = false;
+            this.gridColumn8.Visible = true;
+            this.gridColumn8.VisibleIndex = 6;
+            // 
+            // gdcQuantity
+            // 
+            this.gdcQuantity.Caption = "入库数量";
+            this.gdcQuantity.FieldName = "Quantity";
+            this.gdcQuantity.Name = "gdcQuantity";
+            this.gdcQuantity.OptionsColumn.AllowEdit = false;
+            this.gdcQuantity.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Count, "Quantity", "共计={0}")});
+            this.gdcQuantity.Visible = true;
+            this.gdcQuantity.VisibleIndex = 8;
+            // 
+            // gridColumn2
+            // 
+            this.gridColumn2.Caption = "入库单价";
+            this.gridColumn2.FieldName = "Price";
+            this.gridColumn2.Name = "gridColumn2";
+            this.gridColumn2.OptionsColumn.AllowEdit = false;
+            this.gridColumn2.Visible = true;
+            this.gridColumn2.VisibleIndex = 9;
+            // 
+            // gridColumn9
+            // 
+            this.gridColumn9.Caption = "产品规格";
+            this.gridColumn9.FieldName = "ProductSpec";
+            this.gridColumn9.Name = "gridColumn9";
+            this.gridColumn9.OptionsColumn.AllowEdit = false;
+            this.gridColumn9.Visible = true;
+            this.gridColumn9.VisibleIndex = 7;
+            // 
+            // gridColumn4
+            // 
+            this.gridColumn4.Caption = "入库时间";
+            this.gridColumn4.FieldName = "FirstEnterDate";
+            this.gridColumn4.Name = "gridColumn4";
+            this.gridColumn4.OptionsColumn.AllowEdit = false;
+            this.gridColumn4.Visible = true;
+            this.gridColumn4.VisibleIndex = 2;
+            // 
+            // btnExcel
+            // 
+            this.btnExcel.Location = new System.Drawing.Point(600, 83);
+            this.btnExcel.Name = "btnExcel";
+            this.btnExcel.Size = new System.Drawing.Size(75, 23);
+            this.btnExcel.TabIndex = 20;
+            this.btnExcel.Tag = "";
+            this.btnExcel.Text = "导出";
+            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
+            // 
+            // frmStockPile
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(881, 481);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox3);
+            this.Name = "frmStockPile";
+            this.Text = "采购入库";
+            this.Load += new System.EventHandler(this.frmStockPile_Load);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gdCInvent)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gdvInvent)).EndInit();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.ComboBox combStoreHouse_ID;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtPrice;
+        private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Button btnEnterStock;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtQuantity;
+        private System.Windows.Forms.ComboBox combProduct_ID;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox combSpplier;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private DevExpress.XtraEditors.SimpleButton btnPrint;
+        private DevExpress.XtraGrid.GridControl gdCInvent;
+        private DevExpress.XtraGrid.Views.Grid.GridView gdvInvent;
+        private DevExpress.XtraGrid.Columns.GridColumn Batch_Number;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;
+        private DevExpress.XtraGrid.Columns.GridColumn gdcQuantity;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
+        private DevExpress.XtraEditors.SimpleButton btnExcel;
+    }
+}

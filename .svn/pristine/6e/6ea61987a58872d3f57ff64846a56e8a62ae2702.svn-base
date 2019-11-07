@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DALayer;
+
+namespace BULayer
+{
+    public class BUStockPile
+    {
+        DAStockPile dal = new DAStockPile();
+        public int StockPile(string paramStoreHouseID, string paramProductID, string paramSupplierID, string paramQuantity, string paramPrice)
+        {
+            return dal.StockPile( paramStoreHouseID,  paramProductID,  paramSupplierID,  paramQuantity,  paramPrice);
+        }
+    }
+}

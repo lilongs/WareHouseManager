@@ -1,0 +1,43 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+namespace DALayer
+{
+    public class DAInsertCustomer
+    {
+        Sqlconn mySqlconn = new Sqlconn();
+        /// <summary>
+        /// 新增供应商信息
+        /// </summary>
+        /// <param name="CustomerID"></param>
+        /// <param name="Name"></param>
+        /// <param name="Address"></param>
+        /// <param name="Phone"></param>
+        /// <param name="Fax"></param>
+        /// <param name="PostalCode"></param>
+        /// <param name="ConstactPerson"></param>
+        /// <returns></returns>
+        public int InsertCustomer(string CustomerID, string Name, string Address, string Phone, string Fax,
+                                    string PostalCode, string ConstactPerson,string paramRemark)
+        {
+            string Sql = string.Empty;
+            string str = string.Empty;
+            str = "select * from  Customer where Customer_ID='" + CustomerID + "'";
+            DataSet myDs = new DataSet();
+            myDs = mySqlconn.Query(str);
+            if (myDs.Tables[0].Rows.Count > 0)
+            {
+                return -1;      //返回-1，Customer表中已存在该CustomerID
+            }
+            else
+            {
+                Sql = "insert into Customer (Customer_ID ,Name,Address,Phone,Fax,PostalCode,ConstactPerson,CreateDate,Remark)values('" + CustomerID + "','" + Name + "','" + Address + "','" + Phone + "','" + Fax + "','" + PostalCode + "','" + ConstactPerson + "', '" + DateTime.Now.ToString("yyyy-MM-dd") + "','"+paramRemark +"')";
+                int i = mySqlconn.ExecuteNonQuery(Sql);
+                return i;
+            }
+        }
+    }
+}

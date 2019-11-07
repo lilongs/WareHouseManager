@@ -1,0 +1,219 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using BULayer;
+using System.Text.RegularExpressions;
+using Model;
+
+
+namespace InventoryManagersystem.Coustomer
+{
+    public partial class frmCustomerAdd : Form
+    {
+        Mo_Customer myMo_Customer = new Mo_Customer(); 
+        BUCustomer myBUCustomer = new BUCustomer();//实例化BU 层BUCustomer
+        public bool IsUpdate = false;
+
+        public frmCustomerAdd()
+        {
+            InitializeComponent();
+            txtCustomerID.Focus();
+        }
+
+        public frmCustomerAdd(Mo_Customer myMo_Customer,bool IsUpdate)
+        {
+            InitializeComponent();
+            this.myMo_Customer = myMo_Customer;
+          
+            txtCustomerID.Focus();
+            this.IsUpdate = IsUpdate;
+        }
+
+        private void frmCustomerAdd_Load(object sender, EventArgs e)
+        {
+            if (IsUpdate)
+            {
+                SetModel();
+            }
+        }
+
+        #region 1 输入判断 CheckInput()
+        /// <summary>
+        /// 输入判断
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckInput()
+        {
+            bool ReturnValue = false;
+
+            if (txtCustomerID.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("客户编号不能为空");
+                this.txtCustomerID.Focus();
+                ReturnValue = true;
+                return ReturnValue;
+            }
+            if (txtCustomerName.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("客户名称不能为空");
+                this.txtCustomerName.Focus();
+                ReturnValue = true;
+                return ReturnValue;
+            }
+            if (!IsUpdate)
+            {
+                if (myBUCustomer.Exists(txtCustomerID.Text.Trim()))
+                {
+                    MessageBox.Show("客户编号已存在");
+                    this.txtCustomerID.Focus();
+                    ReturnValue = true;
+                    return ReturnValue;
+                }
+            }
+
+            return ReturnValue;
+        }
+        #endregion
+
+        #region 2 给实体复制   GetMo_Customer()
+        /// <summary>
+        /// 获取到 Customer 实体
+        /// </summary>
+        /// <returns></returns>
+        public Mo_Customer GetMo_Customer( )
+        {
+            Mo_Customer myMo_Customer = new Mo_Customer();
+            myMo_Customer.Customer_ID = this.txtCustomerID.Text.Trim();
+            myMo_Customer.Name = this.txtCustomerName.Text.Trim();
+            myMo_Customer.Address = this.txtAddress.Text.Trim();
+            myMo_Customer.Phone = this.txtPhone.Text.Trim();
+            myMo_Customer.Fax = this.txtFax.Text.Trim();
+            myMo_Customer.PostalCode = this.txtPostalCode.Text.Trim();
+            myMo_Customer.ConstactPerson = this.txtConstactPerson.Text.Trim();
+            myMo_Customer.CreateDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            myMo_Customer.Remark = this.txtremark.Text.Trim();
+            return myMo_Customer;
+        }
+        #endregion
+
+        #region 3 将实体赋值到文本框 SetModel()
+        /// <summary>
+        /// 将实体赋值到文本框
+        /// </summary>
+        public void SetModel()
+        {
+            this.txtCustomerID.Text = myMo_Customer.Customer_ID;
+            this.txtCustomerName.Text = myMo_Customer.Name;
+            this.txtAddress.Text = myMo_Customer.Address;
+            this.txtPhone.Text = myMo_Customer.Phone;
+            this.txtFax.Text= myMo_Customer.Fax ;
+            this.txtPostalCode.Text= myMo_Customer.PostalCode;
+            this.txtConstactPerson.Text=myMo_Customer.ConstactPerson;
+            this.txtremark.Text = myMo_Customer.Remark; 
+      
+        }
+        #endregion
+
+        private void btnSure_Click(object sender, EventArgs e)
+        {
+           try
+           {
+             //输入判断
+             if (CheckInput())
+             {  return; }
+             
+            Mo_Customer myMo_Customer = new Mo_Customer();
+            bool ResultValue = false;
+            string paramMessageBox = string.Empty;
+            myMo_Customer = GetMo_Customer();
+            //二元计算，如果是不是更新，则新增，否则 更新操作
+            ResultValue= IsUpdate==false  ?  myBUCustomer.Add(myMo_Customer):myBUCustomer.Update(myMo_Customer);
+            paramMessageBox = ResultValue == true ?"操作成功！" : "操作成功！";
+            MessageBox.Show(paramMessageBox);
+            this.DialogResult = ResultValue == true ? DialogResult.Yes :  DialogResult.No;
+           
+           }
+            catch 
+            {
+                MessageBox.Show("操作异常,请确认是否用户编号重复！","温馨提示！");
+            }
+
+            #region 原先代码注释
+            //string paramCustomerID = this.txtCustomerID.Text.Trim();
+            //string paramName = this.txtCustomerName.Text.Trim();
+            //string paramAddress = this.txtAddress.Text.Trim();
+            //string paramPhone = this.txtPhone.Text.Trim();
+            //string paramFax = this.txtFax.Text.Trim();
+            //string paramPostalCode = this.txtPostalCode.Text.Trim();
+            //string paramConstactPerson = this.txtConstactPerson.Text.Trim();
+            //string paramRemark = this.txtremark.Text.Trim();
+            ////输入判断
+            //if (IsInput(paramCustomerID, paramName, paramAddress, paramPhone, paramFax, paramPostalCode, paramConstactPerson))
+            //{
+            //    return;
+            //}
+            //int i = 0;
+            ////二元运算
+            //i = paramCustomerID_2.Length == 0 ? myBUInsertCustomer.InsertCustomer(paramCustomerID, paramName, paramAddress, paramPhone, paramFax, paramPostalCode, paramConstactPerson, paramRemark) : myBUUpdateCustomer.UpdateCustomer(paramCustomerID_2, paramName, paramAddress, paramPhone, paramFax, paramPostalCode, paramConstactPerson,paramRemark );
+            //string str = i == -1 ? "该ID已存在" : ((i > 0) ? "操作成功" : "操作失败");
+            //MessageBox.Show(str);
+            //this.DialogResult = i == -1 ? DialogResult.Yes : (i > 0 ? DialogResult.Yes : DialogResult.No); 
+            #endregion
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.No;
+        }
+
+        #region 【原先代码】
+        BUInsertCustomer myBUInsertCustomer = new BUInsertCustomer();
+        BUUpdateCustomer myBUUpdateCustomer = new BUUpdateCustomer();
+        public string paramCustomerID_2 = string.Empty;
+        public frmCustomerAdd(string CustomerID, string CustomerName, string Address, string Phone, string Fax, string PostalCode, string ConstactPerson, string paramRemark)
+        {
+            InitializeComponent();
+            paramCustomerID_2 = CustomerID;
+
+            this.txtCustomerID.Text = CustomerID;
+            this.txtCustomerID.Enabled = false;
+
+            this.txtCustomerName.Text = CustomerName;
+            this.txtAddress.Text = Address;
+            this.txtPhone.Text = Phone;
+            this.txtFax.Text = Fax;
+            this.txtPostalCode.Text = PostalCode;
+            this.txtConstactPerson.Text = ConstactPerson;
+            this.txtremark.Text = paramRemark;
+            txtCustomerName.Focus();
+        }
+        //判断是否输入为空
+        public bool IsInput(string paramCustomerID, string paramName, string paramAddress, string paramPhone, string paramFax, string paramPostalCode, string paramConstactPerson)
+        {
+            bool returnValue = false;
+            if (paramCustomerID.Length == 0)
+            {
+                MessageBox.Show("供应商编码不能为空");
+                this.txtCustomerID.Focus();
+                returnValue = true;
+                return returnValue;
+            }
+            if (paramName.Length == 0)
+            {
+                MessageBox.Show("名称不能为空");
+                this.txtCustomerName.Focus();
+                returnValue = true;
+                return returnValue;
+            }
+
+            return returnValue;
+        }
+        #endregion
+     
+    }
+}

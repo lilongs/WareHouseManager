@@ -1,0 +1,316 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace DALayer
+{
+    public class DAIRoleInfo
+    {
+        #region  Method
+
+        Sqlconn mySqlconn = new Sqlconn();
+        /// <summary>
+        /// 得到最大ID
+        /// </summary>
+        public int GetMaxId()
+        {
+            return mySqlconn.GetMaxID("RoleID", "T_RoleInfo");
+        }
+
+        /// <summary>
+        /// 是否存在该记录
+        /// </summary>
+        public bool Exists(int RoleID)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select count(1) from T_RoleInfo");
+            strSql.Append(" where RoleID=@RoleID ");
+            SqlParameter[] parameters = {
+					new SqlParameter("@RoleID", SqlDbType.Int,4)};
+            parameters[0].Value = RoleID;
+
+            return mySqlconn.Exists(strSql.ToString(), parameters);
+        }
+
+
+        /// <summary>
+        /// 增加一条数据
+        /// </summary>
+        public void Add(Model.MoIRoleInfo model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("insert into T_RoleInfo(");
+            strSql.Append("RoleID,RoleName,Remark)");
+            strSql.Append(" values (");
+            strSql.Append("@RoleID,@RoleName,@Remark)");
+            SqlParameter[] parameters = {
+					new SqlParameter("@RoleID", SqlDbType.Int,4),
+					new SqlParameter("@RoleName", SqlDbType.NVarChar,20),
+					new SqlParameter("@Remark", SqlDbType.NVarChar,50)};
+            parameters[0].Value = model.RoleID;
+            parameters[1].Value = model.RoleName;
+            parameters[2].Value = model.Remark;
+
+            mySqlconn.ExecuteSql(strSql.ToString(), parameters);
+        }
+        /// <summary>
+        /// 更新一条数据
+        /// </summary>
+        public bool Update(Model.MoIRoleInfo model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("update T_RoleInfo set ");
+            strSql.Append("RoleName=@RoleName,");
+            strSql.Append("Remark=@Remark");
+            strSql.Append(" where RoleID=@RoleID ");
+            SqlParameter[] parameters = {
+					new SqlParameter("@RoleName", SqlDbType.NVarChar,20),
+					new SqlParameter("@Remark", SqlDbType.NVarChar,50),
+					new SqlParameter("@RoleID", SqlDbType.Int,4)};
+            parameters[0].Value = model.RoleName;
+            parameters[1].Value = model.Remark;
+            parameters[2].Value = model.RoleID;
+
+            int rows = mySqlconn.ExecuteSql(strSql.ToString(), parameters);
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 删除一条数据
+        /// </summary>
+        public bool Delete(int RoleID)
+        {
+
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("delete from T_RoleInfo ");
+            strSql.Append(" where RoleID=@RoleID ");
+            SqlParameter[] parameters = {
+					new SqlParameter("@RoleID", SqlDbType.Int,4)};
+            parameters[0].Value = RoleID;
+
+            int rows = mySqlconn.ExecuteSql(strSql.ToString(), parameters);
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// 批量删除数据
+        /// </summary>
+        public bool DeleteList(string RoleIDlist)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("delete from T_RoleInfo ");
+            strSql.Append(" where RoleID in (" + RoleIDlist + ")  ");
+            int rows = mySqlconn.ExecuteNonQuery(strSql.ToString());
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 是否存在该记录
+        /// </summary>
+        public bool ExistsRoleID(int RoleID)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select count(1) from adminuser");
+            strSql.Append(" where RoleID=@RoleID ");
+            SqlParameter[] parameters = {
+					new SqlParameter("@RoleID",SqlDbType.Int,10)};
+            parameters[0].Value = RoleID;
+
+            return mySqlconn.Exists(strSql.ToString(), parameters);
+        }
+
+        /// <summary>
+        /// 得到一个对象实体
+        /// </summary>
+        public Model.MoIRoleInfo GetModel(int RoleID)
+        {
+
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select  top 1 RoleID,RoleName,Remark from T_RoleInfo ");
+            strSql.Append(" where RoleID=@RoleID ");
+            SqlParameter[] parameters = {
+					new SqlParameter("@RoleID", SqlDbType.Int,4)};
+            parameters[0].Value = RoleID;
+
+            Model.MoIRoleInfo model = new Model.MoIRoleInfo();
+            DataSet ds = mySqlconn.Query(strSql.ToString(), parameters);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                if (ds.Tables[0].Rows[0]["RoleID"] != null && ds.Tables[0].Rows[0]["RoleID"].ToString() != "")
+                {
+                    model.RoleID = int.Parse(ds.Tables[0].Rows[0]["RoleID"].ToString());
+                }
+                if (ds.Tables[0].Rows[0]["RoleName"] != null && ds.Tables[0].Rows[0]["RoleName"].ToString() != "")
+                {
+                    model.RoleName = ds.Tables[0].Rows[0]["RoleName"].ToString();
+                }
+                if (ds.Tables[0].Rows[0]["Remark"] != null && ds.Tables[0].Rows[0]["Remark"].ToString() != "")
+                {
+                    model.Remark = ds.Tables[0].Rows[0]["Remark"].ToString();
+                }
+                return model;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 通过选中的节点将该权限下的模块增删改查的权限查出来来
+        /// </summary>
+        /// <param name="paramRoleID"></param>
+        /// <param name="paramModuleID"></param>
+        /// <returns></returns>
+        public DataSet GetCheckRoleInfo(string paramRoleID, string paramModuleID, string paramModuleName)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select T_Role.ID, ModuleName, IsAdd,IsDelete,IsUpdate,IsExcel,IsRepair");
+            strSql.Append(" from  T_Role,T_Module where  ");
+            strSql.Append("  T_Role.RoleID  ='" + paramRoleID + "' and T_Role .ModuleID ='" + paramModuleID + "' and  ModuleName='" + paramModuleName + "' and ParentID <>'0'");
+
+            return mySqlconn.Query(strSql.ToString());
+        }
+        /// <summary>
+        /// 更新权限
+        /// </summary>
+        /// <param name="myModelRole"></param>
+        /// <returns></returns>
+        public int updateRole(Model.MoRole myModelRole)
+        {
+            string sqlQuery = @"update  T_Role  set    [Enable]='" + myModelRole.Enable + "'"
+                               + " where RoleID='" + myModelRole.RoleID + "' and  MODULEID='" + myModelRole.ModuleID + "'";
+            return mySqlconn.ExecuteNonQuery(sqlQuery);
+
+
+        }
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public DataSet GetList(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select RoleID,RoleName,Remark ");
+            strSql.Append(" FROM T_RoleInfo ");
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where RoleID='" + strWhere + "' ");
+            }
+            return mySqlconn.Query(strSql.ToString());
+        }
+
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public DataSet GetRoleAllList(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select  top 10 ID, IsAdd,IsDelete,IsUpdate,IsExcel  FROM T_Role");
+
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where RoleID='" + strWhere + "' ");
+            }
+            return mySqlconn.Query(strSql.ToString());
+        }
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public DataSet GetRoleList(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select RoleID  ");
+            strSql.Append(" FROM T_RoleInfo ");
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where  RoleName='" + strWhere + "' ");
+            }
+            return mySqlconn.Query(strSql.ToString());
+        }
+        /// <summary>
+        /// 获得前几行数据
+        /// </summary>
+        public DataSet GetList(int Top, string strWhere, string filedOrder)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select ");
+            if (Top > 0)
+            {
+                strSql.Append(" top " + Top.ToString());
+            }
+            strSql.Append(" RoleID,RoleName,Remark ");
+            strSql.Append(" FROM T_RoleInfo ");
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where " + strWhere);
+            }
+            strSql.Append(" order by " + filedOrder);
+            return mySqlconn.Query(strSql.ToString());
+        }
+
+        /// <summary>
+        /// 增加一条数据
+        /// </summary>
+        public int Add(Model.MoRole model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("insert into T_Role(");
+            strSql.Append("RoleID,ModuleID,Enable,IsAdd,IsDelete,IsUpdate,IsExcel,IsRepair)");
+            strSql.Append(" values (");
+            strSql.Append("@RoleID,@ModuleID,@Enable,@IsAdd,@IsDelete,@IsUpdate,@IsExcel,@IsRepair)");
+            strSql.Append(";select @@IDENTITY");
+            SqlParameter[] parameters = {
+					new SqlParameter("@RoleID", SqlDbType.VarChar,10),
+					new SqlParameter("@ModuleID", SqlDbType.VarChar,10),
+					new SqlParameter("@Enable", SqlDbType.Bit,1),
+					new SqlParameter("@IsAdd", SqlDbType.Int,4),
+					new SqlParameter("@IsDelete", SqlDbType.Int,4),
+					new SqlParameter("@IsUpdate", SqlDbType.Int,4),
+					new SqlParameter("@IsExcel", SqlDbType.Int,4),
+					new SqlParameter("@IsRepair", SqlDbType.Int,4)};
+            parameters[0].Value = model.RoleID;
+            parameters[1].Value = model.ModuleID;
+            parameters[2].Value = model.Enable;
+            parameters[3].Value = model.IsAdd;
+            parameters[4].Value = model.IsDelete;
+            parameters[5].Value = model.IsUpdate;
+            parameters[6].Value = model.IsExcel;
+            parameters[7].Value = model.IsRepair;
+
+            object obj = mySqlconn.GetSingle(strSql.ToString(), parameters);
+            if (obj == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return Convert.ToInt32(obj);
+            }
+        }
+
+        #endregion  Method
+    }
+}

@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace DALayer
+{
+    public class DAUpdateHouse
+    {
+        Sqlconn mySqlconn = new Sqlconn();
+        /// <summary>
+        /// 更新库房信息
+        /// </summary>
+        /// <param name="paramInventID"></param>
+        /// <param name="paramRemark"></param>
+        /// <param name="paramAddress"></param>
+        /// <returns></returns>
+        public int UpdateHouse(string paramStoreHouse_ID, string paramRemark, string paramAddress)
+        {
+            string Sql = string.Empty;
+            Sql = "update StoreHouse set Address='" + paramAddress + "',Remark='" + paramRemark + "',CreateDate='" + DateTime.Now.ToString("yyyy-MM-dd") + "'where StoreHouse_ID='" + paramStoreHouse_ID + "' ";
+            int i = mySqlconn.ExecuteNonQuery(Sql);
+            return i;
+        }
+    }
+}

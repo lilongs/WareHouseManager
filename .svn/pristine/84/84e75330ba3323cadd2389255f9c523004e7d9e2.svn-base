@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+namespace DALayer
+{
+    public class DAStockPileInfo
+    {
+        Sqlconn mySqlconn = new Sqlconn();
+        public DataSet GetAllStockPileList()
+        {
+            string Sql = string.Empty;
+            Sql = "select distinct a.StockPile_ID,a.FirstEnterDate,a.StoreHouse_ID,a.Product_ID,b.ProductName,a.Quantity,c.Name,a.Price,b.ProductSpec from StockPile a,ProductList b,Supplier c where a.Product_ID=b.ProductID";
+            
+            DataSet myDs = new DataSet();
+            myDs = mySqlconn.Query(Sql);
+            return myDs;
+        }
+
+    }
+}

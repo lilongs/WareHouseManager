@@ -1,0 +1,203 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using BULayer;
+
+namespace InventoryManagersystem.ProductManager
+{
+    public partial class frmProductListAdd : Form
+    {
+        BUProductManagerResult myPMR = new BUProductManagerResult();
+
+        string paramProductID_2 = string.Empty;
+        public frmProductListAdd()
+        {
+            InitializeComponent();
+        }
+
+        public frmProductListAdd(string paramProductID, string paramProductClassName, string paramProductName, string paramProductSpec, string paramSupplierName, string paramPrice, string paramUnitName, string paramEmployeeName, string paramRemark)
+        {
+            InitializeComponent();
+            btnSaveNew.Visible = false;
+            this.paramProductID_2 = paramProductID;
+            this.txtBoxProductID.Text = paramProductID;
+            this.txtBoxProductID.Enabled=false;
+            this.txtBoxProductName.Text = paramProductName;
+            this.txtBoxProductName.Focus();
+            this.txtBoxSpec.Text = paramProductSpec;
+            this.txtPrice.Text = paramPrice;
+            this.txtRemark.Text = paramRemark;
+            this.txtSupplierName.Text = paramSupplierName;
+        }
+
+        BUCheckResult myBUCheckResult = new BUCheckResult();
+
+        public void SetSupplier()
+        {
+            this.combSupplierID.SelectedIndexChanged -= new EventHandler(combSupplierID_SelectedIndexChanged);
+            DataTable mySupplierDt = new DataTable();
+            mySupplierDt = myBUCheckResult.GetSupplier();
+            combSupplierID.DataSource = mySupplierDt;
+            combSupplierID.DisplayMember = "SupplierID";
+            combSupplierID.ValueMember = "Name";
+            
+            this.combSupplierID.SelectedIndexChanged += new EventHandler(combSupplierID_SelectedIndexChanged);
+
+            //combSupplierID.Text = mySupplierDt.Rows[0]["SupplierID"].ToString();
+        }
+
+
+        public void SetProductComb()
+        {
+            DataTable myPudtClass = new DataTable();
+            myPudtClass = myBUCheckResult.GetProductList();
+            comBProductClass.DataSource = myPudtClass;
+            comBProductClass.ValueMember = "ProductClassID";
+            comBProductClass.DisplayMember = "ProductClassName";          
+        }
+        public void SetUnitComb()
+        {
+            DataTable myUnitDt = new DataTable();
+            myUnitDt = myBUCheckResult.GetProductUnit();
+            comBoxUnit.DataSource = myUnitDt;
+            comBoxUnit.DisplayMember = "ProductUnitName";
+            comBoxUnit.ValueMember = "ProductUnitID";
+        }
+
+        private void frmProductAdd_Load(object sender, EventArgs e)
+        {
+            this.combSupplierID.SelectedIndexChanged -= new System.EventHandler(this.combSupplierID_SelectedIndexChanged);
+            this.txtEmployeeName.Text = this.Tag.ToString();
+            SetProductComb();
+            SetUnitComb();
+            SetSupplier();
+            this.combSupplierID.SelectedIndexChanged += new System.EventHandler(this.combSupplierID_SelectedIndexChanged);
+        }
+
+        private void btnSaveNew_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                BUProductListAdd myBUProductListadd = new BUProductListAdd();
+
+                string paramProductID = this.txtBoxProductID.Text.Trim();
+                string paramProductClassID = this.comBProductClass.SelectedValue.ToString();
+                string paramProductName = this.txtBoxProductName.Text.Trim();
+                string paramProductSpec = this.txtBoxSpec.Text.Trim();
+                string paramSupplierID = this.combSupplierID.Text.ToString();
+                string paramPrice = this.txtPrice.Text.Trim();
+                string paramUnitID = this.comBoxUnit.SelectedValue.ToString();
+                string paramEmployeeName = this.txtEmployeeName.Text.ToString();
+                string paramRemark = this.txtRemark.Text.ToString();
+
+                bool isValue = myBUProductListadd.CheckProductValue(paramProductName,paramProductID);
+
+                if (paramProductName == "" || paramProductID=="")
+                {
+                    MessageBox.Show("请输入正确商品名和编码！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (!isValue)
+                {
+                    bool returnValue = myBUProductListadd.CheckProductAdd(paramProductID, paramProductClassID,paramProductName,paramProductSpec,paramSupplierID,paramPrice,paramUnitID,paramEmployeeName,paramRemark);
+                    if (returnValue)
+                    {
+                        MessageBox.Show("恭喜您，数据添加成功！", "恭喜", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        txtBoxProductID.Text = string.Empty;
+                        txtBoxProductName.Text = string.Empty;
+                        txtPrice.Text = string.Empty;
+                        txtBoxSpec.Text = string.Empty;
+                        txtRemark.Text = string.Empty;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("商品名称重复！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("添加失败");
+            }
+        }        
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            string paramProductID = this.txtBoxProductID.Text.Trim();
+            string paramProductClassID = this.comBProductClass.SelectedValue.ToString();
+            string paramProductName = this.txtBoxProductName.Text.Trim();
+            string paramProductSpec = this.txtBoxSpec.Text.Trim();
+            string paramSupplierID = this.combSupplierID.Text.ToString();
+            string paramPrice = this.txtPrice.Text.Trim();
+            string paramUnitID = this.comBoxUnit.SelectedValue.ToString();
+            string paramEmployeeName = this.txtEmployeeName.Text.ToString();
+            string paramRemark = this.txtRemark.Text.ToString();
+
+            if (paramProductID_2.Length == 0)
+            {
+                try
+                {
+                    BUProductListAdd myBUProductListadd = new BUProductListAdd();
+                    bool isValue = myBUProductListadd.CheckProductValue(paramProductName, paramProductID);
+                    if (paramProductName == "" || paramProductID == "")
+                    {
+                        MessageBox.Show("请输入正确商品名和编码！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    if (!isValue)
+                    {
+                        bool returnValue = myBUProductListadd.CheckProductAdd(paramProductID, paramProductClassID, paramProductName, paramProductSpec, paramSupplierID, paramPrice, paramUnitID, paramEmployeeName, paramRemark);
+                        if (returnValue)
+                        {
+                            MessageBox.Show("恭喜您，数据添加成功！", "恭喜", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.DialogResult = DialogResult.OK;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("商品名称重复！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("添加失败");
+                }
+            }
+            else
+            {
+                bool isModifyProductListOK = myPMR.CheckModifyProductList(paramProductID, paramProductClassID, paramProductName, paramProductSpec, paramSupplierID, paramPrice, paramUnitID, paramEmployeeName, paramRemark);
+                if (isModifyProductListOK)
+                {
+                    MessageBox.Show("修改成功");
+                    this.DialogResult = DialogResult.OK;
+
+                }
+                else
+                {
+                    MessageBox.Show("更新失败");
+                    this.DialogResult = DialogResult.OK;
+                }
+
+            }
+
+        }
+
+        private void combSupplierID_SelectedIndexChanged(object sender, EventArgs e)
+        {            
+                txtSupplierName.Text = combSupplierID.SelectedValue.ToString();            
+        }
+       
+
+        
+    }
+}

@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace DALayer
+{
+    public class DAInsertProSupInfo
+    {
+        Sqlconn mySqlconn = new Sqlconn();
+        public int InsertProSupInfo(string paramProductID, string paramSupplierID, string paramPrice, string paramRemark)
+        {
+            string Sql = string.Empty;
+            Sql = "insert into Product_SupplierInfo (ProductID ,SupplierID,ProPrice,Remark)values('" + paramProductID + "','" + paramSupplierID + "','" + paramPrice + "','" + paramRemark + "')";
+            int i = mySqlconn.ExecuteNonQuery(Sql);
+            return i;            
+        }
+
+    }
+}

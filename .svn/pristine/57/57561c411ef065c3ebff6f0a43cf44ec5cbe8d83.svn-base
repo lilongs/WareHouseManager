@@ -1,0 +1,302 @@
+﻿namespace InventoryManagersystem
+{
+    partial class frmUserMamager
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUserMamager));
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Username = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.telephone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RoleID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RoleName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnUserAdd = new System.Windows.Forms.Button();
+            this.btnUserDel = new System.Windows.Forms.Button();
+            this.btnUserMod = new System.Windows.Forms.Button();
+            this.txtBoxUser = new System.Windows.Forms.TextBox();
+            this.lblSearchUser = new System.Windows.Forms.Label();
+            this.btnSearchUser = new System.Windows.Forms.Button();
+            this.txtBoxPhone = new System.Windows.Forms.TextBox();
+            this.lalPhone = new System.Windows.Forms.Label();
+            this.btnReflash = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Username,
+            this.telephone,
+            this.address,
+            this.email,
+            this.RoleID,
+            this.RoleName,
+            this.CreateTime});
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 17);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowTemplate.Height = 23;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(1091, 544);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // Username
+            // 
+            this.Username.DataPropertyName = "username";
+            this.Username.HeaderText = "用户名";
+            this.Username.Name = "Username";
+            this.Username.ReadOnly = true;
+            this.Username.Width = 152;
+            // 
+            // telephone
+            // 
+            this.telephone.DataPropertyName = "telephone";
+            this.telephone.HeaderText = "电话";
+            this.telephone.Name = "telephone";
+            this.telephone.ReadOnly = true;
+            this.telephone.Width = 152;
+            // 
+            // address
+            // 
+            this.address.DataPropertyName = "address";
+            this.address.HeaderText = "地址";
+            this.address.Name = "address";
+            this.address.ReadOnly = true;
+            this.address.Width = 152;
+            // 
+            // email
+            // 
+            this.email.DataPropertyName = "email";
+            this.email.HeaderText = "邮件地址";
+            this.email.Name = "email";
+            this.email.ReadOnly = true;
+            this.email.Width = 153;
+            // 
+            // RoleID
+            // 
+            this.RoleID.DataPropertyName = "RoleID";
+            this.RoleID.HeaderText = "角色ID";
+            this.RoleID.Name = "RoleID";
+            this.RoleID.ReadOnly = true;
+            // 
+            // RoleName
+            // 
+            this.RoleName.DataPropertyName = "RoleName";
+            this.RoleName.HeaderText = "角色名称";
+            this.RoleName.Name = "RoleName";
+            this.RoleName.ReadOnly = true;
+            // 
+            // CreateTime
+            // 
+            this.CreateTime.DataPropertyName = "CreateTime";
+            this.CreateTime.HeaderText = "创建日期";
+            this.CreateTime.Name = "CreateTime";
+            this.CreateTime.ReadOnly = true;
+            // 
+            // btnUserAdd
+            // 
+            this.btnUserAdd.Location = new System.Drawing.Point(27, 31);
+            this.btnUserAdd.Name = "btnUserAdd";
+            this.btnUserAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnUserAdd.TabIndex = 1;
+            this.btnUserAdd.Text = "添加用户";
+            this.btnUserAdd.UseVisualStyleBackColor = true;
+            this.btnUserAdd.Click += new System.EventHandler(this.btnUserAdd_Click);
+            // 
+            // btnUserDel
+            // 
+            this.btnUserDel.Location = new System.Drawing.Point(126, 31);
+            this.btnUserDel.Name = "btnUserDel";
+            this.btnUserDel.Size = new System.Drawing.Size(75, 23);
+            this.btnUserDel.TabIndex = 1;
+            this.btnUserDel.Text = "删除用户";
+            this.btnUserDel.UseVisualStyleBackColor = true;
+            this.btnUserDel.Click += new System.EventHandler(this.btnUserDel_Click);
+            // 
+            // btnUserMod
+            // 
+            this.btnUserMod.Location = new System.Drawing.Point(217, 31);
+            this.btnUserMod.Name = "btnUserMod";
+            this.btnUserMod.Size = new System.Drawing.Size(75, 23);
+            this.btnUserMod.TabIndex = 1;
+            this.btnUserMod.Text = "修改用户";
+            this.btnUserMod.UseVisualStyleBackColor = true;
+            this.btnUserMod.Click += new System.EventHandler(this.btnUserMod_Click);
+            // 
+            // txtBoxUser
+            // 
+            this.txtBoxUser.Location = new System.Drawing.Point(78, 33);
+            this.txtBoxUser.Name = "txtBoxUser";
+            this.txtBoxUser.Size = new System.Drawing.Size(150, 21);
+            this.txtBoxUser.TabIndex = 2;
+            // 
+            // lblSearchUser
+            // 
+            this.lblSearchUser.AutoSize = true;
+            this.lblSearchUser.Location = new System.Drawing.Point(28, 38);
+            this.lblSearchUser.Name = "lblSearchUser";
+            this.lblSearchUser.Size = new System.Drawing.Size(47, 12);
+            this.lblSearchUser.TabIndex = 3;
+            this.lblSearchUser.Text = "用户名:";
+            // 
+            // btnSearchUser
+            // 
+            this.btnSearchUser.Location = new System.Drawing.Point(443, 34);
+            this.btnSearchUser.Name = "btnSearchUser";
+            this.btnSearchUser.Size = new System.Drawing.Size(75, 23);
+            this.btnSearchUser.TabIndex = 1;
+            this.btnSearchUser.Text = "搜索";
+            this.btnSearchUser.UseVisualStyleBackColor = true;
+            this.btnSearchUser.Click += new System.EventHandler(this.btnSearchUser_Click);
+            // 
+            // txtBoxPhone
+            // 
+            this.txtBoxPhone.Location = new System.Drawing.Point(296, 34);
+            this.txtBoxPhone.Name = "txtBoxPhone";
+            this.txtBoxPhone.Size = new System.Drawing.Size(128, 21);
+            this.txtBoxPhone.TabIndex = 2;
+            // 
+            // lalPhone
+            // 
+            this.lalPhone.AutoSize = true;
+            this.lalPhone.Location = new System.Drawing.Point(244, 38);
+            this.lalPhone.Name = "lalPhone";
+            this.lalPhone.Size = new System.Drawing.Size(47, 12);
+            this.lalPhone.TabIndex = 3;
+            this.lalPhone.Text = "手机号:";
+            // 
+            // btnReflash
+            // 
+            this.btnReflash.Location = new System.Drawing.Point(314, 31);
+            this.btnReflash.Name = "btnReflash";
+            this.btnReflash.Size = new System.Drawing.Size(75, 23);
+            this.btnReflash.TabIndex = 1;
+            this.btnReflash.Text = "数据刷新";
+            this.btnReflash.UseVisualStyleBackColor = true;
+            this.btnReflash.Click += new System.EventHandler(this.btnReflash_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.lblSearchUser);
+            this.groupBox1.Controls.Add(this.lalPhone);
+            this.groupBox1.Controls.Add(this.btnSearchUser);
+            this.groupBox1.Controls.Add(this.txtBoxUser);
+            this.groupBox1.Controls.Add(this.txtBoxPhone);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1097, 69);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "查询";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.btnReflash);
+            this.groupBox2.Controls.Add(this.btnUserAdd);
+            this.groupBox2.Controls.Add(this.btnUserDel);
+            this.groupBox2.Controls.Add(this.btnUserMod);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox2.Location = new System.Drawing.Point(0, 633);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(1097, 81);
+            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "操作";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.dataGridView1);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Location = new System.Drawing.Point(0, 69);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(1097, 564);
+            this.groupBox3.TabIndex = 6;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "数据";
+            // 
+            // frmUserMamager
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1097, 714);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "frmUserMamager";
+            this.Text = "用户管理";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmUserMamager_FormClosing);
+            this.Load += new System.EventHandler(this.frmUserMamager_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button btnUserAdd;
+        private System.Windows.Forms.Button btnUserDel;
+        private System.Windows.Forms.Button btnUserMod;
+        private System.Windows.Forms.TextBox txtBoxUser;
+        private System.Windows.Forms.Label lblSearchUser;
+        private System.Windows.Forms.Button btnSearchUser;
+        private System.Windows.Forms.TextBox txtBoxPhone;
+        private System.Windows.Forms.Label lalPhone;
+        private System.Windows.Forms.Button btnReflash;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Username;
+        private System.Windows.Forms.DataGridViewTextBoxColumn telephone;
+        private System.Windows.Forms.DataGridViewTextBoxColumn address;
+        private System.Windows.Forms.DataGridViewTextBoxColumn email;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RoleID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RoleName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateTime;
+    }
+}

@@ -1,0 +1,37 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+namespace DALayer
+{
+    public class DASupplierInfo
+    {
+        Sqlconn mySqlconn = new Sqlconn();
+
+        public DataSet GetAllSupplierList(string paramSupplierID)
+        {
+            StringBuilder Sql = new StringBuilder();
+           // string Sql = string.Empty;
+            Sql.Append( "select * from Supplier where  1=1");
+            if (paramSupplierID.Length > 0)
+            {
+                Sql.Append ( " and  SupplierID='" + paramSupplierID + "'");
+            }
+            DataSet myDs = new DataSet();
+            myDs = mySqlconn.Query(Sql.ToString());
+            return myDs;
+        }
+
+        public DataSet GetAllSupplier_Name(string paramSupplierName)
+        {
+            StringBuilder Sql = new StringBuilder();            
+            Sql.Append("select SupplierID,Name,Address from Supplier where Name like '"+paramSupplierName+"%'");            
+            DataSet myDs = new DataSet();
+            myDs = mySqlconn.Query(Sql.ToString());
+            return myDs;
+        }
+
+    }
+}

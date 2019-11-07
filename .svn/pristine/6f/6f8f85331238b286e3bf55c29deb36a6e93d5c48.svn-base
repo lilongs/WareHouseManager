@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace DALayer
+{
+    public class DAStockPile
+    {
+        Sqlconn mySqlconn = new Sqlconn();
+        public int StockPile(string paramStoreHouseID,string paramProductID,string paramSupplierID,string paramQuantity,string paramPrice)
+        {
+            string sql = string.Empty;
+            sql = "insert into StockPile (StoreHouse_ID,Product_ID,Quantity,Price,FirstEnterDate) values('"+paramStoreHouseID+"','"+paramProductID+"','"+paramQuantity+"','"+paramPrice+"','"+DateTime.Now.ToString("yyyy-MM-dd")+"')";
+            int i = mySqlconn.ExecuteNonQuery(sql);
+            return i;
+        }
+    }
+}

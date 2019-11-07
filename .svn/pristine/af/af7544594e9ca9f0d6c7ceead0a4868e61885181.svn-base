@@ -1,0 +1,83 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DALayer;
+using System.Data;
+
+namespace BULayer
+{
+    public  class BUCustomer
+    {
+        DACustomer dal = new DACustomer();
+        #region  BU 层 BasicMethod
+        /// <summary>
+        /// 是否存在该记录
+        /// </summary>
+        public bool Exists(string Customer_ID)
+        {
+            return dal.Exists(Customer_ID);
+        }
+
+        /// <summary>
+        /// 增加一条数据
+        /// </summary>
+        public bool Add(Model.Mo_Customer model)
+        {
+            return dal.Add(model);
+        }
+
+        /// <summary>
+        /// 更新一条数据
+        /// </summary>
+        public bool Update(Model.Mo_Customer model)
+        {
+            return dal.Update(model);
+        }
+
+        /// <summary>
+        /// 删除一条数据
+        /// </summary>
+        public bool Delete(string Customer_ID)
+        {
+
+            return dal.Delete(Customer_ID);
+        }
+     
+        /// <summary>
+        /// 得到一个对象实体
+        /// </summary>
+        public Model.Mo_Customer GetModel(string Customer_ID)
+        {
+
+            return dal.GetModel(Customer_ID);
+        }
+
+       
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public DataSet GetList(string strWhere)
+        {
+            return dal.GetList(strWhere);
+        }
+
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public DataSet GetAllList()
+        {
+            return GetList("");
+        }
+
+        /// <summary>
+        /// 分页获取数据列表
+        /// </summary>
+        public int GetRecordCount(string strWhere)
+        {
+            return dal.GetRecordCount(strWhere);
+        }
+ 
+        #endregion  BasicMethod
+    }
+}

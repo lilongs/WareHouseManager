@@ -1,0 +1,193 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using BULayer;
+using InventoryManagersystem.ClassAssist;
+
+
+namespace InventoryManagersystem.InventoryManager
+{
+    public partial class frmStockPile : Form
+    {
+        BUCheckResult myBUCheckResult = new BUCheckResult();
+        BUStockPile myBUStockPile = new BUStockPile();
+        BUStockPileInfo myBUStockPileInfo = new BUStockPileInfo();
+
+        int Times = 0;
+
+        public frmStockPile()
+        {
+            InitializeComponent();
+            
+        }
+        public void GetAllData()
+        {
+            DataSet myDs = new DataSet();
+            myDs = myBUStockPileInfo.GetAllStockPileList();            
+            this.gdCInvent.DataSource = myDs.Tables[0];
+        }
+
+        public void SetStoreHouse()
+        {
+            DataTable myPudtClass = new DataTable();
+            myPudtClass = myBUCheckResult.GetStoreHouseList();
+            combStoreHouse_ID.DataSource = myPudtClass;
+            combStoreHouse_ID.DisplayMember = "StoreHouse_ID";                
+        }
+        public void SetbProductID()
+        {
+            DataTable myPudtClass = new DataTable();
+            myPudtClass = myBUCheckResult.GetProductID();
+            combProduct_ID.DataSource = myPudtClass;
+            combProduct_ID.DisplayMember = "ProductName";
+            combProduct_ID.ValueMember = "ProductID";
+        }
+
+        public void SetSupplier(string paramProductID)
+        {
+            DataTable mySupplierDt = new DataTable();
+            mySupplierDt = myBUCheckResult.GetSupplier(paramProductID);
+            combSpplier.DataSource = mySupplierDt;
+            combSpplier.DisplayMember = "Name";
+            combSpplier.ValueMember = "SupplierID";
+        }
+        public void GetPrice(string paramProductID,string paramSupplierID)
+        {
+            DataTable myPriceDt = new DataTable();
+            myPriceDt = myBUCheckResult.GetPrice(paramProductID,paramSupplierID);
+            txtPrice.Text = myPriceDt.Rows[0]["Proprice"].ToString();
+        }
+
+        private void frmStockPile_Load(object sender, EventArgs e)
+        {
+            SetStoreHouse();
+            SetbProductID();           
+            //GetAllData();
+        }
+
+        private void btnEnterStock_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (combSpplier.Text.Length == 0)
+                {
+                    MessageBox.Show("请选择产品和供应商");
+                }
+                else
+                {
+
+                    int i = 0;
+                    int j = 0;
+                    string paramStoreHouseID = combStoreHouse_ID.Text.ToString();
+                    string paramProductID = combProduct_ID.SelectedValue.ToString();
+                    string paramProductName = combProduct_ID.Text.ToString();
+                    string paramSupplierID = combSpplier.SelectedValue.ToString();
+                    string paramQuantity = txtQuantity.Text.Trim();
+                    string paramPrice = txtPrice.Text.Trim();
+                    string paramTime = dateTimePicker1.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                    string paramTotalPrice = (double.Parse(paramPrice) * int.Parse(paramQuantity)).ToString();
+
+                    DialogResult dr = MessageBox.Show("确定入库此条信息吗？", "温馨提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                    if (dr == DialogResult.OK)
+                    {
+                        if (paramPrice.Length == 0 || paramQuantity.Length == 0)
+                        {
+                            MessageBox.Show("价格和数量不能为空");
+                        }
+                        else
+                        {
+                            string paramBachID = myBUStockPile.GetBatchNumber(paramStoreHouseID, paramProductID, paramSupplierID, paramTime);
+                            i = myBUStockPile.StockPile(paramStoreHouseID, paramProductID, paramSupplierID, paramQuantity, paramPrice, paramTime);
+                            j = myBUStockPile.UpdateStockPile_Total(paramStoreHouseID, paramProductID, paramProductName, paramQuantity, paramPrice, paramTotalPrice);
+                            string str = (i*j) > 0 ? "入库成功" : "入库失败，请重试";
+                            MessageBox.Show(str);
+                            if (i * j > 0)
+                            {
+                                Times++;
+                                DataSet ds = new DataSet();
+                                ds=myBUStockPileInfo.GetRecentStockPileList(Times);
+                                this.gdCInvent.DataSource = ds.Tables[0];
+                                txtQuantity.Text = string.Empty;
+                                txtPrice.Text = string.Empty;
+
+                            }                         
+                        }
+                        
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            //GetAllData();
+            SetStoreHouse();
+            SetbProductID(); 
+        }
+
+        private void combProduct_ID_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetSupplier(combProduct_ID.SelectedValue.ToString());
+        }
+
+        private void combSpplier_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string paramProductID = combProduct_ID.SelectedValue.ToString();
+            string paramSupplierID=combSpplier.SelectedValue.ToString();
+            GetPrice(paramProductID,paramSupplierID);
+
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DevExpress.XtraEditors.SimpleButton tempBtn = (DevExpress.XtraEditors.SimpleButton)sender;
+                if (tempBtn == null)
+                    return;
+                string tempItem = tempBtn.Tag.ToString();
+                foreach (Control tempControl in this.groupBox1.Controls)
+                {
+                    if (tempControl.GetType() == typeof(DevExpress.XtraGrid.GridControl))
+                    {
+
+                        DevExpress.XtraGrid.GridControl tempGridControl = (DevExpress.XtraGrid.GridControl)tempControl;
+                        CommonOperator.DataPrint(tempGridControl, tempItem, null);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void btnExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "文件格式(*.xlsx)|*.xlsx";
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string name = saveFileDialog.FileName;
+                    this.gdCInvent.ExportToXlsx(name);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+    }
+}

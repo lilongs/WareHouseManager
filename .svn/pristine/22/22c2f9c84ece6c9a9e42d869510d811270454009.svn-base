@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DALayer;
+using System.Data;
+
+namespace BULayer
+{
+    public class BUProductSupplierInfo
+    {
+        DAProductSupplierInfo dal = new DAProductSupplierInfo();
+        public DataSet GetAll_ProSupInfo(string paramProductID, string paramSupplierID)
+        {
+            return dal.GetAll_ProSupInfo(paramProductID, paramSupplierID);
+        }
+        public DataSet GetAll_ProductInfo(string paramProductName, string paramSupplierName)
+        {
+            return dal.GetAll_ProductInfo(paramProductName, paramSupplierName);
+        }
+    }
+}

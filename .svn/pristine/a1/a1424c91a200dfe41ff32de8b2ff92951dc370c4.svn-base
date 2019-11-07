@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using InventoryManagersystem.InventoryManager;
+
+namespace InventoryManagersystem.Sales
+{
+    public partial class frmSalesManage : Form
+    {
+        public frmSalesManage()
+        {
+            InitializeComponent(); 
+        }
+
+        private void frmSalesManage_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            frmInventInfo myfrmInventInfo = new frmInventInfo();
+            myfrmInventInfo.ShowDialog();
+        }
+    }
+}

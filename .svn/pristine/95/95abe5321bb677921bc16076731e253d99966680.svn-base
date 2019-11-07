@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+namespace DALayer
+{
+    public class DAProductSupplierInfo
+    {
+        Sqlconn mySqlconn = new Sqlconn();
+        public DataSet GetAll_ProSupInfo(string paramProductID, string paramSupplierID)
+        {
+            string str = @" select  Pro_SupInfo.productid,ProductList.productname,Supplier.supplierid,Supplier.name,proprice,Pro_SupInfo.Remark 
+                              from  Product_SupplierInfo as Pro_SupInfo
+                              left join  Supplier  on  Pro_SupInfo.SupplierID=Supplier.SupplierID
+                              left join  ProductList  on  Pro_SupInfo.ProductID=ProductList.ProductID
+                              Where 1=1";
+            if (paramProductID.Length > 0)
+            {
+                str += " and Pro_SupInfo.productid like'%" + paramProductID + "%' ";
+            }
+            if (paramSupplierID.Length > 0)
+            {
+                str += " and ProductList.productname like '%" + paramSupplierID + "%'";
+            }
+            return mySqlconn.Query(str);
+        }
+
+        public DataSet GetAll_ProductInfo(string paramProductName, string paramSupplierName)
+        {
+            string str = @"select a.productid,b.productname,a.supplierid,c.name,proprice,a.Remark 
+                            from Product_SupplierInfo a                            
+                            left join ProductList b on a.ProductID=b.ProductID
+                            left join Supplier c on a.SupplierID=c.SupplierID 
+                            where 1=1";
+            if (paramProductName.Length > 0)
+            {
+                str += " and b.productName like '%" + paramProductName + "%'";
+            }
+            if (paramSupplierName.Length > 0)
+            {
+                str += " and c.Name like '%" + paramSupplierName + "%'";
+            }
+            return mySqlconn.Query(str);
+        }
+
+    }
+}

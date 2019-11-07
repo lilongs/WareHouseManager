@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+namespace DALayer
+{
+    public class DACustomerInfo
+    {
+        Sqlconn mySqlconn = new Sqlconn();
+
+        public DataSet GetAllCustomerList(string paramCustomerID)
+        {
+            StringBuilder Sql = new StringBuilder();            
+            Sql.Append("select * from Customer where  1=1");
+            if (paramCustomerID.Length > 0)
+            {
+                Sql.Append(" and  Name like '%" + paramCustomerID + "%'");
+            }
+            DataSet myDs = new DataSet();
+            myDs = mySqlconn.Query(Sql.ToString());
+            return myDs;
+        }
+    }
+}

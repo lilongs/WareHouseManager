@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+namespace DALayer
+{
+    public class DAStockPile
+    {
+        
+        Sqlconn mySqlconn = new Sqlconn();
+        public int StockPile(string paramStoreHouseID, string paramProductID, string paramSupplierID, string paramQuantity, string paramPrice, string paramTime)
+        {
+            string sql = string.Empty;
+            string str = "select Count(*) b from StockPile where StoreHouse_ID='"+paramStoreHouseID+"' and Product_ID='"+paramProductID+"' and SupplierID='"+paramSupplierID+"'";
+            DataSet ds = new DataSet();
+            ds = mySqlconn.Query(str);
+            int i=int.Parse(ds.Tables[0].Rows[0]["b"].ToString());            
+            string paramBatchNumber = paramSupplierID + "-" + DateTime.Parse(paramTime).ToString("yyyyMMdd") + "-" + (i + 1).ToString();
+            double TotalPrice = double.Parse(paramPrice) * int.Parse(paramQuantity);
+            sql = "insert into StockPile (StoreHouse_ID,Product_ID,SupplierID,Quantity,Price,TotalPrice,FirstEnterDate,BatchNumber) values('" + paramStoreHouseID + "','" + paramProductID + "','"+paramSupplierID+"','" + paramQuantity + "','" + paramPrice + "','"+TotalPrice.ToString()+"','" + paramTime + "','"+paramBatchNumber+"')";
+            int j = mySqlconn.ExeNonQuery(sql);
+            return j;
+        }
+    }
+}

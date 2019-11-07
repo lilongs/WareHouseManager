@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+
+namespace DALayer
+{
+    public class DAReport_SalesInfo
+    {
+         Sqlconn mySqlconn = new Sqlconn();
+         public DataSet GetSalesInfo(string paramTime1, string paramTime2, string paramCustomerID)
+         {
+             if (paramCustomerID.Length != 0)
+             {
+                 string str = @"select Product_ID,ProductName,Sales_Price,Sales_Quantity,TotalPrice,CustomerID,Name from Sales_info
+                               left join  Customer on  Customer.Customer_ID= Sales_info.CustomerID where  (LastLeaveDate>='" + paramTime1 + "' and LastLeaveDate<='" + paramTime2 + "')and CustomerID='" + paramCustomerID + "' ";
+                 DataSet ds = new DataSet();
+                 ds = mySqlconn.Query(str);
+                 return ds;
+             }
+             else
+             {
+                 string str = @"select Product_ID,ProductName,Sales_Price,Sales_Quantity,TotalPrice,CustomerID,Name from Sales_info
+                               left join  Customer on  Customer.Customer_ID= Sales_info.CustomerID where  (LastLeaveDate>='" + paramTime1 + "' and LastLeaveDate<='" + paramTime2 + "')";
+                 DataSet ds = new DataSet();
+                 ds = mySqlconn.Query(str);
+                 return ds;
+
+             }
+         }
+    }
+}
